@@ -1,0 +1,4 @@
+
+func j4 (bool nZ[51.463,4], bool noyl, number dRby[87.949E+19,39.864E16,2.690e+63])
+	return true
+

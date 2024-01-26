@@ -1,0 +1,2 @@
+
+func djR4 ()	return false

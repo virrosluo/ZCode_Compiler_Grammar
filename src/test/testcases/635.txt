@@ -1,0 +1,7 @@
+
+## mH
+func R3 (dynamic JvNs[5.352E+86,791E55,5.969e59], string hXFx[8.771,161,59.349], var ndpx[126.857E-31,6.674e97])
+	return sh_
+
+func ezR (number lpe[216.225E-51,95.926E62])	return true
+

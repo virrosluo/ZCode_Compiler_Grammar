@@ -1,0 +1,10 @@
+
+## i
+string C4[907e-06,3,4]
+## ,8 -f=s+k.d#
+number gN9Q <- "'"_" ## y?;Vksx.K
+func fN (string xLgk, string bAP)
+	begin
+		return "t(<1"
+	end
+

@@ -1,0 +1,6 @@
+
+bool X6 <- "K" ## "n*
+func ph (dynamic KD[5], string DnQ[30.968E+75,15.795E+79,82.629E12], number l8S)
+	return
+func eU (string Coc[16.402E51,6,536e41], string Vfth[7.799,4e10])	return
+

@@ -1,0 +1,5 @@
+
+func pGY (string jE[81E-25,51.802,7.584], var yY, bool ru)	return 87.630e-12
+func dS (number ml)
+	return
+## e#G@a)!

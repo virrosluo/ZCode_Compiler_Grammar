@@ -1,0 +1,7 @@
+
+func Gr ()
+	return gRxV
+func k4 ()
+	begin
+		break
+	end

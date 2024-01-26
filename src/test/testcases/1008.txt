@@ -1,0 +1,7 @@
+
+func w9n ()
+	return true
+
+var ljUT[8.229,486e+12,3E-54] <- 7.177e-93
+func Hf (var Ggm[12.684], string TNd[1.956e+20,7,57E-79], bool A23)	return false
+

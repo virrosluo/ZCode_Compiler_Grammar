@@ -1,0 +1,4 @@
+
+func Ge ()
+	return NdB
+

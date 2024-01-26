@@ -1,0 +1,2 @@
+
+func yT (dynamic pVG[78.579,40.886E-24])	return

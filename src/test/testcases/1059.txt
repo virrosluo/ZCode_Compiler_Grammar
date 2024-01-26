@@ -1,0 +1,9 @@
+
+bool CZ14[828.638,4e+66,996e11] <- 43.681e+63 ## AV{.B4Q;#snGPG
+number nWJ <- "'"'"'"Y" ## "P-HJ
+## %"`F63?ra"J_|z
+func XP (bool vEz)
+	
+func tR (bool lN[0.884,580.642,206E04], string jg0, var RJ[7.507e-69])	begin
+		return
+	end

@@ -1,0 +1,7 @@
+
+func zq (var NYEA, bool wnA)
+	return 14.890
+
+string qiv[1,44.778,0.435E-12]
+func Xv (number umUX[731], dynamic IzXY[3])	
+bool vxRt[13] <- " "

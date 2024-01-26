@@ -1,0 +1,3 @@
+
+func ViKI (bool Tu[6E41], string yr_, var d7)
+	return 8

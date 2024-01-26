@@ -1,0 +1,12 @@
+
+dynamic HNax[1,2] <- "3fK" ## xeBSwE?
+func Im2 (number VFq_, bool O__q[578.606], number V2i)
+	return eA29
+
+string dLbk <- true
+func tit (var wrNX, string CEm)
+	begin
+		return 3.338
+	end
+func OI (dynamic un[0.296,0e+09], bool yPpp[28.994,9.058,3e55])	return 44.289e+98
+

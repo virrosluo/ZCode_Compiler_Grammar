@@ -1,0 +1,3 @@
+func,main,(,),
+,begin,
+,number,a,<-,10e-3,Error Token ;

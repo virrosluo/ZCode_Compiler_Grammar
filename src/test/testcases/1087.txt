@@ -1,0 +1,13 @@
+
+## "~A>p/B+/=*r}:q!>M
+func ymN (bool ky[629], string p60v[128.947,0], number jm[53])
+	begin
+		for MlpQ until false by 6
+			
+	end
+
+func qI4 (var KLvV, var LaW, bool FpT)	begin
+		break
+	end
+
+## +W;Ba8/HX)WiY

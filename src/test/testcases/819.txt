@@ -1,0 +1,6 @@
+
+## KI/2P<oXi$A-_S
+bool ZHF[3]
+func e40 (number lp[98.363E+45], number exe[865.471,5,95], dynamic QHrE)
+	return
+dynamic gVAa <- 1.140

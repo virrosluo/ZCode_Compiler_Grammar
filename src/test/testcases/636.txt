@@ -1,0 +1,3 @@
+
+func D0O (number Z1[4.089,6E62,97E05], number AG[541,5.928e36], number kB)
+	return

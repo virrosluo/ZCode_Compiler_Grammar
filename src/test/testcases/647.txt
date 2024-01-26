@@ -1,0 +1,6 @@
+
+## =9+|OA
+func L7D ()	return
+func Jlk (string Jy[16E-67], bool Wq)	begin
+		continue
+	end

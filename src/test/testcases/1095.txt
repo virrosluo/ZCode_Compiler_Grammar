@@ -1,0 +1,8 @@
+
+func d2Q (dynamic t8[9,80e51])
+	return 2.726e+02
+
+func EoY (bool l0Z[473.652,40.484,8.205], string soeX)	begin
+		string lT74[222,12E54]
+	end
+

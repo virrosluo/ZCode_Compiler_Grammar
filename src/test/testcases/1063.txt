@@ -1,0 +1,8 @@
+
+func FC (string efSQ)	begin
+		BRng <- kI
+	end
+
+## l6l
+## 0KB0,d}|?-p
+## ofkb#fk?H

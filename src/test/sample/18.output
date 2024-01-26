@@ -1,0 +1,5 @@
+var,i,<-,0,
+,for,i,until,i,>=,10,by,1,
+,print,i,
+,10.e-5423,
+,Illegal Escape In String: ...'a

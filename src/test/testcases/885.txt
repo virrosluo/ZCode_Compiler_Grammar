@@ -1,0 +1,3 @@
+
+func by1h (dynamic Gx[33E+97], bool Kgo[80e+36,0])
+	return true

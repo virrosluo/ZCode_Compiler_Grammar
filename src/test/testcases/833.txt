@@ -1,0 +1,3 @@
+
+func MaGi (string SE, string fZ3c[6.961E-91,419], dynamic fnUs)
+	return

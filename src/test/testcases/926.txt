@@ -1,0 +1,10 @@
+
+func JxO (var Zl2[884E+08], var Z8a[619.236,21E14])
+	return 547
+
+func Emb (var m3)
+	begin
+		## lzouENyl%bl1D@
+	end
+
+number FEfd

@@ -1,0 +1,11 @@
+
+func DuU (var TOa[679.918,5E89,956E11])
+	begin
+		if false begin
+			string xGL ## Y`=h
+		end
+	end
+func PeUF (dynamic TT, dynamic aw, number du)
+	return false
+
+var zTi[9] <- 9e77

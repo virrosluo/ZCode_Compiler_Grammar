@@ -1,0 +1,7 @@
+
+bool mV <- 6.983E53
+## <#
+func x01S (bool mFo, number uC)
+	
+
+var SaHE ## +URPCz#[c?

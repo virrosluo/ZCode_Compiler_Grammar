@@ -1,0 +1,7 @@
+
+func jw ()	return "'"ob"
+
+func b9KE ()	begin
+		## K}>=UI
+	end
+

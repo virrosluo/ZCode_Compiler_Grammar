@@ -1,0 +1,2 @@
+This case is concat string in normal programming language
+"string" + "string\n\r'"" == "stringstring\b\'\t

@@ -1,0 +1,8 @@
+
+## )4;3ctf*-MzR/+B4y
+## ?Ui6:e:Ut`AA
+func xn (bool pAO[9.924,48.338E07,9.314E+55], dynamic t7)	begin
+		for e_ until tr by "xv'""
+			Np9L(false, true)
+	end
+

@@ -1,0 +1,7 @@
+
+number uF
+## >Smv:GRn
+## w~
+func pDG ()
+	return
+dynamic o6[614.554,80,385E16] <- F5

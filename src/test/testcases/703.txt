@@ -1,0 +1,10 @@
+
+var SiXm[26,12.669E-12,6.270e+33] <- 673.190 ## T/5Sl
+number qi[133.489e+69,25E91] <- 7.139E+53
+func UR ()	begin
+		continue
+	end
+func aWvq ()	begin
+		## 6:rh`O:*7~8}dgx|ARn
+	end
+

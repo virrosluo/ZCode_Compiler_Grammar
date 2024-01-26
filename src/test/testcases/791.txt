@@ -1,0 +1,5 @@
+
+func VeT (bool OV)	begin
+		return 2e-98
+	end
+## JHX=R9

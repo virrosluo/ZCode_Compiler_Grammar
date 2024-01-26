@@ -1,0 +1,4 @@
+
+## y
+func iXZ (string ZA, dynamic Hi[41])	return true
+func WtUQ (string Lz[9.221])	return

@@ -1,0 +1,7 @@
+func(number a, number b)
+begin
+	number c <- a
+	a <- b
+	b <- c
+	## Hello World $## Say something
+end

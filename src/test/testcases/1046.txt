@@ -1,0 +1,3 @@
+
+func TCe ()	return true
+

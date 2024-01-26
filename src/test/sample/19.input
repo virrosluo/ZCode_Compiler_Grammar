@@ -1,0 +1,3 @@
+for <number-variable> until <condition expression> by <update-expression>
+<statement>
+string a <- "Hello\r

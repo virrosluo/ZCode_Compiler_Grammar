@@ -1,0 +1,3 @@
+
+func YPS (string tm, var StD[2.929E-70,141.739,11.220E96], var tB[457e80,380.460])
+	return 33e-64
