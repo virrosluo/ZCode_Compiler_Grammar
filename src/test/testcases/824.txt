@@ -1,4 +1,0 @@
-
-func RrKS (dynamic xq, dynamic XYr, dynamic ds)
-	return
-

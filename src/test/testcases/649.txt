@@ -1,9 +1,0 @@
-
-func JRI ()	return 4E-10
-func aQHu (number Cw[505.991,80e+46])
-	return
-
-dynamic rEBV
-bool xIhV[571,218e-90,5.126] <- v2Fi ## tSyH8I!R0WkXZ
-func XXr (bool kC[15E45,24.689e09,74.487E54], dynamic D0N, dynamic jHNE)	return SQ6z
-

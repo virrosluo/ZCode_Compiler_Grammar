@@ -1,6 +1,0 @@
-
-func fTP (string wbVw, number PUI, bool nid8)
-	begin
-		dX()
-	end
-## F({F;>Q`_n?

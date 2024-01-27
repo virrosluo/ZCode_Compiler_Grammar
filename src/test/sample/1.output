@@ -1,1 +1,1 @@
-string,a,<-,Illegal Escape In String: Hello World \t and what's
+string,a,<-,Hello World \t and what's boy \n \\ Said: '"Hello Bro'",Error Token ;

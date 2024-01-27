@@ -1,0 +1,26 @@
+func main()
+begin
+	if (true) begin
+		printLine()
+		if (foo() = 2) printLine("True")
+		else
+		begin
+
+
+			if (fee() = 1) printLine(1)
+			elif (fee() = 2) printLine(2)
+			elif (fee() = 3) begin
+				if (foo() = 1)
+				begin 
+				end
+
+				else 
+				begin
+
+
+					printLine(4)
+				end
+			end
+		end
+	end
+end

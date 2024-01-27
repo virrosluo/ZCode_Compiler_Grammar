@@ -1,3 +1,0 @@
-
-dynamic U9JJ
-func UxRs ()	return true

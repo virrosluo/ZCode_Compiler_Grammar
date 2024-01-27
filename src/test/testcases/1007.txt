@@ -1,3 +1,0 @@
-
-func nA_ (var C2JJ, bool e05, dynamic ty[4])
-	return

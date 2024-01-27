@@ -1,7 +1,0 @@
-
-func bm3 (var RjB[815.420E95,956e+34,61e67], string RyC2[3,461E-16,4.896E60], bool BN)	return
-
-number KQ6[48E75,22.872E+86,428.458]
-func hF (var ALPg, var Gk6[5.252E86], dynamic Rms[44,472e-28,434.241E25])
-	return
-

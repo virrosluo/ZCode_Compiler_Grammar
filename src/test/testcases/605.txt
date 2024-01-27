@@ -1,4 +1,0 @@
-
-func wkpf (bool vxz, string Gy)	
-
-string bTXD ## c

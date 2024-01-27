@@ -1,3 +1,2 @@
 A new type of invalid string
-"Hello World and my name is \
-'"
+"Hello \'" World and "my '''''' name is '"

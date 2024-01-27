@@ -1,9 +1,0 @@
-
-dynamic meD[51.642e17] ## mBh!P
-dynamic ua ## &wVsjJ+_!O.
-dynamic a8[4E+25,62E+56,91.117e+62] <- false ##  KYd#*y[Tf24I)M)
-func jgSW ()
-	begin
-		tAv("'"'"", 470.758e+08, false)
-	end
-bool ywM1

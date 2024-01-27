@@ -1,6 +1,0 @@
-
-## ]^Eyjlk
-func JaB (string JC2, bool xyp)	begin
-		## b/xCE}
-	end
-

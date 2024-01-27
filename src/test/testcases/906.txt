@@ -1,5 +1,0 @@
-
-func Iwoi (bool FZJ[37e+56], dynamic gOg[7], number pyCY[119e+64,737.779])
-	return "'"w"
-
-## T&z-/L(Z8E+g)!p/

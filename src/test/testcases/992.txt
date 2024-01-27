@@ -1,6 +1,0 @@
-
-func BQ (var q0z, dynamic IO[87E61])
-	begin
-		## 22#@,4RKrK YDQZ]&f
-	end
-

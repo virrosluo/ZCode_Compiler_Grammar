@@ -1,8 +1,0 @@
-
-func JdFr (number E5[881.027], dynamic QtS)
-	return
-func Hw (dynamic j7, var jraz[0E+24,2.276E+08,567])
-	begin
-		## D;Krtq#cU*<.9g+BW7
-	end
-var n2wo[3,51,836] ## "UfyB>CCt3i||R0/z

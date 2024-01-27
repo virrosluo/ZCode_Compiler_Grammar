@@ -1,8 +1,0 @@
-
-## e5@[7~sKx#$
-func xz ()	begin
-		XT(true, 3.894E70)[true] <- "v""
-	end
-
-number XsN <- true
-bool YY[4.186E-80] <- 75

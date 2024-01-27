@@ -67,6 +67,16 @@ public interface ZCodeListener extends ParseTreeListener {
 	 */
 	void exitIdlist(ZCodeParser.IdlistContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#idlist_tail}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdlist_tail(ZCodeParser.Idlist_tailContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#idlist_tail}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdlist_tail(ZCodeParser.Idlist_tailContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#primitive_declare}.
 	 * @param ctx the parse tree
 	 */
@@ -137,6 +147,16 @@ public interface ZCodeListener extends ParseTreeListener {
 	 */
 	void exitParam_list(ZCodeParser.Param_listContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#param_list_tail}.
+	 * @param ctx the parse tree
+	 */
+	void enterParam_list_tail(ZCodeParser.Param_list_tailContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#param_list_tail}.
+	 * @param ctx the parse tree
+	 */
+	void exitParam_list_tail(ZCodeParser.Param_list_tailContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#parameter}.
 	 * @param ctx the parse tree
 	 */
@@ -146,6 +166,26 @@ public interface ZCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParameter(ZCodeParser.ParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#statement_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement_list(ZCodeParser.Statement_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#statement_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement_list(ZCodeParser.Statement_listContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#statement_list_tail}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement_list_tail(ZCodeParser.Statement_list_tailContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#statement_list_tail}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement_list_tail(ZCodeParser.Statement_list_tailContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#block_stat}.
 	 * @param ctx the parse tree
@@ -307,15 +347,45 @@ public interface ZCodeListener extends ParseTreeListener {
 	 */
 	void exitFunction_expr(ZCodeParser.Function_exprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#ifst_component}.
+	 * Enter a parse tree produced by {@link ZCodeParser#expression_list}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfst_component(ZCodeParser.Ifst_componentContext ctx);
+	void enterExpression_list(ZCodeParser.Expression_listContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#ifst_component}.
+	 * Exit a parse tree produced by {@link ZCodeParser#expression_list}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfst_component(ZCodeParser.Ifst_componentContext ctx);
+	void exitExpression_list(ZCodeParser.Expression_listContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#expression_list_tail}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression_list_tail(ZCodeParser.Expression_list_tailContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#expression_list_tail}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression_list_tail(ZCodeParser.Expression_list_tailContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#expression_nonempty_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression_nonempty_list(ZCodeParser.Expression_nonempty_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#expression_nonempty_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression_nonempty_list(ZCodeParser.Expression_nonempty_listContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#expression_nonempty_tail}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression_nonempty_tail(ZCodeParser.Expression_nonempty_tailContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#expression_nonempty_tail}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression_nonempty_tail(ZCodeParser.Expression_nonempty_tailContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#control_stat}.
 	 * @param ctx the parse tree
@@ -326,6 +396,26 @@ public interface ZCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitControl_stat(ZCodeParser.Control_statContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#elif_stmt_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterElif_stmt_list(ZCodeParser.Elif_stmt_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#elif_stmt_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitElif_stmt_list(ZCodeParser.Elif_stmt_listContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#ifst_component}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfst_component(ZCodeParser.Ifst_componentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#ifst_component}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfst_component(ZCodeParser.Ifst_componentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#loop_stat}.
 	 * @param ctx the parse tree
@@ -347,6 +437,16 @@ public interface ZCodeListener extends ParseTreeListener {
 	 */
 	void exitLoop_body_statement(ZCodeParser.Loop_body_statementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#loop_stmt_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoop_stmt_list(ZCodeParser.Loop_stmt_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#loop_stmt_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoop_stmt_list(ZCodeParser.Loop_stmt_listContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#assignment}.
 	 * @param ctx the parse tree
 	 */
@@ -356,44 +456,4 @@ public interface ZCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignment(ZCodeParser.AssignmentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#lhs}.
-	 * @param ctx the parse tree
-	 */
-	void enterLhs(ZCodeParser.LhsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#lhs}.
-	 * @param ctx the parse tree
-	 */
-	void exitLhs(ZCodeParser.LhsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#index_variable}.
-	 * @param ctx the parse tree
-	 */
-	void enterIndex_variable(ZCodeParser.Index_variableContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#index_variable}.
-	 * @param ctx the parse tree
-	 */
-	void exitIndex_variable(ZCodeParser.Index_variableContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#parenthesis_variable}.
-	 * @param ctx the parse tree
-	 */
-	void enterParenthesis_variable(ZCodeParser.Parenthesis_variableContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#parenthesis_variable}.
-	 * @param ctx the parse tree
-	 */
-	void exitParenthesis_variable(ZCodeParser.Parenthesis_variableContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#lhs_variable}.
-	 * @param ctx the parse tree
-	 */
-	void enterLhs_variable(ZCodeParser.Lhs_variableContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#lhs_variable}.
-	 * @param ctx the parse tree
-	 */
-	void exitLhs_variable(ZCodeParser.Lhs_variableContext ctx);
 }

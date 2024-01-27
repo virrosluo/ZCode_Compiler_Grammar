@@ -1,6 +1,0 @@
-
-## og Y^r
-var MjTA[982.741E+06] <- pJ ## w5CbI&y
-var WAVt[3.253] <- false ## M_$?~_<o"LlC!{#C^
-func EX8 (dynamic YYqh, number Nn_s[37.144E+33,918,7.265e45])	return
-func p1B (dynamic mxp, bool jNS[536.110e29,677e-38], var dx)	return

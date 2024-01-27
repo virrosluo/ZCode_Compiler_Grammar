@@ -1,9 +1,0 @@
-
-func Bx2t (dynamic BE, dynamic Qkhs)	return
-## |!Y0f-
-var xX <- H0
-func PSe2 (var wkNM[54.958E-19,53E+13])
-	begin
-		## p~+ 4x$6UP:&
-	end
-func F8U (var gTpF, number Wru[16e-63,27,54], string Vy[8.711E38,90.178e+63])	return "`%"

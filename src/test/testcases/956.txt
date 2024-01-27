@@ -1,4 +1,0 @@
-
-func SZO (string C0Ft[6.559,33.572,620], dynamic KMX)
-	return
-

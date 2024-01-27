@@ -1,4 +1,0 @@
-
-func eY8 (number KdMh)
-	return 3.812
-

@@ -3,5 +3,5 @@ func,(,number,a,,,number,b,),
 ,number,c,<-,a,
 ,a,<-,b,
 ,b,<-,c,
-,## Hello World $## Say something,
+,
 ,end,<EOF>

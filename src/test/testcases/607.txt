@@ -1,5 +1,0 @@
-
-func lqJA (string Fg, number mqh)
-	begin
-		## Yx?9Ni=R;e
-	end

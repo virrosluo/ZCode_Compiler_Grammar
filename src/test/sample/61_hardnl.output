@@ -1,1 +1,2 @@
-A,new,type,of,invalid,string,Unclosed String: Hello World and my name is \
+A,new,type,of,invalid,string,
+,Hello \',World,and,Unclosed String: my '''''' name is '"

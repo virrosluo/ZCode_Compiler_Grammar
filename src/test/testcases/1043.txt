@@ -1,9 +1,0 @@
-
-func zfE (var M1, string FAt, bool zKo[2,4e96])	begin
-		var kR[409.118]
-	end
-
-func dx ()	return 36.698
-func b2xo (number ZgF[77.718,3.216], dynamic i1, bool bGz)
-	return 1E+57
-

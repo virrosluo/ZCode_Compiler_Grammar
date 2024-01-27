@@ -1,4 +1,0 @@
-
-func Hi (dynamic kU)	return 2.527E+39
-
-bool Mi <- "'"'"0{}" ## /R2(>^nQ-8M}9lGIz

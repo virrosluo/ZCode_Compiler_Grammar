@@ -1,2 +1,0 @@
-
-number h40e <- false

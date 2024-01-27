@@ -1,3 +1,0 @@
-
-func J7Z ()	return true
-

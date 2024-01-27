@@ -1,4 +1,0 @@
-
-## |8G
-func by ()
-	return "xR"

@@ -1,9 +1,0 @@
-
-func MU_ (var bTpr[67.013,497e-47,7e-35], dynamic ut[27E24], number qNG[8.586])
-	begin
-		## ho3gk:e&/0
-	end
-## iD{CE9|)a#D)0Ga5D"?2
-## 7PB6
-number l_0f[630.927] ## :Kb:@w
-number zvdq <- "'"d^"

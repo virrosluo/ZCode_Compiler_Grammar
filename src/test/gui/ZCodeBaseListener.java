@@ -87,6 +87,18 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIdlist_tail(ZCodeParser.Idlist_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdlist_tail(ZCodeParser.Idlist_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPrimitive_declare(ZCodeParser.Primitive_declareContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -171,6 +183,18 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterParam_list_tail(ZCodeParser.Param_list_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParam_list_tail(ZCodeParser.Param_list_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParameter(ZCodeParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -178,6 +202,30 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParameter(ZCodeParser.ParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatement_list(ZCodeParser.Statement_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatement_list(ZCodeParser.Statement_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatement_list_tail(ZCodeParser.Statement_list_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatement_list_tail(ZCodeParser.Statement_list_tailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -375,13 +423,49 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfst_component(ZCodeParser.Ifst_componentContext ctx) { }
+	@Override public void enterExpression_list(ZCodeParser.Expression_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfst_component(ZCodeParser.Ifst_componentContext ctx) { }
+	@Override public void exitExpression_list(ZCodeParser.Expression_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpression_list_tail(ZCodeParser.Expression_list_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression_list_tail(ZCodeParser.Expression_list_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpression_nonempty_list(ZCodeParser.Expression_nonempty_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression_nonempty_list(ZCodeParser.Expression_nonempty_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpression_nonempty_tail(ZCodeParser.Expression_nonempty_tailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression_nonempty_tail(ZCodeParser.Expression_nonempty_tailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -394,6 +478,30 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitControl_stat(ZCodeParser.Control_statContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElif_stmt_list(ZCodeParser.Elif_stmt_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElif_stmt_list(ZCodeParser.Elif_stmt_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfst_component(ZCodeParser.Ifst_componentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfst_component(ZCodeParser.Ifst_componentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -423,6 +531,18 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLoop_stmt_list(ZCodeParser.Loop_stmt_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoop_stmt_list(ZCodeParser.Loop_stmt_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAssignment(ZCodeParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -430,54 +550,6 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignment(ZCodeParser.AssignmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLhs(ZCodeParser.LhsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLhs(ZCodeParser.LhsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIndex_variable(ZCodeParser.Index_variableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIndex_variable(ZCodeParser.Index_variableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParenthesis_variable(ZCodeParser.Parenthesis_variableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParenthesis_variable(ZCodeParser.Parenthesis_variableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLhs_variable(ZCodeParser.Lhs_variableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLhs_variable(ZCodeParser.Lhs_variableContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

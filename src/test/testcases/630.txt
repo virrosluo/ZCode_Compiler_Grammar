@@ -1,5 +1,0 @@
-
-func Uo (dynamic dK[780.994], string yf)	
-
-func vu (var Xa8u[8e+56,9], var Esj[8e+07])	
-bool AOLG[4e-95,529.463] <- 43e02

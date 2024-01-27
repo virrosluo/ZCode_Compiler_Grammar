@@ -1,8 +1,0 @@
-
-func wlR (bool o5[316e+45,2], var FcMz, number Xgzt[65,8])
-	return 621
-func a9 (dynamic Oaj[20.349,57.765], number HXfm)
-	begin
-		## $nTgiQht-rua
-	end
-

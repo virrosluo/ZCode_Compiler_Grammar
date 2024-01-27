@@ -1,4 +1,0 @@
-
-func NY_p (string BVe[40.079e-48,65E01], dynamic bt, dynamic kj[1,1])
-	return
-## |

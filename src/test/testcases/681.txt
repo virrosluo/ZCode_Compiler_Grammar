@@ -1,9 +1,0 @@
-
-string jp3 <- sm
-func uthU ()
-	return true
-func ERH (number s8EJ, string iU)	begin
-		## 4kj?Rpjt+ib9#.:I5
-	end
-
-## tFb

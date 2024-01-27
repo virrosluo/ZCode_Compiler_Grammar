@@ -66,36 +66,30 @@ SEPARATOR_KEYWORD: ',';
 TRUE_LIT: 'true';
 FALSE_LIT: 'false';
 
-INT_LIT: INTPART;
-
-REAL_LIT: INTPART DECPART | INTPART DECPART? EXPPART;
+REAL_LIT: INTPART | INTPART DECPART | INTPART DECPART? EXPPART;
 fragment INTPART: [0-9]+;
 fragment DECPART: [.][0-9]*;
 fragment EXPPART: [eE] [+-]? [0-9]+;
 
-STRING_LIT: '"' (~[\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'"'))*? '"' {self.text = self.text[1:-1]};
-// * -> Greedy:  /* */ -> If exists another */ => It also will take to the last */
-// *? -> Non-Greedy: It will take least character that satisfy the regex. In comment command -> /* */ If in command, it see another */ => The second */ will not be taken
-
 NL : 'r'?'\n' {self.text = self.text.replace('\r','')};
 // NL: '\n';
-WS : [ \t\r]+ -> skip ; // skip spaces, tabs
+WS : [ \t\r]+ -> skip ;
 COMMENT_LINE: '##' ~[\r\n]* -> skip;
 
-NEWLINE_STRING: '"' ( ~["\\'\r\n\f] | '\\' [bfrnt\\'] | ('\'"') )*? [\r\n\f] {raise UncloseString(self.text[1:-1])} ;
+UNCLOSE_STRING: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
 
-UNCLOSE_STRING: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'"') )* {raise UncloseString(self.text[1:])};
+STRING_LIT: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
 
-ILLEGAL_ESCAPE: '"' ( ~["\\'] | ('\'"') | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\'] | '\'' ~["]) {raise IllegalEscape(self.text[1:])};
+ILLEGAL_ESCAPE: '"' ( ~["\\'] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
+
+NEWLINE_STRING: '"' ( ~["\\'\r\n\f] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? [\r\n\f] {raise UncloseString(self.text[1:-1])} ;
 
 ERROR_TOKEN: . {raise ErrorToken(self.text)};
-
 
 // ----------------------------------------------------------------- PARSER -------------------------------------------------------------------------
 
 declaration
 		: variable_stat
-		| block_stat 
 		| function_stat ;
 
 variable_stat
@@ -107,28 +101,34 @@ dtype: NUM_KEYWORD | BOOL_KEYWORD | STRING_KEYWORD;
 explicit_declare: array_declare
 		| primitive_declare;
 
-idlist: ID (SEPARATOR_KEYWORD ID)*;
+idlist: ID idlist_tail;
+idlist_tail: SEPARATOR_KEYWORD ID idlist_tail | ;
 
-primitive_declare: dtype idlist (ASSIGN_OP expression)?;
+primitive_declare: dtype idlist (ASSIGN_OP expression | );
 
-array_declare: dtype ID LEFT_BRACKET expression (SEPARATOR_KEYWORD expression)* RIGHT_BRACKET (ASSIGN_OP expression)?;
+array_declare: dtype ID LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET (ASSIGN_OP expression | );
 
 implicit_declare: VAR_KEYWORD idlist ASSIGN_OP expression
-		| DYNAMIC_KEYWORD idlist (ASSIGN_OP expression)? ;
+		| DYNAMIC_KEYWORD idlist (ASSIGN_OP expression |);
 
 		// ----------------------------------------------------------------
 
 function_stat: function_definition
 		| function_declaration NL+;
 
-function_definition: FUNC_KEYWORD ID LEFT_PARENTHESIS param_list RIGHT_PARENTHESIS NL* block_stat;
+function_definition: FUNC_KEYWORD ID LEFT_PARENTHESIS param_list RIGHT_PARENTHESIS (NL | ) block_stat;
 function_declaration: FUNC_KEYWORD ID LEFT_PARENTHESIS param_list RIGHT_PARENTHESIS;
-param_list: (parameter (SEPARATOR_KEYWORD parameter)*)?;
-parameter: (NUM_KEYWORD | STRING_KEYWORD | BOOL_KEYWORD) ID;
+param_list: parameter param_list_tail |;
+param_list_tail: SEPARATOR_KEYWORD parameter param_list_tail | ;
+parameter : dtype ID 
+		  | dtype ID LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET ;
 
 		// ----------------------------------------------------------------
 
-block_stat: BEGIN_KEYWORD NL statement* END_KEYWORD NL+
+statement_list: statement statement_list_tail | ;
+statement_list_tail: statement statement_list_tail | ;
+
+block_stat: BEGIN_KEYWORD NL+ statement_list END_KEYWORD NL+
 		| statement ;	// Đảm bảo rằng statement có xuống dòng trong đó
 
 		// ----------------------------------------------------------------
@@ -140,7 +140,7 @@ statement: control_stat
 		| function_stat 
 		| expression NL+
 		| assignment
-		| (RETURN_KEYWORD expression? NL+)
+		| RETURN_KEYWORD (expression | ) NL+
 		| comment ;
 
 	// ---------------------------------------------------------------- COMMENT_LINE_STRUCTURE
@@ -171,7 +171,7 @@ not_logical: NOT_OP expression
 sign_expr: SUB_OP expression
 		| index_expr;
 
-index_expr: index_expr LEFT_BRACKET expression (SEPARATOR_KEYWORD expression)* RIGHT_BRACKET
+index_expr: index_expr LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET
 		| parenthesis_expr ;
 
 parenthesis_expr: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
@@ -179,41 +179,39 @@ parenthesis_expr: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
 
 term
 		: REAL_LIT 
-		| INT_LIT 
 		| TRUE_LIT | FALSE_LIT
 		| STRING_LIT
 		| ID
 		| function_expr
 		| array_expr;
 
-array_expr : LEFT_BRACKET (expression (SEPARATOR_KEYWORD expression)*)? RIGHT_BRACKET;
+array_expr : LEFT_BRACKET expression_list RIGHT_BRACKET;
+function_expr: ID LEFT_PARENTHESIS expression_list RIGHT_PARENTHESIS ;
 
-function_expr: ID LEFT_PARENTHESIS (expression (SEPARATOR_KEYWORD expression)*)? RIGHT_PARENTHESIS ;
+expression_list: expression expression_list_tail | ;
+expression_list_tail: SEPARATOR_KEYWORD expression expression_list_tail | ;
+
+expression_nonempty_list: expression expression_nonempty_tail;
+expression_nonempty_tail: SEPARATOR_KEYWORD expression expression_nonempty_tail | ;
 
 	// ---------------------------------------------------------------- CONTROL STATEMENT (MAYBE HAVE ERROR)
 
-ifst_component: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS NL* block_stat
-		| expression NL* block_stat;
-control_stat: IF_KEYWORD ifst_component (ELIF_KEYWORD ifst_component)* (ELSE_KEYWORD block_stat)? ;
+control_stat: IF_KEYWORD ifst_component elif_stmt_list (ELSE_KEYWORD NL* block_stat | ) ;
+
+elif_stmt_list: ELIF_KEYWORD ifst_component elif_stmt_list | ;
+ifst_component: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS NL* block_stat ;
 
 	// ---------------------------------------------------------------- LOOP STATEMENT
 
-loop_stat: FOR_KEYWORD ID UNTIL_KEYWORD expression BY_KEYWORD expression NL* (loop_body_statement | (BEGIN_KEYWORD NL loop_body_statement* END_KEYWORD NL+) );
+loop_stat: FOR_KEYWORD ID UNTIL_KEYWORD expression BY_KEYWORD expression NL* (loop_body_statement | (BEGIN_KEYWORD NL+ loop_stmt_list END_KEYWORD NL+) );
 loop_body_statement
 		: statement 
 		| BREAK_KEYWORD NL+ 
 		| CONTINUE_KEYWORD NL+;
 
+loop_stmt_list: loop_body_statement loop_stmt_list | ;
+
 	// ----------------------------------------------------------------
 
 // Assignment thì expression phía trước ASSIGN_OP không thể là 1 cái array_expr được mà nó phải là 
 assignment: <assoc=right> expression ASSIGN_OP expression NL+;
-lhs: index_variable;
-
-index_variable: index_variable LEFT_BRACKET expression (SEPARATOR_KEYWORD expression)* RIGHT_BRACKET
-		| parenthesis_variable ;
-
-parenthesis_variable: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-		| lhs_variable ;
-
-lhs_variable: ID | function_expr;

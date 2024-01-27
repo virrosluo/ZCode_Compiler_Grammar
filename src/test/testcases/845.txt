@@ -1,5 +1,0 @@
-
-## UJ8%Q`b)Z(
-## lB*/uQs
-func COZ (bool U7V8, number vn4)
-	return true

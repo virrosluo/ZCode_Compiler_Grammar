@@ -1,3 +1,0 @@
-
-func zMX (var TiK[8E+00,68.674], bool nXj)	return false
-

@@ -39,6 +39,11 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ZCodeParser#idlist_tail.
+    def visitIdlist_tail(self, ctx:ZCodeParser.Idlist_tailContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ZCodeParser#primitive_declare.
     def visitPrimitive_declare(self, ctx:ZCodeParser.Primitive_declareContext):
         return self.visitChildren(ctx)
@@ -74,8 +79,23 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ZCodeParser#param_list_tail.
+    def visitParam_list_tail(self, ctx:ZCodeParser.Param_list_tailContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ZCodeParser#parameter.
     def visitParameter(self, ctx:ZCodeParser.ParameterContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#statement_list.
+    def visitStatement_list(self, ctx:ZCodeParser.Statement_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#statement_list_tail.
+    def visitStatement_list_tail(self, ctx:ZCodeParser.Statement_list_tailContext):
         return self.visitChildren(ctx)
 
 
@@ -159,13 +179,38 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ZCodeParser#ifst_component.
-    def visitIfst_component(self, ctx:ZCodeParser.Ifst_componentContext):
+    # Visit a parse tree produced by ZCodeParser#expression_list.
+    def visitExpression_list(self, ctx:ZCodeParser.Expression_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#expression_list_tail.
+    def visitExpression_list_tail(self, ctx:ZCodeParser.Expression_list_tailContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#expression_nonempty_list.
+    def visitExpression_nonempty_list(self, ctx:ZCodeParser.Expression_nonempty_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#expression_nonempty_tail.
+    def visitExpression_nonempty_tail(self, ctx:ZCodeParser.Expression_nonempty_tailContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by ZCodeParser#control_stat.
     def visitControl_stat(self, ctx:ZCodeParser.Control_statContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#elif_stmt_list.
+    def visitElif_stmt_list(self, ctx:ZCodeParser.Elif_stmt_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#ifst_component.
+    def visitIfst_component(self, ctx:ZCodeParser.Ifst_componentContext):
         return self.visitChildren(ctx)
 
 
@@ -179,28 +224,13 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ZCodeParser#loop_stmt_list.
+    def visitLoop_stmt_list(self, ctx:ZCodeParser.Loop_stmt_listContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ZCodeParser#assignment.
     def visitAssignment(self, ctx:ZCodeParser.AssignmentContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ZCodeParser#lhs.
-    def visitLhs(self, ctx:ZCodeParser.LhsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ZCodeParser#index_variable.
-    def visitIndex_variable(self, ctx:ZCodeParser.Index_variableContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ZCodeParser#parenthesis_variable.
-    def visitParenthesis_variable(self, ctx:ZCodeParser.Parenthesis_variableContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ZCodeParser#lhs_variable.
-    def visitLhs_variable(self, ctx:ZCodeParser.Lhs_variableContext):
         return self.visitChildren(ctx)
 
 

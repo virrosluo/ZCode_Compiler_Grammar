@@ -1,9 +1,0 @@
-
-func aSgN (string sv[164.964])	return
-
-func UfvI (bool YIg, bool cV[80E35,38.654E+21,55.314e-43], var TlLI[998.737e-09,75,76e+62])
-	begin
-		## -=h6B=pzl]aZ
-	end
-
-number lI6

@@ -1,6 +1,0 @@
-
-var Qb[65.892e+69,32.326E22]
-func r0eM ()
-	return false
-
-var YZVl <- "'"x'"'""

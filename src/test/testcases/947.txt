@@ -1,7 +1,0 @@
-
-## [y~a
-func dtT (dynamic Ov, number XB, string zry)
-	begin
-		## N
-	end
-

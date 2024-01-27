@@ -1,1 +1,1 @@
-test,with,character,Illegal Escape In String: $$!=()\\f\\'\
+test,with,character,$$!=()\\f\\'\\\\,<EOF>

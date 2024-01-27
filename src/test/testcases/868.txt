@@ -1,4 +1,0 @@
-
-func ujys (string tZO)	begin
-		NFf("Yj'"'"'"", 6E+33, "'"'"'"/")[O8] <- 1.830
-	end

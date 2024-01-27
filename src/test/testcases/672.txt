@@ -1,7 +1,0 @@
-
-func r2 (bool wOs[104E99,61E17])
-	return
-
-func nPEu (string RBF, bool Q2L[2e+16,6.783])
-	return
-

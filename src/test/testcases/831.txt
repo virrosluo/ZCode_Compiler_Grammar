@@ -1,6 +1,0 @@
-
-number c6[8,3.044e64,85.764e60]
-string vG[30,671e-70] ## +H2L&Bc5cF
-var Lg
-func TbTf (var vcx)
-	return

@@ -1,8 +1,0 @@
-
-func hg (string F9[3.607E+50,256.166e+53,298.677E-22])	return
-
-number UOvx
-func lb ()	return 1E78
-
-func Dx (number GEfY)	return
-

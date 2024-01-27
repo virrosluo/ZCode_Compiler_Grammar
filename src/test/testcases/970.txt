@@ -1,3 +1,0 @@
-
-func sgH (dynamic F9r, string CTX_, dynamic rBaO[17.667])
-	

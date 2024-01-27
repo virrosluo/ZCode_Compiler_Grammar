@@ -1,7 +1,0 @@
-
-func fSCc (var sr[5,768,122.470e83])
-	begin
-		continue
-	end
-func gw_J ()	return
-

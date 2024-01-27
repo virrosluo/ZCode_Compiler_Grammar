@@ -1,0 +1,8 @@
+func main() begin
+	a[3 + foo(2)] <- a[b[2, 3]] + 4
+	string a[1,2,3] <- ["Hello", "World"]
+	number b[1] <- a[1][2][3]
+	bool c[1] <- [[true, false], [false, true], true]
+end
+
+

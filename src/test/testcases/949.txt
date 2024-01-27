@@ -1,3 +1,0 @@
-
-func K5ya (number Yo[309.675e38], string k594[90.717,4.588], bool Iyd)	return 6.192E15
-

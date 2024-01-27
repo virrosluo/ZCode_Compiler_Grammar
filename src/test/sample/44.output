@@ -1,1 +1,1 @@
-Illegal Escape In String: a\\b\'c\bd\f'\
+a\\b\'c\bd\f'\\a,<EOF>

@@ -1,2 +1,0 @@
-
-func gbR (dynamic SQty, var KiG[815.324E-20,112.799])	return "Z'"'"1'""

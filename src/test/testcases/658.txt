@@ -1,4 +1,0 @@
-
-func rpWO (dynamic omf[929.011,1e42], number qN, number QZ[952.875E53])	
-
-func eG (string Jvro[76.761,7,465e34], dynamic a0r, var Ghy9[0.383,448.706E78,735e-61])	return

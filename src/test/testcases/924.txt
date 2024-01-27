@@ -1,7 +1,0 @@
-
-func d2V0 (string ukw)
-	return s1C5
-
-var gfkj
-number xeM ## 9yy8E5n>
-func XC (number j5bk, var JV)	return

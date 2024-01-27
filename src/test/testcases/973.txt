@@ -1,9 +1,0 @@
-
-bool ftbQ[788]
-## B4H>X4|lc$`k"3gXk%lK
-func hQ (bool x5o, number yaD[323], dynamic XbS)	return "'"'""
-## ?h(is
-func sX (string hLr[37.158,46.974e-76])
-	begin
-		## !Y=]"=s>ap5i[V
-	end

@@ -1,4 +1,0 @@
-
-func qUMd (bool rjeI[129.660,101], number CJ[27.591])	return "`"
-func zOT (string AFu, var LJG)	
-number AlN[444.393e-04,286.615,295E+74] <- sG9 ## .(

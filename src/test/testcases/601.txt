@@ -1,8 +1,0 @@
-
-## NOT]+Jpvi$B|@M7
-## ;<-_N
-func FjON (dynamic fnp[138.625,91], number ngYc, string vH1)	return
-
-## N@0Evm"
-func pK ()
-	return

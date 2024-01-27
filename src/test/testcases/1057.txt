@@ -1,5 +1,0 @@
-
-## -87BC{;I1;ReSq2l_TWG
-func oJ ()	begin
-		break
-	end

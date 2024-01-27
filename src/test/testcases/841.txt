@@ -1,8 +1,0 @@
-
-bool ffM <- bezf ## I.9.3P.qj}]
-func ndU (var fL5, dynamic QkmM[2.964], number fziq[34.802e-90,1,27.368E37])
-	return false
-
-func VFY (bool s_C[8,681.923], number aF[742])
-	return "'"7'""
-

@@ -1,5 +1,0 @@
-
-## i]i3i
-func QoTi (bool Ey, bool rIdG[6.461])	begin
-		JG[true] <- "w"
-	end

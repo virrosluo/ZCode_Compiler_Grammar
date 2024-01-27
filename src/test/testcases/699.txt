@@ -1,7 +1,0 @@
-
-func OOkA (dynamic Jg[7.447])	return
-
-## 7T
-var zgi ## mA~ h
-var In2 <- true ## k&3?
-var vN_W <- ".ep" ## p!q

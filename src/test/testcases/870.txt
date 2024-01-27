@@ -1,8 +1,0 @@
-
-bool Cu[222,29E+58,7.719E+26]
-func KCx (bool e9, dynamic d1[79E72,844e22,597.239])
-	begin
-		## sGaI` KIpRI
-	end
-
-bool cb_ ## M7|{B+"1u$2Ld|uW

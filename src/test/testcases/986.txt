@@ -1,5 +1,0 @@
-
-func SYN (dynamic KV[78,80,88.682e00])
-	return
-## +<.4{H@d5
-## HZd!V!^|]B%

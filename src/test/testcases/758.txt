@@ -1,4 +1,0 @@
-
-func GbJ (dynamic Sf, var izu, number SMd[78.880E-12,278e+94,33.097])
-	return 5
-## 2E@o*gKYB0Ae5[V

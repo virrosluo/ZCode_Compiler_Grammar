@@ -6,4 +6,5 @@ func,areDivisors,(,number,num1,,,number,num2,),
 ,var,num1,<-,readNumber,(,),
 ,var,num2,<-,readNumber,(,),
 ,if,areDivisors,(,num1,,,num2,),printString,(,Yes,),
-,else,printString,(,Illegal Escape In String: No\''t
+,else,printString,(,No\''t,),
+,end,<EOF>

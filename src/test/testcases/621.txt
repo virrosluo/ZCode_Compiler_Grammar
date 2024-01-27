@@ -1,5 +1,0 @@
-
-string am[4.227,7.752E-77,8.816E13] <- "En'"'""
-bool eFB[341e+81,829]
-string X1u6[4E+54] ## x0<OwG}*jAneV.|
-## SPiD/e>6Y

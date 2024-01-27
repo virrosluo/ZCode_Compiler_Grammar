@@ -1,7 +1,0 @@
-
-bool B4BU
-func A9d (string lkBN, number CEdP, dynamic Wcb0[0,3,3.507e+72])
-	begin
-		## x!n_f
-	end
-number Gd[344.845E+05] <- X7 ## P

@@ -1,4 +1,0 @@
-
-var g_ ## t%XMNe=Y9j
-func G0b9 (var OHW[3.971E+74,73], string H_ZN, number Y3I)	return
-

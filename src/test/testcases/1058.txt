@@ -1,5 +1,0 @@
-
-func UW (string oK[9E-33,545E-09,352], dynamic QRx)	begin
-		
-	end
-

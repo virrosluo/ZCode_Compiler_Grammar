@@ -1,7 +1,0 @@
-
-dynamic CDf[99.064e22]
-## [89T
-func vo4b (number PDx[1.479])	return 4.154E52
-
-func V8 (dynamic iBHC, var Dz[6e+09])	return "'""
-

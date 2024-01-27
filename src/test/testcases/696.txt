@@ -1,7 +1,0 @@
-
-func MdV ()
-	return " b5("
-
-func u3NM ()	begin
-		## }Yz-nu0`B+6
-	end

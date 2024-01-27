@@ -1,3 +1,0 @@
-
-func bD (number eGvN, number ft9[71E-23], number vC[8])
-	return

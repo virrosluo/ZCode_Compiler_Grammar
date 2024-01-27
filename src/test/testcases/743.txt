@@ -1,5 +1,0 @@
-
-## 9G#8/qNo7ny
-func wU (bool gYqC)	return
-func oo (var cf, bool JVs[1e87,100.429e-05,440])
-	return "J"

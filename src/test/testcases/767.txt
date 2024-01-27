@@ -1,3 +1,0 @@
-
-func dgWN ()	return "'"'"'"'""
-## S~rc

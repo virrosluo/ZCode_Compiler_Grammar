@@ -1,4 +1,0 @@
-
-string VCH <- h6ky
-func DWGC (bool VL, var mtL[2.916E11,4,5.012e+25])	return
-

@@ -1,5 +1,0 @@
-
-func sPF (string HX)	begin
-		var ijdL[19,87.302e-04] <- 210 ## E3ti_oe6KNp1K)
-	end
-

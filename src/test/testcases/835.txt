@@ -1,6 +1,0 @@
-
-func EQ (number xV[5,349])	begin
-		for dy97 until false by false
-			
-	end
-## tv@c

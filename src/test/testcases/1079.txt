@@ -1,5 +1,0 @@
-
-number ng3t
-func Ya ()
-	return false
-

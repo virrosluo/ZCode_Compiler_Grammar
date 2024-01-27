@@ -1,2 +1,0 @@
-
-string Tj4 <- ky

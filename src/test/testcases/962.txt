@@ -1,4 +1,0 @@
-
-func ShL (bool nU9[399.234E-57,1E+13,3.545], number dJ)	return 795E+82
-string iw <- "'"F" ## o^b;Qo98
-## t<^ywNi-

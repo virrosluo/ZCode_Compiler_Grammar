@@ -1,2 +1,0 @@
-
-func eocx (var wB0[3])	

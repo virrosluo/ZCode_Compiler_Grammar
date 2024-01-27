@@ -1,4 +1,0 @@
-
-## +)m:
-func gMM5 (bool ZC[55.688,535,73E86], var kY, dynamic dGje)	return true
-## ;8@`

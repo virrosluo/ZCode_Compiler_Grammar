@@ -1,6 +1,0 @@
-
-dynamic f5O[18e11] <- "'"L'"wK" ## BO
-func yeo (number flA7[169.426e-71])	return true
-
-func V2C (var oAA[55E66,3.579], var TiP)	
-

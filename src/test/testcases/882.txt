@@ -1,4 +1,0 @@
-
-string hN <- 9.963
-func lo ()	return
-

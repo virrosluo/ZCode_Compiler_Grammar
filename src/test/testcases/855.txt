@@ -1,5 +1,0 @@
-
-func Mx ()	begin
-		return "G'"'"'"'""
-	end
-
