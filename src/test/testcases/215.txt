@@ -1,0 +1,9 @@
+func main() begin
+
+            bool b <- true and false != 1
+
+
+            bool c <- b <> true
+
+        end 
+        

@@ -24,37 +24,38 @@ public class ZCodeParser extends Parser {
 		EQUAL_OP=27, INEQUAL_OP=28, LESS_OP=29, LESSEQUAL_OP=30, LARGE_OP=31, 
 		LARGEEQUAL_OP=32, CONCAT_OP=33, EQUAL_STR_OP=34, ID=35, LEFT_PARENTHESIS=36, 
 		RIGHT_PARENTHESIS=37, LEFT_BRACKET=38, RIGHT_BRACKET=39, SEPARATOR_KEYWORD=40, 
-		TRUE_LIT=41, FALSE_LIT=42, REAL_LIT=43, STRING_LIT=44, NL=45, WS=46, COMMENT_LINE=47, 
-		NEWLINE_STRING=48, UNCLOSE_STRING=49, ILLEGAL_ESCAPE=50, ERROR_TOKEN=51;
+		TRUE_LIT=41, FALSE_LIT=42, REAL_LIT=43, NL=44, WS=45, COMMENT_LINE=46, 
+		UNCLOSE_STRING=47, STRING_LIT=48, ILLEGAL_ESCAPE=49, NEWLINE_STRING=50, 
+		ERROR_TOKEN=51;
 	public static final int
-		RULE_program = 0, RULE_declaration = 1, RULE_variable_stat = 2, RULE_dtype = 3, 
-		RULE_explicit_declare = 4, RULE_idlist = 5, RULE_idlist_tail = 6, RULE_primitive_declare = 7, 
-		RULE_array_declare = 8, RULE_implicit_declare = 9, RULE_function_stat = 10, 
-		RULE_function_definition = 11, RULE_function_declaration = 12, RULE_param_list = 13, 
-		RULE_param_list_tail = 14, RULE_parameter = 15, RULE_statement_list = 16, 
-		RULE_statement_list_tail = 17, RULE_block_stat = 18, RULE_statement = 19, 
-		RULE_comment = 20, RULE_expression = 21, RULE_relation_operation = 22, 
-		RULE_relational_expr = 23, RULE_logical_expr = 24, RULE_adding_expr = 25, 
-		RULE_multiplying_expr = 26, RULE_not_logical = 27, RULE_sign_expr = 28, 
-		RULE_index_expr = 29, RULE_parenthesis_expr = 30, RULE_term = 31, RULE_array_expr = 32, 
-		RULE_function_expr = 33, RULE_expression_list = 34, RULE_expression_list_tail = 35, 
-		RULE_expression_nonempty_list = 36, RULE_expression_nonempty_tail = 37, 
-		RULE_control_stat = 38, RULE_elif_stmt_list = 39, RULE_ifst_component = 40, 
-		RULE_loop_stat = 41, RULE_loop_body_statement = 42, RULE_loop_stmt_list = 43, 
-		RULE_assignment = 44;
+		RULE_program = 0, RULE_decl_list = 1, RULE_nl_nullable_list = 2, RULE_nl_list = 3, 
+		RULE_declaration = 4, RULE_variable_stat = 5, RULE_dtype = 6, RULE_explicit_declare = 7, 
+		RULE_primitive_declare = 8, RULE_array_declare = 9, RULE_array_lit_list = 10, 
+		RULE_array_lit_tail = 11, RULE_array_lit = 12, RULE_implicit_declare = 13, 
+		RULE_function_stat = 14, RULE_function_definition = 15, RULE_function_declaration = 16, 
+		RULE_param_list = 17, RULE_param_list_tail = 18, RULE_parameter = 19, 
+		RULE_statement = 20, RULE_statement_list = 21, RULE_return_stat = 22, 
+		RULE_break_stat = 23, RULE_continue_stat = 24, RULE_block_stat = 25, RULE_comment = 26, 
+		RULE_expression = 27, RULE_relation_operation = 28, RULE_relational_expr = 29, 
+		RULE_logical_expr = 30, RULE_adding_expr = 31, RULE_multiplying_expr = 32, 
+		RULE_not_logical = 33, RULE_sign_expr = 34, RULE_index_expr = 35, RULE_parenthesis_expr = 36, 
+		RULE_term = 37, RULE_function_expr = 38, RULE_expression_list = 39, RULE_expression_list_tail = 40, 
+		RULE_expression_nonempty_list = 41, RULE_expression_nonempty_tail = 42, 
+		RULE_control_stat = 43, RULE_elif_stmt_list = 44, RULE_ifst_component = 45, 
+		RULE_loop_stat = 46, RULE_assignment = 47;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "declaration", "variable_stat", "dtype", "explicit_declare", 
-			"idlist", "idlist_tail", "primitive_declare", "array_declare", "implicit_declare", 
+			"program", "decl_list", "nl_nullable_list", "nl_list", "declaration", 
+			"variable_stat", "dtype", "explicit_declare", "primitive_declare", "array_declare", 
+			"array_lit_list", "array_lit_tail", "array_lit", "implicit_declare", 
 			"function_stat", "function_definition", "function_declaration", "param_list", 
-			"param_list_tail", "parameter", "statement_list", "statement_list_tail", 
-			"block_stat", "statement", "comment", "expression", "relation_operation", 
-			"relational_expr", "logical_expr", "adding_expr", "multiplying_expr", 
-			"not_logical", "sign_expr", "index_expr", "parenthesis_expr", "term", 
-			"array_expr", "function_expr", "expression_list", "expression_list_tail", 
-			"expression_nonempty_list", "expression_nonempty_tail", "control_stat", 
-			"elif_stmt_list", "ifst_component", "loop_stat", "loop_body_statement", 
-			"loop_stmt_list", "assignment"
+			"param_list_tail", "parameter", "statement", "statement_list", "return_stat", 
+			"break_stat", "continue_stat", "block_stat", "comment", "expression", 
+			"relation_operation", "relational_expr", "logical_expr", "adding_expr", 
+			"multiplying_expr", "not_logical", "sign_expr", "index_expr", "parenthesis_expr", 
+			"term", "function_expr", "expression_list", "expression_list_tail", "expression_nonempty_list", 
+			"expression_nonempty_tail", "control_stat", "elif_stmt_list", "ifst_component", 
+			"loop_stat", "assignment"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -66,7 +67,7 @@ public class ZCodeParser extends Parser {
 			"'else'", "'elif'", "'begin'", "'end'", "'<-'", "'+'", "'-'", "'*'", 
 			"'/'", "'%'", "'not'", "'and'", "'or'", "'='", "'!='", "'<'", "'<='", 
 			"'>'", "'>='", "'...'", "'=='", null, "'('", "')'", "'['", "']'", "','", 
-			"'true'", "'false'"
+			"'true'", "'false'", null, "'\\n'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -80,8 +81,8 @@ public class ZCodeParser extends Parser {
 			"EQUAL_OP", "INEQUAL_OP", "LESS_OP", "LESSEQUAL_OP", "LARGE_OP", "LARGEEQUAL_OP", 
 			"CONCAT_OP", "EQUAL_STR_OP", "ID", "LEFT_PARENTHESIS", "RIGHT_PARENTHESIS", 
 			"LEFT_BRACKET", "RIGHT_BRACKET", "SEPARATOR_KEYWORD", "TRUE_LIT", "FALSE_LIT", 
-			"REAL_LIT", "STRING_LIT", "NL", "WS", "COMMENT_LINE", "NEWLINE_STRING", 
-			"UNCLOSE_STRING", "ILLEGAL_ESCAPE", "ERROR_TOKEN"
+			"REAL_LIT", "NL", "WS", "COMMENT_LINE", "UNCLOSE_STRING", "STRING_LIT", 
+			"ILLEGAL_ESCAPE", "NEWLINE_STRING", "ERROR_TOKEN"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -137,17 +138,13 @@ public class ZCodeParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ProgramContext extends ParserRuleContext {
+		public Nl_nullable_listContext nl_nullable_list() {
+			return getRuleContext(Nl_nullable_listContext.class,0);
+		}
+		public Decl_listContext decl_list() {
+			return getRuleContext(Decl_listContext.class,0);
+		}
 		public TerminalNode EOF() { return getToken(ZCodeParser.EOF, 0); }
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
-		}
-		public List<DeclarationContext> declaration() {
-			return getRuleContexts(DeclarationContext.class);
-		}
-		public DeclarationContext declaration(int i) {
-			return getRuleContext(DeclarationContext.class,i);
-		}
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -157,40 +154,180 @@ public class ZCodeParser extends Parser {
 	public final ProgramContext program() throws RecognitionException {
 		ProgramContext _localctx = new ProgramContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_program);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(93);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==NL) {
-				{
-				{
-				setState(90);
-				match(NL);
-				}
-				}
-				setState(95);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
+			setState(96);
+			nl_nullable_list();
+			setState(97);
+			decl_list();
+			setState(98);
+			match(EOF);
 			}
-			setState(99);
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Decl_listContext extends ParserRuleContext {
+		public DeclarationContext declaration() {
+			return getRuleContext(DeclarationContext.class,0);
+		}
+		public Decl_listContext decl_list() {
+			return getRuleContext(Decl_listContext.class,0);
+		}
+		public Decl_listContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_decl_list; }
+	}
+
+	public final Decl_listContext decl_list() throws RecognitionException {
+		Decl_listContext _localctx = new Decl_listContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_decl_list);
+		try {
+			setState(104);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 238L) != 0)) {
+			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
 				{
+				setState(100);
+				declaration();
+				setState(101);
+				decl_list();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(96);
+				setState(103);
 				declaration();
 				}
-				}
-				setState(101);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
+				break;
 			}
-			setState(102);
-			match(EOF);
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Nl_nullable_listContext extends ParserRuleContext {
+		public TerminalNode NL() { return getToken(ZCodeParser.NL, 0); }
+		public Nl_nullable_listContext nl_nullable_list() {
+			return getRuleContext(Nl_nullable_listContext.class,0);
+		}
+		public Nl_nullable_listContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_nl_nullable_list; }
+	}
+
+	public final Nl_nullable_listContext nl_nullable_list() throws RecognitionException {
+		Nl_nullable_listContext _localctx = new Nl_nullable_listContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_nl_nullable_list);
+		try {
+			setState(109);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case NL:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(106);
+				match(NL);
+				setState(107);
+				nl_nullable_list();
+				}
+				break;
+			case NUM_KEYWORD:
+			case BOOL_KEYWORD:
+			case STRING_KEYWORD:
+			case RETURN_KEYWORD:
+			case VAR_KEYWORD:
+			case DYNAMIC_KEYWORD:
+			case FUNC_KEYWORD:
+			case FOR_KEYWORD:
+			case BREAK_KEYWORD:
+			case CONTINUE_KEYWORD:
+			case IF_KEYWORD:
+			case BEGIN_KEYWORD:
+			case SUB_OP:
+			case NOT_OP:
+			case ID:
+			case LEFT_PARENTHESIS:
+			case TRUE_LIT:
+			case FALSE_LIT:
+			case REAL_LIT:
+			case STRING_LIT:
+				enterOuterAlt(_localctx, 2);
+				{
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Nl_listContext extends ParserRuleContext {
+		public TerminalNode NL() { return getToken(ZCodeParser.NL, 0); }
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
+		}
+		public Nl_listContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_nl_list; }
+	}
+
+	public final Nl_listContext nl_list() throws RecognitionException {
+		Nl_listContext _localctx = new Nl_listContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_nl_list);
+		try {
+			setState(114);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(111);
+				match(NL);
+				setState(112);
+				nl_list();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(113);
+				match(NL);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -220,9 +357,9 @@ public class ZCodeParser extends Parser {
 
 	public final DeclarationContext declaration() throws RecognitionException {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_declaration);
+		enterRule(_localctx, 8, RULE_declaration);
 		try {
-			setState(106);
+			setState(118);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUM_KEYWORD:
@@ -232,14 +369,14 @@ public class ZCodeParser extends Parser {
 			case DYNAMIC_KEYWORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(104);
+				setState(116);
 				variable_stat();
 				}
 				break;
 			case FUNC_KEYWORD:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(105);
+				setState(117);
 				function_stat();
 				}
 				break;
@@ -263,9 +400,8 @@ public class ZCodeParser extends Parser {
 		public Explicit_declareContext explicit_declare() {
 			return getRuleContext(Explicit_declareContext.class,0);
 		}
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
 		}
 		public Implicit_declareContext implicit_declare() {
 			return getRuleContext(Implicit_declareContext.class,0);
@@ -278,10 +414,9 @@ public class ZCodeParser extends Parser {
 
 	public final Variable_statContext variable_stat() throws RecognitionException {
 		Variable_statContext _localctx = new Variable_statContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_variable_stat);
-		int _la;
+		enterRule(_localctx, 10, RULE_variable_stat);
 		try {
-			setState(120);
+			setState(126);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUM_KEYWORD:
@@ -289,44 +424,20 @@ public class ZCodeParser extends Parser {
 			case STRING_KEYWORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(108);
+				setState(120);
 				explicit_declare();
-				setState(110); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(109);
-					match(NL);
-					}
-					}
-					setState(112); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
+				setState(121);
+				nl_list();
 				}
 				break;
 			case VAR_KEYWORD:
 			case DYNAMIC_KEYWORD:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(114);
+				setState(123);
 				implicit_declare();
-				setState(116); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(115);
-					match(NL);
-					}
-					}
-					setState(118); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
+				setState(124);
+				nl_list();
 				}
 				break;
 			default:
@@ -357,12 +468,12 @@ public class ZCodeParser extends Parser {
 
 	public final DtypeContext dtype() throws RecognitionException {
 		DtypeContext _localctx = new DtypeContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_dtype);
+		enterRule(_localctx, 12, RULE_dtype);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(122);
+			setState(128);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 14L) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -401,112 +512,25 @@ public class ZCodeParser extends Parser {
 
 	public final Explicit_declareContext explicit_declare() throws RecognitionException {
 		Explicit_declareContext _localctx = new Explicit_declareContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_explicit_declare);
+		enterRule(_localctx, 14, RULE_explicit_declare);
 		try {
-			setState(126);
+			setState(132);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(124);
+				setState(130);
 				array_declare();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(125);
+				setState(131);
 				primitive_declare();
 				}
 				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class IdlistContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(ZCodeParser.ID, 0); }
-		public Idlist_tailContext idlist_tail() {
-			return getRuleContext(Idlist_tailContext.class,0);
-		}
-		public IdlistContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_idlist; }
-	}
-
-	public final IdlistContext idlist() throws RecognitionException {
-		IdlistContext _localctx = new IdlistContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_idlist);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(128);
-			match(ID);
-			setState(129);
-			idlist_tail();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Idlist_tailContext extends ParserRuleContext {
-		public TerminalNode SEPARATOR_KEYWORD() { return getToken(ZCodeParser.SEPARATOR_KEYWORD, 0); }
-		public TerminalNode ID() { return getToken(ZCodeParser.ID, 0); }
-		public Idlist_tailContext idlist_tail() {
-			return getRuleContext(Idlist_tailContext.class,0);
-		}
-		public Idlist_tailContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_idlist_tail; }
-	}
-
-	public final Idlist_tailContext idlist_tail() throws RecognitionException {
-		Idlist_tailContext _localctx = new Idlist_tailContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_idlist_tail);
-		try {
-			setState(135);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case SEPARATOR_KEYWORD:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(131);
-				match(SEPARATOR_KEYWORD);
-				setState(132);
-				match(ID);
-				setState(133);
-				idlist_tail();
-				}
-				break;
-			case ASSIGN_OP:
-			case NL:
-				enterOuterAlt(_localctx, 2);
-				{
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -525,9 +549,7 @@ public class ZCodeParser extends Parser {
 		public DtypeContext dtype() {
 			return getRuleContext(DtypeContext.class,0);
 		}
-		public IdlistContext idlist() {
-			return getRuleContext(IdlistContext.class,0);
-		}
+		public TerminalNode ID() { return getToken(ZCodeParser.ID, 0); }
 		public TerminalNode ASSIGN_OP() { return getToken(ZCodeParser.ASSIGN_OP, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -540,22 +562,22 @@ public class ZCodeParser extends Parser {
 
 	public final Primitive_declareContext primitive_declare() throws RecognitionException {
 		Primitive_declareContext _localctx = new Primitive_declareContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_primitive_declare);
+		enterRule(_localctx, 16, RULE_primitive_declare);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(137);
+			setState(134);
 			dtype();
-			setState(138);
-			idlist();
-			setState(142);
+			setState(135);
+			match(ID);
+			setState(139);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ASSIGN_OP:
 				{
-				setState(139);
+				setState(136);
 				match(ASSIGN_OP);
-				setState(140);
+				setState(137);
 				expression();
 				}
 				break;
@@ -585,14 +607,20 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(DtypeContext.class,0);
 		}
 		public TerminalNode ID() { return getToken(ZCodeParser.ID, 0); }
-		public TerminalNode LEFT_BRACKET() { return getToken(ZCodeParser.LEFT_BRACKET, 0); }
+		public List<TerminalNode> LEFT_BRACKET() { return getTokens(ZCodeParser.LEFT_BRACKET); }
+		public TerminalNode LEFT_BRACKET(int i) {
+			return getToken(ZCodeParser.LEFT_BRACKET, i);
+		}
 		public Expression_nonempty_listContext expression_nonempty_list() {
 			return getRuleContext(Expression_nonempty_listContext.class,0);
 		}
-		public TerminalNode RIGHT_BRACKET() { return getToken(ZCodeParser.RIGHT_BRACKET, 0); }
+		public List<TerminalNode> RIGHT_BRACKET() { return getTokens(ZCodeParser.RIGHT_BRACKET); }
+		public TerminalNode RIGHT_BRACKET(int i) {
+			return getToken(ZCodeParser.RIGHT_BRACKET, i);
+		}
 		public TerminalNode ASSIGN_OP() { return getToken(ZCodeParser.ASSIGN_OP, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public Array_lit_listContext array_lit_list() {
+			return getRuleContext(Array_lit_listContext.class,0);
 		}
 		public Array_declareContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -602,29 +630,33 @@ public class ZCodeParser extends Parser {
 
 	public final Array_declareContext array_declare() throws RecognitionException {
 		Array_declareContext _localctx = new Array_declareContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_array_declare);
+		enterRule(_localctx, 18, RULE_array_declare);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(144);
+			setState(141);
 			dtype();
-			setState(145);
+			setState(142);
 			match(ID);
-			setState(146);
+			setState(143);
 			match(LEFT_BRACKET);
-			setState(147);
+			setState(144);
 			expression_nonempty_list();
-			setState(148);
+			setState(145);
 			match(RIGHT_BRACKET);
 			setState(152);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ASSIGN_OP:
 				{
-				setState(149);
+				setState(146);
 				match(ASSIGN_OP);
-				setState(150);
-				expression();
+				setState(147);
+				match(LEFT_BRACKET);
+				setState(148);
+				array_lit_list();
+				setState(149);
+				match(RIGHT_BRACKET);
 				}
 				break;
 			case NL:
@@ -648,11 +680,175 @@ public class ZCodeParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class Array_lit_listContext extends ParserRuleContext {
+		public Array_litContext array_lit() {
+			return getRuleContext(Array_litContext.class,0);
+		}
+		public Array_lit_tailContext array_lit_tail() {
+			return getRuleContext(Array_lit_tailContext.class,0);
+		}
+		public Array_lit_listContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_array_lit_list; }
+	}
+
+	public final Array_lit_listContext array_lit_list() throws RecognitionException {
+		Array_lit_listContext _localctx = new Array_lit_listContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_array_lit_list);
+		try {
+			setState(158);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(154);
+				array_lit();
+				setState(155);
+				array_lit_tail();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Array_lit_tailContext extends ParserRuleContext {
+		public TerminalNode SEPARATOR_KEYWORD() { return getToken(ZCodeParser.SEPARATOR_KEYWORD, 0); }
+		public Array_litContext array_lit() {
+			return getRuleContext(Array_litContext.class,0);
+		}
+		public Array_lit_tailContext array_lit_tail() {
+			return getRuleContext(Array_lit_tailContext.class,0);
+		}
+		public Array_lit_tailContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_array_lit_tail; }
+	}
+
+	public final Array_lit_tailContext array_lit_tail() throws RecognitionException {
+		Array_lit_tailContext _localctx = new Array_lit_tailContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_array_lit_tail);
+		try {
+			setState(165);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case SEPARATOR_KEYWORD:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(160);
+				match(SEPARATOR_KEYWORD);
+				setState(161);
+				array_lit();
+				setState(162);
+				array_lit_tail();
+				}
+				break;
+			case RIGHT_BRACKET:
+				enterOuterAlt(_localctx, 2);
+				{
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Array_litContext extends ParserRuleContext {
+		public TerminalNode LEFT_BRACKET() { return getToken(ZCodeParser.LEFT_BRACKET, 0); }
+		public Array_lit_listContext array_lit_list() {
+			return getRuleContext(Array_lit_listContext.class,0);
+		}
+		public TerminalNode RIGHT_BRACKET() { return getToken(ZCodeParser.RIGHT_BRACKET, 0); }
+		public Expression_listContext expression_list() {
+			return getRuleContext(Expression_listContext.class,0);
+		}
+		public Array_litContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_array_lit; }
+	}
+
+	public final Array_litContext array_lit() throws RecognitionException {
+		Array_litContext _localctx = new Array_litContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_array_lit);
+		try {
+			setState(172);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case LEFT_BRACKET:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(167);
+				match(LEFT_BRACKET);
+				setState(168);
+				array_lit_list();
+				setState(169);
+				match(RIGHT_BRACKET);
+				}
+				break;
+			case SUB_OP:
+			case NOT_OP:
+			case ID:
+			case LEFT_PARENTHESIS:
+			case RIGHT_BRACKET:
+			case SEPARATOR_KEYWORD:
+			case TRUE_LIT:
+			case FALSE_LIT:
+			case REAL_LIT:
+			case STRING_LIT:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(171);
+				expression_list();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class Implicit_declareContext extends ParserRuleContext {
 		public TerminalNode VAR_KEYWORD() { return getToken(ZCodeParser.VAR_KEYWORD, 0); }
-		public IdlistContext idlist() {
-			return getRuleContext(IdlistContext.class,0);
-		}
+		public TerminalNode ID() { return getToken(ZCodeParser.ID, 0); }
 		public TerminalNode ASSIGN_OP() { return getToken(ZCodeParser.ASSIGN_OP, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -666,39 +862,39 @@ public class ZCodeParser extends Parser {
 
 	public final Implicit_declareContext implicit_declare() throws RecognitionException {
 		Implicit_declareContext _localctx = new Implicit_declareContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_implicit_declare);
+		enterRule(_localctx, 26, RULE_implicit_declare);
 		try {
-			setState(166);
+			setState(185);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case VAR_KEYWORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(154);
+				setState(174);
 				match(VAR_KEYWORD);
-				setState(155);
-				idlist();
-				setState(156);
+				setState(175);
+				match(ID);
+				setState(176);
 				match(ASSIGN_OP);
-				setState(157);
+				setState(177);
 				expression();
 				}
 				break;
 			case DYNAMIC_KEYWORD:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(159);
+				setState(178);
 				match(DYNAMIC_KEYWORD);
-				setState(160);
-				idlist();
-				setState(164);
+				setState(179);
+				match(ID);
+				setState(183);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case ASSIGN_OP:
 					{
-					setState(161);
+					setState(180);
 					match(ASSIGN_OP);
-					setState(162);
+					setState(181);
 					expression();
 					}
 					break;
@@ -734,10 +930,6 @@ public class ZCodeParser extends Parser {
 		public Function_declarationContext function_declaration() {
 			return getRuleContext(Function_declarationContext.class,0);
 		}
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
-		}
 		public Function_statContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -746,38 +938,23 @@ public class ZCodeParser extends Parser {
 
 	public final Function_statContext function_stat() throws RecognitionException {
 		Function_statContext _localctx = new Function_statContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_function_stat);
-		int _la;
+		enterRule(_localctx, 28, RULE_function_stat);
 		try {
-			setState(175);
+			setState(189);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(168);
+				setState(187);
 				function_definition();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(169);
+				setState(188);
 				function_declaration();
-				setState(171); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(170);
-					match(NL);
-					}
-					}
-					setState(173); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
 				}
 				break;
 			}
@@ -802,10 +979,15 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(Param_listContext.class,0);
 		}
 		public TerminalNode RIGHT_PARENTHESIS() { return getToken(ZCodeParser.RIGHT_PARENTHESIS, 0); }
+		public Nl_nullable_listContext nl_nullable_list() {
+			return getRuleContext(Nl_nullable_listContext.class,0);
+		}
 		public Block_statContext block_stat() {
 			return getRuleContext(Block_statContext.class,0);
 		}
-		public TerminalNode NL() { return getToken(ZCodeParser.NL, 0); }
+		public Return_statContext return_stat() {
+			return getRuleContext(Return_statContext.class,0);
+		}
 		public Function_definitionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -814,57 +996,40 @@ public class ZCodeParser extends Parser {
 
 	public final Function_definitionContext function_definition() throws RecognitionException {
 		Function_definitionContext _localctx = new Function_definitionContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_function_definition);
+		enterRule(_localctx, 30, RULE_function_definition);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(177);
+			setState(191);
 			match(FUNC_KEYWORD);
-			setState(178);
+			setState(192);
 			match(ID);
-			setState(179);
+			setState(193);
 			match(LEFT_PARENTHESIS);
-			setState(180);
+			setState(194);
 			param_list();
-			setState(181);
+			setState(195);
 			match(RIGHT_PARENTHESIS);
-			setState(184);
+			setState(196);
+			nl_nullable_list();
+			setState(199);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case NL:
+			case BEGIN_KEYWORD:
 				{
-				setState(182);
-				match(NL);
+				setState(197);
+				block_stat();
 				}
 				break;
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
 			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case IF_KEYWORD:
-			case BEGIN_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
 				{
+				setState(198);
+				return_stat();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(186);
-			block_stat();
 			}
 		}
 		catch (RecognitionException re) {
@@ -887,6 +1052,9 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(Param_listContext.class,0);
 		}
 		public TerminalNode RIGHT_PARENTHESIS() { return getToken(ZCodeParser.RIGHT_PARENTHESIS, 0); }
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
+		}
 		public Function_declarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -895,20 +1063,22 @@ public class ZCodeParser extends Parser {
 
 	public final Function_declarationContext function_declaration() throws RecognitionException {
 		Function_declarationContext _localctx = new Function_declarationContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_function_declaration);
+		enterRule(_localctx, 32, RULE_function_declaration);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(188);
+			setState(201);
 			match(FUNC_KEYWORD);
-			setState(189);
+			setState(202);
 			match(ID);
-			setState(190);
+			setState(203);
 			match(LEFT_PARENTHESIS);
-			setState(191);
+			setState(204);
 			param_list();
-			setState(192);
+			setState(205);
 			match(RIGHT_PARENTHESIS);
+			setState(206);
+			nl_list();
 			}
 		}
 		catch (RecognitionException re) {
@@ -938,9 +1108,9 @@ public class ZCodeParser extends Parser {
 
 	public final Param_listContext param_list() throws RecognitionException {
 		Param_listContext _localctx = new Param_listContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_param_list);
+		enterRule(_localctx, 34, RULE_param_list);
 		try {
-			setState(198);
+			setState(212);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUM_KEYWORD:
@@ -948,9 +1118,9 @@ public class ZCodeParser extends Parser {
 			case STRING_KEYWORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(194);
+				setState(208);
 				parameter();
-				setState(195);
+				setState(209);
 				param_list_tail();
 				}
 				break;
@@ -991,19 +1161,19 @@ public class ZCodeParser extends Parser {
 
 	public final Param_list_tailContext param_list_tail() throws RecognitionException {
 		Param_list_tailContext _localctx = new Param_list_tailContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_param_list_tail);
+		enterRule(_localctx, 36, RULE_param_list_tail);
 		try {
-			setState(205);
+			setState(219);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SEPARATOR_KEYWORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(200);
+				setState(214);
 				match(SEPARATOR_KEYWORD);
-				setState(201);
+				setState(215);
 				parameter();
-				setState(202);
+				setState(216);
 				param_list_tail();
 				}
 				break;
@@ -1046,278 +1216,35 @@ public class ZCodeParser extends Parser {
 
 	public final ParameterContext parameter() throws RecognitionException {
 		ParameterContext _localctx = new ParameterContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_parameter);
+		enterRule(_localctx, 38, RULE_parameter);
 		try {
-			setState(216);
+			setState(230);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(207);
+				setState(221);
 				dtype();
-				setState(208);
+				setState(222);
 				match(ID);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(210);
+				setState(224);
 				dtype();
-				setState(211);
+				setState(225);
 				match(ID);
-				setState(212);
+				setState(226);
 				match(LEFT_BRACKET);
-				setState(213);
+				setState(227);
 				expression_nonempty_list();
-				setState(214);
+				setState(228);
 				match(RIGHT_BRACKET);
 				}
 				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Statement_listContext extends ParserRuleContext {
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public Statement_list_tailContext statement_list_tail() {
-			return getRuleContext(Statement_list_tailContext.class,0);
-		}
-		public Statement_listContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_statement_list; }
-	}
-
-	public final Statement_listContext statement_list() throws RecognitionException {
-		Statement_listContext _localctx = new Statement_listContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_statement_list);
-		try {
-			setState(222);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
-			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case IF_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(218);
-				statement();
-				setState(219);
-				statement_list_tail();
-				}
-				break;
-			case END_KEYWORD:
-				enterOuterAlt(_localctx, 2);
-				{
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Statement_list_tailContext extends ParserRuleContext {
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public Statement_list_tailContext statement_list_tail() {
-			return getRuleContext(Statement_list_tailContext.class,0);
-		}
-		public Statement_list_tailContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_statement_list_tail; }
-	}
-
-	public final Statement_list_tailContext statement_list_tail() throws RecognitionException {
-		Statement_list_tailContext _localctx = new Statement_list_tailContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_statement_list_tail);
-		try {
-			setState(228);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
-			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case IF_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(224);
-				statement();
-				setState(225);
-				statement_list_tail();
-				}
-				break;
-			case END_KEYWORD:
-				enterOuterAlt(_localctx, 2);
-				{
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Block_statContext extends ParserRuleContext {
-		public TerminalNode BEGIN_KEYWORD() { return getToken(ZCodeParser.BEGIN_KEYWORD, 0); }
-		public Statement_listContext statement_list() {
-			return getRuleContext(Statement_listContext.class,0);
-		}
-		public TerminalNode END_KEYWORD() { return getToken(ZCodeParser.END_KEYWORD, 0); }
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
-		}
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public Block_statContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_block_stat; }
-	}
-
-	public final Block_statContext block_stat() throws RecognitionException {
-		Block_statContext _localctx = new Block_statContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_block_stat);
-		int _la;
-		try {
-			setState(244);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case BEGIN_KEYWORD:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(230);
-				match(BEGIN_KEYWORD);
-				setState(232); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(231);
-					match(NL);
-					}
-					}
-					setState(234); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
-				setState(236);
-				statement_list();
-				setState(237);
-				match(END_KEYWORD);
-				setState(239); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(238);
-					match(NL);
-					}
-					}
-					setState(241); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
-				}
-				break;
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
-			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case IF_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(243);
-				statement();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1345,19 +1272,26 @@ public class ZCodeParser extends Parser {
 		public Function_statContext function_stat() {
 			return getRuleContext(Function_statContext.class,0);
 		}
+		public Block_statContext block_stat() {
+			return getRuleContext(Block_statContext.class,0);
+		}
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
 		}
 		public AssignmentContext assignment() {
 			return getRuleContext(AssignmentContext.class,0);
 		}
-		public TerminalNode RETURN_KEYWORD() { return getToken(ZCodeParser.RETURN_KEYWORD, 0); }
-		public CommentContext comment() {
-			return getRuleContext(CommentContext.class,0);
+		public Return_statContext return_stat() {
+			return getRuleContext(Return_statContext.class,0);
+		}
+		public Break_statContext break_stat() {
+			return getRuleContext(Break_statContext.class,0);
+		}
+		public Continue_statContext continue_stat() {
+			return getRuleContext(Continue_statContext.class,0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1367,118 +1301,81 @@ public class ZCodeParser extends Parser {
 
 	public final StatementContext statement() throws RecognitionException {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_statement);
-		int _la;
+		enterRule(_localctx, 40, RULE_statement);
 		try {
-			setState(268);
+			setState(244);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,26,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(246);
+				setState(232);
 				control_stat();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(247);
+				setState(233);
 				loop_stat();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(248);
+				setState(234);
 				variable_stat();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(249);
+				setState(235);
 				function_stat();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(250);
-				expression();
-				setState(252); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(251);
-					match(NL);
-					}
-					}
-					setState(254); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
+				setState(236);
+				block_stat();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(256);
-				assignment();
+				setState(237);
+				expression();
+				setState(238);
+				nl_list();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(257);
-				match(RETURN_KEYWORD);
-				setState(260);
-				_errHandler.sync(this);
-				switch (_input.LA(1)) {
-				case SUB_OP:
-				case NOT_OP:
-				case ID:
-				case LEFT_PARENTHESIS:
-				case LEFT_BRACKET:
-				case TRUE_LIT:
-				case FALSE_LIT:
-				case REAL_LIT:
-				case STRING_LIT:
-					{
-					setState(258);
-					expression();
-					}
-					break;
-				case NL:
-					{
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
-				}
-				setState(263); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(262);
-					match(NL);
-					}
-					}
-					setState(265); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
+				setState(240);
+				assignment();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(267);
-				comment();
+				setState(241);
+				return_stat();
+				}
+				break;
+			case 9:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(242);
+				break_stat();
+				}
+				break;
+			case 10:
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(243);
+				continue_stat();
 				}
 				break;
 			}
@@ -1495,11 +1392,258 @@ public class ZCodeParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class Statement_listContext extends ParserRuleContext {
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
+		}
+		public Statement_listContext statement_list() {
+			return getRuleContext(Statement_listContext.class,0);
+		}
+		public Statement_listContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_statement_list; }
+	}
+
+	public final Statement_listContext statement_list() throws RecognitionException {
+		Statement_listContext _localctx = new Statement_listContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_statement_list);
+		try {
+			setState(250);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case NUM_KEYWORD:
+			case BOOL_KEYWORD:
+			case STRING_KEYWORD:
+			case RETURN_KEYWORD:
+			case VAR_KEYWORD:
+			case DYNAMIC_KEYWORD:
+			case FUNC_KEYWORD:
+			case FOR_KEYWORD:
+			case BREAK_KEYWORD:
+			case CONTINUE_KEYWORD:
+			case IF_KEYWORD:
+			case BEGIN_KEYWORD:
+			case SUB_OP:
+			case NOT_OP:
+			case ID:
+			case LEFT_PARENTHESIS:
+			case TRUE_LIT:
+			case FALSE_LIT:
+			case REAL_LIT:
+			case STRING_LIT:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(246);
+				statement();
+				setState(247);
+				statement_list();
+				}
+				break;
+			case END_KEYWORD:
+				enterOuterAlt(_localctx, 2);
+				{
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Return_statContext extends ParserRuleContext {
+		public TerminalNode RETURN_KEYWORD() { return getToken(ZCodeParser.RETURN_KEYWORD, 0); }
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
+		}
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public Return_statContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_return_stat; }
+	}
+
+	public final Return_statContext return_stat() throws RecognitionException {
+		Return_statContext _localctx = new Return_statContext(_ctx, getState());
+		enterRule(_localctx, 44, RULE_return_stat);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(252);
+			match(RETURN_KEYWORD);
+			setState(255);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case SUB_OP:
+			case NOT_OP:
+			case ID:
+			case LEFT_PARENTHESIS:
+			case TRUE_LIT:
+			case FALSE_LIT:
+			case REAL_LIT:
+			case STRING_LIT:
+				{
+				setState(253);
+				expression();
+				}
+				break;
+			case NL:
+				{
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+			setState(257);
+			nl_list();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Break_statContext extends ParserRuleContext {
+		public TerminalNode BREAK_KEYWORD() { return getToken(ZCodeParser.BREAK_KEYWORD, 0); }
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
+		}
+		public Break_statContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_break_stat; }
+	}
+
+	public final Break_statContext break_stat() throws RecognitionException {
+		Break_statContext _localctx = new Break_statContext(_ctx, getState());
+		enterRule(_localctx, 46, RULE_break_stat);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(259);
+			match(BREAK_KEYWORD);
+			setState(260);
+			nl_list();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Continue_statContext extends ParserRuleContext {
+		public TerminalNode CONTINUE_KEYWORD() { return getToken(ZCodeParser.CONTINUE_KEYWORD, 0); }
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
+		}
+		public Continue_statContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_continue_stat; }
+	}
+
+	public final Continue_statContext continue_stat() throws RecognitionException {
+		Continue_statContext _localctx = new Continue_statContext(_ctx, getState());
+		enterRule(_localctx, 48, RULE_continue_stat);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(262);
+			match(CONTINUE_KEYWORD);
+			setState(263);
+			nl_list();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Block_statContext extends ParserRuleContext {
+		public TerminalNode BEGIN_KEYWORD() { return getToken(ZCodeParser.BEGIN_KEYWORD, 0); }
+		public List<Nl_listContext> nl_list() {
+			return getRuleContexts(Nl_listContext.class);
+		}
+		public Nl_listContext nl_list(int i) {
+			return getRuleContext(Nl_listContext.class,i);
+		}
+		public Statement_listContext statement_list() {
+			return getRuleContext(Statement_listContext.class,0);
+		}
+		public TerminalNode END_KEYWORD() { return getToken(ZCodeParser.END_KEYWORD, 0); }
+		public Block_statContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_block_stat; }
+	}
+
+	public final Block_statContext block_stat() throws RecognitionException {
+		Block_statContext _localctx = new Block_statContext(_ctx, getState());
+		enterRule(_localctx, 50, RULE_block_stat);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(265);
+			match(BEGIN_KEYWORD);
+			setState(266);
+			nl_list();
+			setState(267);
+			statement_list();
+			setState(268);
+			match(END_KEYWORD);
+			setState(269);
+			nl_list();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class CommentContext extends ParserRuleContext {
 		public TerminalNode COMMENT_LINE() { return getToken(ZCodeParser.COMMENT_LINE, 0); }
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
 		}
 		public CommentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1509,27 +1653,14 @@ public class ZCodeParser extends Parser {
 
 	public final CommentContext comment() throws RecognitionException {
 		CommentContext _localctx = new CommentContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_comment);
-		int _la;
+		enterRule(_localctx, 52, RULE_comment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(270);
+			setState(271);
 			match(COMMENT_LINE);
-			setState(272); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(271);
-				match(NL);
-				}
-				}
-				setState(274); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( _la==NL );
+			setState(272);
+			nl_list();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1560,26 +1691,26 @@ public class ZCodeParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_expression);
+		enterRule(_localctx, 54, RULE_expression);
 		try {
-			setState(281);
+			setState(279);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(276);
+				setState(274);
 				relational_expr();
-				setState(277);
+				setState(275);
 				match(CONCAT_OP);
-				setState(278);
+				setState(276);
 				relational_expr();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(280);
+				setState(278);
 				relational_expr();
 				}
 				break;
@@ -1613,12 +1744,12 @@ public class ZCodeParser extends Parser {
 
 	public final Relation_operationContext relation_operation() throws RecognitionException {
 		Relation_operationContext _localctx = new Relation_operationContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_relation_operation);
+		enterRule(_localctx, 56, RULE_relation_operation);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(283);
+			setState(281);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 25635586048L) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1660,26 +1791,26 @@ public class ZCodeParser extends Parser {
 
 	public final Relational_exprContext relational_expr() throws RecognitionException {
 		Relational_exprContext _localctx = new Relational_exprContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_relational_expr);
+		enterRule(_localctx, 58, RULE_relational_expr);
 		try {
-			setState(290);
+			setState(288);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(285);
+				setState(283);
 				logical_expr(0);
-				setState(286);
+				setState(284);
 				relation_operation();
-				setState(287);
+				setState(285);
 				logical_expr(0);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(289);
+				setState(287);
 				logical_expr(0);
 				}
 				break;
@@ -1721,21 +1852,21 @@ public class ZCodeParser extends Parser {
 		int _parentState = getState();
 		Logical_exprContext _localctx = new Logical_exprContext(_ctx, _parentState);
 		Logical_exprContext _prevctx = _localctx;
-		int _startState = 48;
-		enterRecursionRule(_localctx, 48, RULE_logical_expr, _p);
+		int _startState = 60;
+		enterRecursionRule(_localctx, 60, RULE_logical_expr, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(293);
+			setState(291);
 			adding_expr(0);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(300);
+			setState(298);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,30,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -1744,9 +1875,9 @@ public class ZCodeParser extends Parser {
 					{
 					_localctx = new Logical_exprContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_logical_expr);
-					setState(295);
+					setState(293);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(296);
+					setState(294);
 					_la = _input.LA(1);
 					if ( !(_la==AND_OP || _la==OR_OP) ) {
 					_errHandler.recoverInline(this);
@@ -1756,14 +1887,14 @@ public class ZCodeParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(297);
+					setState(295);
 					adding_expr(0);
 					}
 					} 
 				}
-				setState(302);
+				setState(300);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,30,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
 			}
 			}
 		}
@@ -1803,21 +1934,21 @@ public class ZCodeParser extends Parser {
 		int _parentState = getState();
 		Adding_exprContext _localctx = new Adding_exprContext(_ctx, _parentState);
 		Adding_exprContext _prevctx = _localctx;
-		int _startState = 50;
-		enterRecursionRule(_localctx, 50, RULE_adding_expr, _p);
+		int _startState = 62;
+		enterRecursionRule(_localctx, 62, RULE_adding_expr, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(304);
+			setState(302);
 			multiplying_expr(0);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(311);
+			setState(309);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,31,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -1826,9 +1957,9 @@ public class ZCodeParser extends Parser {
 					{
 					_localctx = new Adding_exprContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_adding_expr);
-					setState(306);
+					setState(304);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(307);
+					setState(305);
 					_la = _input.LA(1);
 					if ( !(_la==ADD_OP || _la==SUB_OP) ) {
 					_errHandler.recoverInline(this);
@@ -1838,14 +1969,14 @@ public class ZCodeParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(308);
+					setState(306);
 					multiplying_expr(0);
 					}
 					} 
 				}
-				setState(313);
+				setState(311);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,31,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
 			}
 			}
 		}
@@ -1886,21 +2017,21 @@ public class ZCodeParser extends Parser {
 		int _parentState = getState();
 		Multiplying_exprContext _localctx = new Multiplying_exprContext(_ctx, _parentState);
 		Multiplying_exprContext _prevctx = _localctx;
-		int _startState = 52;
-		enterRecursionRule(_localctx, 52, RULE_multiplying_expr, _p);
+		int _startState = 64;
+		enterRecursionRule(_localctx, 64, RULE_multiplying_expr, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(315);
+			setState(313);
 			not_logical();
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(322);
+			setState(320);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,32,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -1909,9 +2040,9 @@ public class ZCodeParser extends Parser {
 					{
 					_localctx = new Multiplying_exprContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_multiplying_expr);
-					setState(317);
+					setState(315);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(318);
+					setState(316);
 					_la = _input.LA(1);
 					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 14680064L) != 0)) ) {
 					_errHandler.recoverInline(this);
@@ -1921,14 +2052,14 @@ public class ZCodeParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(319);
+					setState(317);
 					not_logical();
 					}
 					} 
 				}
-				setState(324);
+				setState(322);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,32,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
 			}
 			}
 		}
@@ -1960,31 +2091,30 @@ public class ZCodeParser extends Parser {
 
 	public final Not_logicalContext not_logical() throws RecognitionException {
 		Not_logicalContext _localctx = new Not_logicalContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_not_logical);
+		enterRule(_localctx, 66, RULE_not_logical);
 		try {
-			setState(328);
+			setState(326);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NOT_OP:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(325);
+				setState(323);
 				match(NOT_OP);
-				setState(326);
+				setState(324);
 				expression();
 				}
 				break;
 			case SUB_OP:
 			case ID:
 			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
 			case TRUE_LIT:
 			case FALSE_LIT:
 			case REAL_LIT:
 			case STRING_LIT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(327);
+				setState(325);
 				sign_expr();
 				}
 				break;
@@ -2020,31 +2150,30 @@ public class ZCodeParser extends Parser {
 
 	public final Sign_exprContext sign_expr() throws RecognitionException {
 		Sign_exprContext _localctx = new Sign_exprContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_sign_expr);
+		enterRule(_localctx, 68, RULE_sign_expr);
 		try {
-			setState(333);
+			setState(331);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SUB_OP:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(330);
+				setState(328);
 				match(SUB_OP);
-				setState(331);
+				setState(329);
 				expression();
 				}
 				break;
 			case ID:
 			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
 			case TRUE_LIT:
 			case FALSE_LIT:
 			case REAL_LIT:
 			case STRING_LIT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(332);
-				index_expr(0);
+				setState(330);
+				index_expr();
 				}
 				break;
 			default:
@@ -2067,9 +2196,6 @@ public class ZCodeParser extends Parser {
 		public Parenthesis_exprContext parenthesis_expr() {
 			return getRuleContext(Parenthesis_exprContext.class,0);
 		}
-		public Index_exprContext index_expr() {
-			return getRuleContext(Index_exprContext.class,0);
-		}
 		public TerminalNode LEFT_BRACKET() { return getToken(ZCodeParser.LEFT_BRACKET, 0); }
 		public Expression_nonempty_listContext expression_nonempty_list() {
 			return getRuleContext(Expression_nonempty_listContext.class,0);
@@ -2082,51 +2208,32 @@ public class ZCodeParser extends Parser {
 	}
 
 	public final Index_exprContext index_expr() throws RecognitionException {
-		return index_expr(0);
-	}
-
-	private Index_exprContext index_expr(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		Index_exprContext _localctx = new Index_exprContext(_ctx, _parentState);
-		Index_exprContext _prevctx = _localctx;
-		int _startState = 58;
-		enterRecursionRule(_localctx, 58, RULE_index_expr, _p);
+		Index_exprContext _localctx = new Index_exprContext(_ctx, getState());
+		enterRule(_localctx, 70, RULE_index_expr);
 		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			{
-			setState(336);
-			parenthesis_expr();
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(345);
+			setState(339);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,35,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					{
-					_localctx = new Index_exprContext(_parentctx, _parentState);
-					pushNewRecursionContext(_localctx, _startState, RULE_index_expr);
-					setState(338);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(339);
-					match(LEFT_BRACKET);
-					setState(340);
-					expression_nonempty_list();
-					setState(341);
-					match(RIGHT_BRACKET);
-					}
-					} 
+			switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(333);
+				parenthesis_expr();
+				setState(334);
+				match(LEFT_BRACKET);
+				setState(335);
+				expression_nonempty_list();
+				setState(336);
+				match(RIGHT_BRACKET);
 				}
-				setState(347);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,35,_ctx);
-			}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(338);
+				parenthesis_expr();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -2135,7 +2242,7 @@ public class ZCodeParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-			unrollRecursionContexts(_parentctx);
+			exitRule();
 		}
 		return _localctx;
 	}
@@ -2158,31 +2265,30 @@ public class ZCodeParser extends Parser {
 
 	public final Parenthesis_exprContext parenthesis_expr() throws RecognitionException {
 		Parenthesis_exprContext _localctx = new Parenthesis_exprContext(_ctx, getState());
-		enterRule(_localctx, 60, RULE_parenthesis_expr);
+		enterRule(_localctx, 72, RULE_parenthesis_expr);
 		try {
-			setState(353);
+			setState(346);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LEFT_PARENTHESIS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(348);
+				setState(341);
 				match(LEFT_PARENTHESIS);
-				setState(349);
+				setState(342);
 				expression();
-				setState(350);
+				setState(343);
 				match(RIGHT_PARENTHESIS);
 				}
 				break;
 			case ID:
-			case LEFT_BRACKET:
 			case TRUE_LIT:
 			case FALSE_LIT:
 			case REAL_LIT:
 			case STRING_LIT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(352);
+				setState(345);
 				term();
 				}
 				break;
@@ -2211,9 +2317,6 @@ public class ZCodeParser extends Parser {
 		public Function_exprContext function_expr() {
 			return getRuleContext(Function_exprContext.class,0);
 		}
-		public Array_exprContext array_expr() {
-			return getRuleContext(Array_exprContext.class,0);
-		}
 		public TermContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2222,98 +2325,53 @@ public class ZCodeParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_term);
+		enterRule(_localctx, 74, RULE_term);
 		try {
-			setState(362);
+			setState(354);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,37,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(355);
+				setState(348);
 				match(REAL_LIT);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(356);
+				setState(349);
 				match(TRUE_LIT);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(357);
+				setState(350);
 				match(FALSE_LIT);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(358);
+				setState(351);
 				match(STRING_LIT);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(359);
+				setState(352);
 				match(ID);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(360);
+				setState(353);
 				function_expr();
 				}
 				break;
-			case 7:
-				enterOuterAlt(_localctx, 7);
-				{
-				setState(361);
-				array_expr();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Array_exprContext extends ParserRuleContext {
-		public TerminalNode LEFT_BRACKET() { return getToken(ZCodeParser.LEFT_BRACKET, 0); }
-		public Expression_listContext expression_list() {
-			return getRuleContext(Expression_listContext.class,0);
-		}
-		public TerminalNode RIGHT_BRACKET() { return getToken(ZCodeParser.RIGHT_BRACKET, 0); }
-		public Array_exprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_array_expr; }
-	}
-
-	public final Array_exprContext array_expr() throws RecognitionException {
-		Array_exprContext _localctx = new Array_exprContext(_ctx, getState());
-		enterRule(_localctx, 64, RULE_array_expr);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(364);
-			match(LEFT_BRACKET);
-			setState(365);
-			expression_list();
-			setState(366);
-			match(RIGHT_BRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2343,17 +2401,17 @@ public class ZCodeParser extends Parser {
 
 	public final Function_exprContext function_expr() throws RecognitionException {
 		Function_exprContext _localctx = new Function_exprContext(_ctx, getState());
-		enterRule(_localctx, 66, RULE_function_expr);
+		enterRule(_localctx, 76, RULE_function_expr);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(368);
+			setState(356);
 			match(ID);
-			setState(369);
+			setState(357);
 			match(LEFT_PARENTHESIS);
-			setState(370);
+			setState(358);
 			expression_list();
-			setState(371);
+			setState(359);
 			match(RIGHT_PARENTHESIS);
 			}
 		}
@@ -2384,30 +2442,30 @@ public class ZCodeParser extends Parser {
 
 	public final Expression_listContext expression_list() throws RecognitionException {
 		Expression_listContext _localctx = new Expression_listContext(_ctx, getState());
-		enterRule(_localctx, 68, RULE_expression_list);
+		enterRule(_localctx, 78, RULE_expression_list);
 		try {
-			setState(377);
+			setState(365);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SUB_OP:
 			case NOT_OP:
 			case ID:
 			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
 			case TRUE_LIT:
 			case FALSE_LIT:
 			case REAL_LIT:
 			case STRING_LIT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(373);
+				setState(361);
 				expression();
-				setState(374);
+				setState(362);
 				expression_list_tail();
 				}
 				break;
 			case RIGHT_PARENTHESIS:
 			case RIGHT_BRACKET:
+			case SEPARATOR_KEYWORD:
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -2444,30 +2502,27 @@ public class ZCodeParser extends Parser {
 
 	public final Expression_list_tailContext expression_list_tail() throws RecognitionException {
 		Expression_list_tailContext _localctx = new Expression_list_tailContext(_ctx, getState());
-		enterRule(_localctx, 70, RULE_expression_list_tail);
+		enterRule(_localctx, 80, RULE_expression_list_tail);
 		try {
-			setState(384);
+			setState(372);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case SEPARATOR_KEYWORD:
+			switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(379);
+				setState(367);
 				match(SEPARATOR_KEYWORD);
-				setState(380);
+				setState(368);
 				expression();
-				setState(381);
+				setState(369);
 				expression_list_tail();
 				}
 				break;
-			case RIGHT_PARENTHESIS:
-			case RIGHT_BRACKET:
+			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2497,13 +2552,13 @@ public class ZCodeParser extends Parser {
 
 	public final Expression_nonempty_listContext expression_nonempty_list() throws RecognitionException {
 		Expression_nonempty_listContext _localctx = new Expression_nonempty_listContext(_ctx, getState());
-		enterRule(_localctx, 72, RULE_expression_nonempty_list);
+		enterRule(_localctx, 82, RULE_expression_nonempty_list);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(386);
+			setState(374);
 			expression();
-			setState(387);
+			setState(375);
 			expression_nonempty_tail();
 			}
 		}
@@ -2535,19 +2590,19 @@ public class ZCodeParser extends Parser {
 
 	public final Expression_nonempty_tailContext expression_nonempty_tail() throws RecognitionException {
 		Expression_nonempty_tailContext _localctx = new Expression_nonempty_tailContext(_ctx, getState());
-		enterRule(_localctx, 74, RULE_expression_nonempty_tail);
+		enterRule(_localctx, 84, RULE_expression_nonempty_tail);
 		try {
-			setState(394);
+			setState(382);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SEPARATOR_KEYWORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(389);
+				setState(377);
 				match(SEPARATOR_KEYWORD);
-				setState(390);
+				setState(378);
 				expression();
-				setState(391);
+				setState(379);
 				expression_nonempty_tail();
 				}
 				break;
@@ -2581,12 +2636,11 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(Elif_stmt_listContext.class,0);
 		}
 		public TerminalNode ELSE_KEYWORD() { return getToken(ZCodeParser.ELSE_KEYWORD, 0); }
-		public Block_statContext block_stat() {
-			return getRuleContext(Block_statContext.class,0);
+		public Nl_nullable_listContext nl_nullable_list() {
+			return getRuleContext(Nl_nullable_listContext.class,0);
 		}
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
 		}
 		public Control_statContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2596,40 +2650,27 @@ public class ZCodeParser extends Parser {
 
 	public final Control_statContext control_stat() throws RecognitionException {
 		Control_statContext _localctx = new Control_statContext(_ctx, getState());
-		enterRule(_localctx, 76, RULE_control_stat);
-		int _la;
+		enterRule(_localctx, 86, RULE_control_stat);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(396);
+			setState(384);
 			match(IF_KEYWORD);
-			setState(397);
+			setState(385);
 			ifst_component();
-			setState(398);
+			setState(386);
 			elif_stmt_list();
-			setState(408);
+			setState(392);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,42,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
 			case 1:
 				{
-				setState(399);
+				setState(387);
 				match(ELSE_KEYWORD);
-				setState(403);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				while (_la==NL) {
-					{
-					{
-					setState(400);
-					match(NL);
-					}
-					}
-					setState(405);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				setState(406);
-				block_stat();
+				setState(388);
+				nl_nullable_list();
+				setState(389);
+				statement();
 				}
 				break;
 			case 2:
@@ -2667,19 +2708,19 @@ public class ZCodeParser extends Parser {
 
 	public final Elif_stmt_listContext elif_stmt_list() throws RecognitionException {
 		Elif_stmt_listContext _localctx = new Elif_stmt_listContext(_ctx, getState());
-		enterRule(_localctx, 78, RULE_elif_stmt_list);
+		enterRule(_localctx, 88, RULE_elif_stmt_list);
 		try {
-			setState(415);
+			setState(399);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,43,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,35,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(410);
+				setState(394);
 				match(ELIF_KEYWORD);
-				setState(411);
+				setState(395);
 				ifst_component();
-				setState(412);
+				setState(396);
 				elif_stmt_list();
 				}
 				break;
@@ -2708,12 +2749,11 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode RIGHT_PARENTHESIS() { return getToken(ZCodeParser.RIGHT_PARENTHESIS, 0); }
-		public Block_statContext block_stat() {
-			return getRuleContext(Block_statContext.class,0);
+		public Nl_nullable_listContext nl_nullable_list() {
+			return getRuleContext(Nl_nullable_listContext.class,0);
 		}
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
 		}
 		public Ifst_componentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2723,33 +2763,20 @@ public class ZCodeParser extends Parser {
 
 	public final Ifst_componentContext ifst_component() throws RecognitionException {
 		Ifst_componentContext _localctx = new Ifst_componentContext(_ctx, getState());
-		enterRule(_localctx, 80, RULE_ifst_component);
-		int _la;
+		enterRule(_localctx, 90, RULE_ifst_component);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(417);
+			setState(401);
 			match(LEFT_PARENTHESIS);
-			setState(418);
+			setState(402);
 			expression();
-			setState(419);
+			setState(403);
 			match(RIGHT_PARENTHESIS);
-			setState(423);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==NL) {
-				{
-				{
-				setState(420);
-				match(NL);
-				}
-				}
-				setState(425);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(426);
-			block_stat();
+			setState(404);
+			nl_nullable_list();
+			setState(405);
+			statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2775,18 +2802,12 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public TerminalNode BY_KEYWORD() { return getToken(ZCodeParser.BY_KEYWORD, 0); }
-		public Loop_body_statementContext loop_body_statement() {
-			return getRuleContext(Loop_body_statementContext.class,0);
+		public Nl_nullable_listContext nl_nullable_list() {
+			return getRuleContext(Nl_nullable_listContext.class,0);
 		}
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
 		}
-		public TerminalNode BEGIN_KEYWORD() { return getToken(ZCodeParser.BEGIN_KEYWORD, 0); }
-		public Loop_stmt_listContext loop_stmt_list() {
-			return getRuleContext(Loop_stmt_listContext.class,0);
-		}
-		public TerminalNode END_KEYWORD() { return getToken(ZCodeParser.END_KEYWORD, 0); }
 		public Loop_statContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2795,286 +2816,26 @@ public class ZCodeParser extends Parser {
 
 	public final Loop_statContext loop_stat() throws RecognitionException {
 		Loop_statContext _localctx = new Loop_statContext(_ctx, getState());
-		enterRule(_localctx, 82, RULE_loop_stat);
-		int _la;
+		enterRule(_localctx, 92, RULE_loop_stat);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(428);
+			setState(407);
 			match(FOR_KEYWORD);
-			setState(429);
+			setState(408);
 			match(ID);
-			setState(430);
+			setState(409);
 			match(UNTIL_KEYWORD);
-			setState(431);
+			setState(410);
 			expression();
-			setState(432);
+			setState(411);
 			match(BY_KEYWORD);
-			setState(433);
+			setState(412);
 			expression();
-			setState(437);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==NL) {
-				{
-				{
-				setState(434);
-				match(NL);
-				}
-				}
-				setState(439);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(454);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
-			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case BREAK_KEYWORD:
-			case CONTINUE_KEYWORD:
-			case IF_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
-				{
-				setState(440);
-				loop_body_statement();
-				}
-				break;
-			case BEGIN_KEYWORD:
-				{
-				{
-				setState(441);
-				match(BEGIN_KEYWORD);
-				setState(443); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(442);
-					match(NL);
-					}
-					}
-					setState(445); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
-				setState(447);
-				loop_stmt_list();
-				setState(448);
-				match(END_KEYWORD);
-				setState(450); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(449);
-					match(NL);
-					}
-					}
-					setState(452); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
-				}
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Loop_body_statementContext extends ParserRuleContext {
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public TerminalNode BREAK_KEYWORD() { return getToken(ZCodeParser.BREAK_KEYWORD, 0); }
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
-		}
-		public TerminalNode CONTINUE_KEYWORD() { return getToken(ZCodeParser.CONTINUE_KEYWORD, 0); }
-		public Loop_body_statementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_loop_body_statement; }
-	}
-
-	public final Loop_body_statementContext loop_body_statement() throws RecognitionException {
-		Loop_body_statementContext _localctx = new Loop_body_statementContext(_ctx, getState());
-		enterRule(_localctx, 84, RULE_loop_body_statement);
-		int _la;
-		try {
-			setState(469);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
-			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case IF_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(456);
-				statement();
-				}
-				break;
-			case BREAK_KEYWORD:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(457);
-				match(BREAK_KEYWORD);
-				setState(459); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(458);
-					match(NL);
-					}
-					}
-					setState(461); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
-				}
-				break;
-			case CONTINUE_KEYWORD:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(463);
-				match(CONTINUE_KEYWORD);
-				setState(465); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(464);
-					match(NL);
-					}
-					}
-					setState(467); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==NL );
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Loop_stmt_listContext extends ParserRuleContext {
-		public Loop_body_statementContext loop_body_statement() {
-			return getRuleContext(Loop_body_statementContext.class,0);
-		}
-		public Loop_stmt_listContext loop_stmt_list() {
-			return getRuleContext(Loop_stmt_listContext.class,0);
-		}
-		public Loop_stmt_listContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_loop_stmt_list; }
-	}
-
-	public final Loop_stmt_listContext loop_stmt_list() throws RecognitionException {
-		Loop_stmt_listContext _localctx = new Loop_stmt_listContext(_ctx, getState());
-		enterRule(_localctx, 86, RULE_loop_stmt_list);
-		try {
-			setState(475);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case NUM_KEYWORD:
-			case BOOL_KEYWORD:
-			case STRING_KEYWORD:
-			case RETURN_KEYWORD:
-			case VAR_KEYWORD:
-			case DYNAMIC_KEYWORD:
-			case FUNC_KEYWORD:
-			case FOR_KEYWORD:
-			case BREAK_KEYWORD:
-			case CONTINUE_KEYWORD:
-			case IF_KEYWORD:
-			case SUB_OP:
-			case NOT_OP:
-			case ID:
-			case LEFT_PARENTHESIS:
-			case LEFT_BRACKET:
-			case TRUE_LIT:
-			case FALSE_LIT:
-			case REAL_LIT:
-			case STRING_LIT:
-			case COMMENT_LINE:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(471);
-				loop_body_statement();
-				setState(472);
-				loop_stmt_list();
-				}
-				break;
-			case END_KEYWORD:
-				enterOuterAlt(_localctx, 2);
-				{
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			setState(413);
+			nl_nullable_list();
+			setState(414);
+			statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -3097,9 +2858,8 @@ public class ZCodeParser extends Parser {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public TerminalNode ASSIGN_OP() { return getToken(ZCodeParser.ASSIGN_OP, 0); }
-		public List<TerminalNode> NL() { return getTokens(ZCodeParser.NL); }
-		public TerminalNode NL(int i) {
-			return getToken(ZCodeParser.NL, i);
+		public Nl_listContext nl_list() {
+			return getRuleContext(Nl_listContext.class,0);
 		}
 		public AssignmentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3109,31 +2869,18 @@ public class ZCodeParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 88, RULE_assignment);
-		int _la;
+		enterRule(_localctx, 94, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(477);
+			setState(416);
 			expression();
-			setState(478);
+			setState(417);
 			match(ASSIGN_OP);
-			setState(479);
+			setState(418);
 			expression();
-			setState(481); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(480);
-				match(NL);
-				}
-				}
-				setState(483); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( _la==NL );
+			setState(419);
+			nl_list();
 			}
 		}
 		catch (RecognitionException re) {
@@ -3149,14 +2896,12 @@ public class ZCodeParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 24:
+		case 30:
 			return logical_expr_sempred((Logical_exprContext)_localctx, predIndex);
-		case 25:
+		case 31:
 			return adding_expr_sempred((Adding_exprContext)_localctx, predIndex);
-		case 26:
+		case 32:
 			return multiplying_expr_sempred((Multiplying_exprContext)_localctx, predIndex);
-		case 29:
-			return index_expr_sempred((Index_exprContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -3181,16 +2926,9 @@ public class ZCodeParser extends Parser {
 		}
 		return true;
 	}
-	private boolean index_expr_sempred(Index_exprContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 3:
-			return precpred(_ctx, 2);
-		}
-		return true;
-	}
 
 	public static final String _serializedATN =
-		"\u0004\u00013\u01e6\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u00013\u01a6\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -3202,302 +2940,249 @@ public class ZCodeParser extends Parser {
 		"\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007\u001e"+
 		"\u0002\u001f\u0007\u001f\u0002 \u0007 \u0002!\u0007!\u0002\"\u0007\"\u0002"+
 		"#\u0007#\u0002$\u0007$\u0002%\u0007%\u0002&\u0007&\u0002\'\u0007\'\u0002"+
-		"(\u0007(\u0002)\u0007)\u0002*\u0007*\u0002+\u0007+\u0002,\u0007,\u0001"+
-		"\u0000\u0005\u0000\\\b\u0000\n\u0000\f\u0000_\t\u0000\u0001\u0000\u0005"+
-		"\u0000b\b\u0000\n\u0000\f\u0000e\t\u0000\u0001\u0000\u0001\u0000\u0001"+
-		"\u0001\u0001\u0001\u0003\u0001k\b\u0001\u0001\u0002\u0001\u0002\u0004"+
-		"\u0002o\b\u0002\u000b\u0002\f\u0002p\u0001\u0002\u0001\u0002\u0004\u0002"+
-		"u\b\u0002\u000b\u0002\f\u0002v\u0003\u0002y\b\u0002\u0001\u0003\u0001"+
-		"\u0003\u0001\u0004\u0001\u0004\u0003\u0004\u007f\b\u0004\u0001\u0005\u0001"+
-		"\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0003"+
-		"\u0006\u0088\b\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
-		"\u0007\u0003\u0007\u008f\b\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001"+
-		"\b\u0001\b\u0001\b\u0001\b\u0003\b\u0099\b\b\u0001\t\u0001\t\u0001\t\u0001"+
-		"\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0003\t\u00a5\b\t\u0003"+
-		"\t\u00a7\b\t\u0001\n\u0001\n\u0001\n\u0004\n\u00ac\b\n\u000b\n\f\n\u00ad"+
-		"\u0003\n\u00b0\b\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u00b9\b\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\r\u0001\r"+
-		"\u0001\r\u0001\r\u0003\r\u00c7\b\r\u0001\u000e\u0001\u000e\u0001\u000e"+
-		"\u0001\u000e\u0001\u000e\u0003\u000e\u00ce\b\u000e\u0001\u000f\u0001\u000f"+
+		"(\u0007(\u0002)\u0007)\u0002*\u0007*\u0002+\u0007+\u0002,\u0007,\u0002"+
+		"-\u0007-\u0002.\u0007.\u0002/\u0007/\u0001\u0000\u0001\u0000\u0001\u0000"+
+		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0003\u0001"+
+		"i\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002n\b\u0002\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0003\u0003s\b\u0003\u0001\u0004\u0001"+
+		"\u0004\u0003\u0004w\b\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0003\u0005\u007f\b\u0005\u0001\u0006\u0001"+
+		"\u0006\u0001\u0007\u0001\u0007\u0003\u0007\u0085\b\u0007\u0001\b\u0001"+
+		"\b\u0001\b\u0001\b\u0001\b\u0003\b\u008c\b\b\u0001\t\u0001\t\u0001\t\u0001"+
+		"\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0003\t\u0099"+
+		"\b\t\u0001\n\u0001\n\u0001\n\u0001\n\u0003\n\u009f\b\n\u0001\u000b\u0001"+
+		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u00a6\b\u000b\u0001"+
+		"\f\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f\u00ad\b\f\u0001\r\u0001\r\u0001"+
+		"\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0003\r\u00b8\b\r\u0003"+
+		"\r\u00ba\b\r\u0001\u000e\u0001\u000e\u0003\u000e\u00be\b\u000e\u0001\u000f"+
 		"\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f"+
-		"\u0001\u000f\u0003\u000f\u00d9\b\u000f\u0001\u0010\u0001\u0010\u0001\u0010"+
-		"\u0001\u0010\u0003\u0010\u00df\b\u0010\u0001\u0011\u0001\u0011\u0001\u0011"+
-		"\u0001\u0011\u0003\u0011\u00e5\b\u0011\u0001\u0012\u0001\u0012\u0004\u0012"+
-		"\u00e9\b\u0012\u000b\u0012\f\u0012\u00ea\u0001\u0012\u0001\u0012\u0001"+
-		"\u0012\u0004\u0012\u00f0\b\u0012\u000b\u0012\f\u0012\u00f1\u0001\u0012"+
-		"\u0003\u0012\u00f5\b\u0012\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013"+
-		"\u0001\u0013\u0001\u0013\u0004\u0013\u00fd\b\u0013\u000b\u0013\f\u0013"+
-		"\u00fe\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0003\u0013\u0105"+
-		"\b\u0013\u0001\u0013\u0004\u0013\u0108\b\u0013\u000b\u0013\f\u0013\u0109"+
-		"\u0001\u0013\u0003\u0013\u010d\b\u0013\u0001\u0014\u0001\u0014\u0004\u0014"+
-		"\u0111\b\u0014\u000b\u0014\f\u0014\u0112\u0001\u0015\u0001\u0015\u0001"+
-		"\u0015\u0001\u0015\u0001\u0015\u0003\u0015\u011a\b\u0015\u0001\u0016\u0001"+
-		"\u0016\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0017\u0003"+
-		"\u0017\u0123\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001"+
-		"\u0018\u0001\u0018\u0005\u0018\u012b\b\u0018\n\u0018\f\u0018\u012e\t\u0018"+
-		"\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019"+
-		"\u0005\u0019\u0136\b\u0019\n\u0019\f\u0019\u0139\t\u0019\u0001\u001a\u0001"+
-		"\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0005\u001a\u0141"+
-		"\b\u001a\n\u001a\f\u001a\u0144\t\u001a\u0001\u001b\u0001\u001b\u0001\u001b"+
-		"\u0003\u001b\u0149\b\u001b\u0001\u001c\u0001\u001c\u0001\u001c\u0003\u001c"+
-		"\u014e\b\u001c\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d"+
-		"\u0001\u001d\u0001\u001d\u0001\u001d\u0005\u001d\u0158\b\u001d\n\u001d"+
-		"\f\u001d\u015b\t\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e"+
-		"\u0001\u001e\u0003\u001e\u0162\b\u001e\u0001\u001f\u0001\u001f\u0001\u001f"+
-		"\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0003\u001f\u016b\b\u001f"+
-		"\u0001 \u0001 \u0001 \u0001 \u0001!\u0001!\u0001!\u0001!\u0001!\u0001"+
-		"\"\u0001\"\u0001\"\u0001\"\u0003\"\u017a\b\"\u0001#\u0001#\u0001#\u0001"+
-		"#\u0001#\u0003#\u0181\b#\u0001$\u0001$\u0001$\u0001%\u0001%\u0001%\u0001"+
-		"%\u0001%\u0003%\u018b\b%\u0001&\u0001&\u0001&\u0001&\u0001&\u0005&\u0192"+
-		"\b&\n&\f&\u0195\t&\u0001&\u0001&\u0003&\u0199\b&\u0001\'\u0001\'\u0001"+
-		"\'\u0001\'\u0001\'\u0003\'\u01a0\b\'\u0001(\u0001(\u0001(\u0001(\u0005"+
-		"(\u01a6\b(\n(\f(\u01a9\t(\u0001(\u0001(\u0001)\u0001)\u0001)\u0001)\u0001"+
-		")\u0001)\u0001)\u0005)\u01b4\b)\n)\f)\u01b7\t)\u0001)\u0001)\u0001)\u0004"+
-		")\u01bc\b)\u000b)\f)\u01bd\u0001)\u0001)\u0001)\u0004)\u01c3\b)\u000b"+
-		")\f)\u01c4\u0003)\u01c7\b)\u0001*\u0001*\u0001*\u0004*\u01cc\b*\u000b"+
-		"*\f*\u01cd\u0001*\u0001*\u0004*\u01d2\b*\u000b*\f*\u01d3\u0003*\u01d6"+
-		"\b*\u0001+\u0001+\u0001+\u0001+\u0003+\u01dc\b+\u0001,\u0001,\u0001,\u0001"+
-		",\u0004,\u01e2\b,\u000b,\f,\u01e3\u0001,\u0000\u0004024:-\u0000\u0002"+
-		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e"+
-		" \"$&(*,.02468:<>@BDFHJLNPRTVX\u0000\u0005\u0001\u0000\u0001\u0003\u0002"+
-		"\u0000\u001b \"\"\u0001\u0000\u0019\u001a\u0001\u0000\u0013\u0014\u0001"+
-		"\u0000\u0015\u0017\u01fa\u0000]\u0001\u0000\u0000\u0000\u0002j\u0001\u0000"+
-		"\u0000\u0000\u0004x\u0001\u0000\u0000\u0000\u0006z\u0001\u0000\u0000\u0000"+
-		"\b~\u0001\u0000\u0000\u0000\n\u0080\u0001\u0000\u0000\u0000\f\u0087\u0001"+
-		"\u0000\u0000\u0000\u000e\u0089\u0001\u0000\u0000\u0000\u0010\u0090\u0001"+
-		"\u0000\u0000\u0000\u0012\u00a6\u0001\u0000\u0000\u0000\u0014\u00af\u0001"+
-		"\u0000\u0000\u0000\u0016\u00b1\u0001\u0000\u0000\u0000\u0018\u00bc\u0001"+
-		"\u0000\u0000\u0000\u001a\u00c6\u0001\u0000\u0000\u0000\u001c\u00cd\u0001"+
-		"\u0000\u0000\u0000\u001e\u00d8\u0001\u0000\u0000\u0000 \u00de\u0001\u0000"+
-		"\u0000\u0000\"\u00e4\u0001\u0000\u0000\u0000$\u00f4\u0001\u0000\u0000"+
-		"\u0000&\u010c\u0001\u0000\u0000\u0000(\u010e\u0001\u0000\u0000\u0000*"+
-		"\u0119\u0001\u0000\u0000\u0000,\u011b\u0001\u0000\u0000\u0000.\u0122\u0001"+
-		"\u0000\u0000\u00000\u0124\u0001\u0000\u0000\u00002\u012f\u0001\u0000\u0000"+
-		"\u00004\u013a\u0001\u0000\u0000\u00006\u0148\u0001\u0000\u0000\u00008"+
-		"\u014d\u0001\u0000\u0000\u0000:\u014f\u0001\u0000\u0000\u0000<\u0161\u0001"+
-		"\u0000\u0000\u0000>\u016a\u0001\u0000\u0000\u0000@\u016c\u0001\u0000\u0000"+
-		"\u0000B\u0170\u0001\u0000\u0000\u0000D\u0179\u0001\u0000\u0000\u0000F"+
-		"\u0180\u0001\u0000\u0000\u0000H\u0182\u0001\u0000\u0000\u0000J\u018a\u0001"+
-		"\u0000\u0000\u0000L\u018c\u0001\u0000\u0000\u0000N\u019f\u0001\u0000\u0000"+
-		"\u0000P\u01a1\u0001\u0000\u0000\u0000R\u01ac\u0001\u0000\u0000\u0000T"+
-		"\u01d5\u0001\u0000\u0000\u0000V\u01db\u0001\u0000\u0000\u0000X\u01dd\u0001"+
-		"\u0000\u0000\u0000Z\\\u0005-\u0000\u0000[Z\u0001\u0000\u0000\u0000\\_"+
-		"\u0001\u0000\u0000\u0000][\u0001\u0000\u0000\u0000]^\u0001\u0000\u0000"+
-		"\u0000^c\u0001\u0000\u0000\u0000_]\u0001\u0000\u0000\u0000`b\u0003\u0002"+
-		"\u0001\u0000a`\u0001\u0000\u0000\u0000be\u0001\u0000\u0000\u0000ca\u0001"+
-		"\u0000\u0000\u0000cd\u0001\u0000\u0000\u0000df\u0001\u0000\u0000\u0000"+
-		"ec\u0001\u0000\u0000\u0000fg\u0005\u0000\u0000\u0001g\u0001\u0001\u0000"+
-		"\u0000\u0000hk\u0003\u0004\u0002\u0000ik\u0003\u0014\n\u0000jh\u0001\u0000"+
-		"\u0000\u0000ji\u0001\u0000\u0000\u0000k\u0003\u0001\u0000\u0000\u0000"+
-		"ln\u0003\b\u0004\u0000mo\u0005-\u0000\u0000nm\u0001\u0000\u0000\u0000"+
-		"op\u0001\u0000\u0000\u0000pn\u0001\u0000\u0000\u0000pq\u0001\u0000\u0000"+
-		"\u0000qy\u0001\u0000\u0000\u0000rt\u0003\u0012\t\u0000su\u0005-\u0000"+
-		"\u0000ts\u0001\u0000\u0000\u0000uv\u0001\u0000\u0000\u0000vt\u0001\u0000"+
-		"\u0000\u0000vw\u0001\u0000\u0000\u0000wy\u0001\u0000\u0000\u0000xl\u0001"+
-		"\u0000\u0000\u0000xr\u0001\u0000\u0000\u0000y\u0005\u0001\u0000\u0000"+
-		"\u0000z{\u0007\u0000\u0000\u0000{\u0007\u0001\u0000\u0000\u0000|\u007f"+
-		"\u0003\u0010\b\u0000}\u007f\u0003\u000e\u0007\u0000~|\u0001\u0000\u0000"+
-		"\u0000~}\u0001\u0000\u0000\u0000\u007f\t\u0001\u0000\u0000\u0000\u0080"+
-		"\u0081\u0005#\u0000\u0000\u0081\u0082\u0003\f\u0006\u0000\u0082\u000b"+
-		"\u0001\u0000\u0000\u0000\u0083\u0084\u0005(\u0000\u0000\u0084\u0085\u0005"+
-		"#\u0000\u0000\u0085\u0088\u0003\f\u0006\u0000\u0086\u0088\u0001\u0000"+
-		"\u0000\u0000\u0087\u0083\u0001\u0000\u0000\u0000\u0087\u0086\u0001\u0000"+
-		"\u0000\u0000\u0088\r\u0001\u0000\u0000\u0000\u0089\u008a\u0003\u0006\u0003"+
-		"\u0000\u008a\u008e\u0003\n\u0005\u0000\u008b\u008c\u0005\u0012\u0000\u0000"+
-		"\u008c\u008f\u0003*\u0015\u0000\u008d\u008f\u0001\u0000\u0000\u0000\u008e"+
-		"\u008b\u0001\u0000\u0000\u0000\u008e\u008d\u0001\u0000\u0000\u0000\u008f"+
-		"\u000f\u0001\u0000\u0000\u0000\u0090\u0091\u0003\u0006\u0003\u0000\u0091"+
-		"\u0092\u0005#\u0000\u0000\u0092\u0093\u0005&\u0000\u0000\u0093\u0094\u0003"+
-		"H$\u0000\u0094\u0098\u0005\'\u0000\u0000\u0095\u0096\u0005\u0012\u0000"+
-		"\u0000\u0096\u0099\u0003*\u0015\u0000\u0097\u0099\u0001\u0000\u0000\u0000"+
-		"\u0098\u0095\u0001\u0000\u0000\u0000\u0098\u0097\u0001\u0000\u0000\u0000"+
-		"\u0099\u0011\u0001\u0000\u0000\u0000\u009a\u009b\u0005\u0005\u0000\u0000"+
-		"\u009b\u009c\u0003\n\u0005\u0000\u009c\u009d\u0005\u0012\u0000\u0000\u009d"+
-		"\u009e\u0003*\u0015\u0000\u009e\u00a7\u0001\u0000\u0000\u0000\u009f\u00a0"+
-		"\u0005\u0006\u0000\u0000\u00a0\u00a4\u0003\n\u0005\u0000\u00a1\u00a2\u0005"+
-		"\u0012\u0000\u0000\u00a2\u00a5\u0003*\u0015\u0000\u00a3\u00a5\u0001\u0000"+
-		"\u0000\u0000\u00a4\u00a1\u0001\u0000\u0000\u0000\u00a4\u00a3\u0001\u0000"+
-		"\u0000\u0000\u00a5\u00a7\u0001\u0000\u0000\u0000\u00a6\u009a\u0001\u0000"+
-		"\u0000\u0000\u00a6\u009f\u0001\u0000\u0000\u0000\u00a7\u0013\u0001\u0000"+
-		"\u0000\u0000\u00a8\u00b0\u0003\u0016\u000b\u0000\u00a9\u00ab\u0003\u0018"+
-		"\f\u0000\u00aa\u00ac\u0005-\u0000\u0000\u00ab\u00aa\u0001\u0000\u0000"+
-		"\u0000\u00ac\u00ad\u0001\u0000\u0000\u0000\u00ad\u00ab\u0001\u0000\u0000"+
-		"\u0000\u00ad\u00ae\u0001\u0000\u0000\u0000\u00ae\u00b0\u0001\u0000\u0000"+
-		"\u0000\u00af\u00a8\u0001\u0000\u0000\u0000\u00af\u00a9\u0001\u0000\u0000"+
-		"\u0000\u00b0\u0015\u0001\u0000\u0000\u0000\u00b1\u00b2\u0005\u0007\u0000"+
-		"\u0000\u00b2\u00b3\u0005#\u0000\u0000\u00b3\u00b4\u0005$\u0000\u0000\u00b4"+
-		"\u00b5\u0003\u001a\r\u0000\u00b5\u00b8\u0005%\u0000\u0000\u00b6\u00b9"+
-		"\u0005-\u0000\u0000\u00b7\u00b9\u0001\u0000\u0000\u0000\u00b8\u00b6\u0001"+
-		"\u0000\u0000\u0000\u00b8\u00b7\u0001\u0000\u0000\u0000\u00b9\u00ba\u0001"+
-		"\u0000\u0000\u0000\u00ba\u00bb\u0003$\u0012\u0000\u00bb\u0017\u0001\u0000"+
-		"\u0000\u0000\u00bc\u00bd\u0005\u0007\u0000\u0000\u00bd\u00be\u0005#\u0000"+
-		"\u0000\u00be\u00bf\u0005$\u0000\u0000\u00bf\u00c0\u0003\u001a\r\u0000"+
-		"\u00c0\u00c1\u0005%\u0000\u0000\u00c1\u0019\u0001\u0000\u0000\u0000\u00c2"+
-		"\u00c3\u0003\u001e\u000f\u0000\u00c3\u00c4\u0003\u001c\u000e\u0000\u00c4"+
-		"\u00c7\u0001\u0000\u0000\u0000\u00c5\u00c7\u0001\u0000\u0000\u0000\u00c6"+
-		"\u00c2\u0001\u0000\u0000\u0000\u00c6\u00c5\u0001\u0000\u0000\u0000\u00c7"+
-		"\u001b\u0001\u0000\u0000\u0000\u00c8\u00c9\u0005(\u0000\u0000\u00c9\u00ca"+
-		"\u0003\u001e\u000f\u0000\u00ca\u00cb\u0003\u001c\u000e\u0000\u00cb\u00ce"+
-		"\u0001\u0000\u0000\u0000\u00cc\u00ce\u0001\u0000\u0000\u0000\u00cd\u00c8"+
-		"\u0001\u0000\u0000\u0000\u00cd\u00cc\u0001\u0000\u0000\u0000\u00ce\u001d"+
-		"\u0001\u0000\u0000\u0000\u00cf\u00d0\u0003\u0006\u0003\u0000\u00d0\u00d1"+
-		"\u0005#\u0000\u0000\u00d1\u00d9\u0001\u0000\u0000\u0000\u00d2\u00d3\u0003"+
-		"\u0006\u0003\u0000\u00d3\u00d4\u0005#\u0000\u0000\u00d4\u00d5\u0005&\u0000"+
-		"\u0000\u00d5\u00d6\u0003H$\u0000\u00d6\u00d7\u0005\'\u0000\u0000\u00d7"+
-		"\u00d9\u0001\u0000\u0000\u0000\u00d8\u00cf\u0001\u0000\u0000\u0000\u00d8"+
-		"\u00d2\u0001\u0000\u0000\u0000\u00d9\u001f\u0001\u0000\u0000\u0000\u00da"+
-		"\u00db\u0003&\u0013\u0000\u00db\u00dc\u0003\"\u0011\u0000\u00dc\u00df"+
-		"\u0001\u0000\u0000\u0000\u00dd\u00df\u0001\u0000\u0000\u0000\u00de\u00da"+
-		"\u0001\u0000\u0000\u0000\u00de\u00dd\u0001\u0000\u0000\u0000\u00df!\u0001"+
-		"\u0000\u0000\u0000\u00e0\u00e1\u0003&\u0013\u0000\u00e1\u00e2\u0003\""+
-		"\u0011\u0000\u00e2\u00e5\u0001\u0000\u0000\u0000\u00e3\u00e5\u0001\u0000"+
-		"\u0000\u0000\u00e4\u00e0\u0001\u0000\u0000\u0000\u00e4\u00e3\u0001\u0000"+
-		"\u0000\u0000\u00e5#\u0001\u0000\u0000\u0000\u00e6\u00e8\u0005\u0010\u0000"+
-		"\u0000\u00e7\u00e9\u0005-\u0000\u0000\u00e8\u00e7\u0001\u0000\u0000\u0000"+
-		"\u00e9\u00ea\u0001\u0000\u0000\u0000\u00ea\u00e8\u0001\u0000\u0000\u0000"+
-		"\u00ea\u00eb\u0001\u0000\u0000\u0000\u00eb\u00ec\u0001\u0000\u0000\u0000"+
-		"\u00ec\u00ed\u0003 \u0010\u0000\u00ed\u00ef\u0005\u0011\u0000\u0000\u00ee"+
-		"\u00f0\u0005-\u0000\u0000\u00ef\u00ee\u0001\u0000\u0000\u0000\u00f0\u00f1"+
-		"\u0001\u0000\u0000\u0000\u00f1\u00ef\u0001\u0000\u0000\u0000\u00f1\u00f2"+
-		"\u0001\u0000\u0000\u0000\u00f2\u00f5\u0001\u0000\u0000\u0000\u00f3\u00f5"+
-		"\u0003&\u0013\u0000\u00f4\u00e6\u0001\u0000\u0000\u0000\u00f4\u00f3\u0001"+
-		"\u0000\u0000\u0000\u00f5%\u0001\u0000\u0000\u0000\u00f6\u010d\u0003L&"+
-		"\u0000\u00f7\u010d\u0003R)\u0000\u00f8\u010d\u0003\u0004\u0002\u0000\u00f9"+
-		"\u010d\u0003\u0014\n\u0000\u00fa\u00fc\u0003*\u0015\u0000\u00fb\u00fd"+
-		"\u0005-\u0000\u0000\u00fc\u00fb\u0001\u0000\u0000\u0000\u00fd\u00fe\u0001"+
-		"\u0000\u0000\u0000\u00fe\u00fc\u0001\u0000\u0000\u0000\u00fe\u00ff\u0001"+
-		"\u0000\u0000\u0000\u00ff\u010d\u0001\u0000\u0000\u0000\u0100\u010d\u0003"+
-		"X,\u0000\u0101\u0104\u0005\u0004\u0000\u0000\u0102\u0105\u0003*\u0015"+
-		"\u0000\u0103\u0105\u0001\u0000\u0000\u0000\u0104\u0102\u0001\u0000\u0000"+
-		"\u0000\u0104\u0103\u0001\u0000\u0000\u0000\u0105\u0107\u0001\u0000\u0000"+
-		"\u0000\u0106\u0108\u0005-\u0000\u0000\u0107\u0106\u0001\u0000\u0000\u0000"+
-		"\u0108\u0109\u0001\u0000\u0000\u0000\u0109\u0107\u0001\u0000\u0000\u0000"+
-		"\u0109\u010a\u0001\u0000\u0000\u0000\u010a\u010d\u0001\u0000\u0000\u0000"+
-		"\u010b\u010d\u0003(\u0014\u0000\u010c\u00f6\u0001\u0000\u0000\u0000\u010c"+
-		"\u00f7\u0001\u0000\u0000\u0000\u010c\u00f8\u0001\u0000\u0000\u0000\u010c"+
-		"\u00f9\u0001\u0000\u0000\u0000\u010c\u00fa\u0001\u0000\u0000\u0000\u010c"+
-		"\u0100\u0001\u0000\u0000\u0000\u010c\u0101\u0001\u0000\u0000\u0000\u010c"+
-		"\u010b\u0001\u0000\u0000\u0000\u010d\'\u0001\u0000\u0000\u0000\u010e\u0110"+
-		"\u0005/\u0000\u0000\u010f\u0111\u0005-\u0000\u0000\u0110\u010f\u0001\u0000"+
-		"\u0000\u0000\u0111\u0112\u0001\u0000\u0000\u0000\u0112\u0110\u0001\u0000"+
-		"\u0000\u0000\u0112\u0113\u0001\u0000\u0000\u0000\u0113)\u0001\u0000\u0000"+
-		"\u0000\u0114\u0115\u0003.\u0017\u0000\u0115\u0116\u0005!\u0000\u0000\u0116"+
-		"\u0117\u0003.\u0017\u0000\u0117\u011a\u0001\u0000\u0000\u0000\u0118\u011a"+
-		"\u0003.\u0017\u0000\u0119\u0114\u0001\u0000\u0000\u0000\u0119\u0118\u0001"+
-		"\u0000\u0000\u0000\u011a+\u0001\u0000\u0000\u0000\u011b\u011c\u0007\u0001"+
-		"\u0000\u0000\u011c-\u0001\u0000\u0000\u0000\u011d\u011e\u00030\u0018\u0000"+
-		"\u011e\u011f\u0003,\u0016\u0000\u011f\u0120\u00030\u0018\u0000\u0120\u0123"+
-		"\u0001\u0000\u0000\u0000\u0121\u0123\u00030\u0018\u0000\u0122\u011d\u0001"+
-		"\u0000\u0000\u0000\u0122\u0121\u0001\u0000\u0000\u0000\u0123/\u0001\u0000"+
-		"\u0000\u0000\u0124\u0125\u0006\u0018\uffff\uffff\u0000\u0125\u0126\u0003"+
-		"2\u0019\u0000\u0126\u012c\u0001\u0000\u0000\u0000\u0127\u0128\n\u0002"+
-		"\u0000\u0000\u0128\u0129\u0007\u0002\u0000\u0000\u0129\u012b\u00032\u0019"+
-		"\u0000\u012a\u0127\u0001\u0000\u0000\u0000\u012b\u012e\u0001\u0000\u0000"+
-		"\u0000\u012c\u012a\u0001\u0000\u0000\u0000\u012c\u012d\u0001\u0000\u0000"+
-		"\u0000\u012d1\u0001\u0000\u0000\u0000\u012e\u012c\u0001\u0000\u0000\u0000"+
-		"\u012f\u0130\u0006\u0019\uffff\uffff\u0000\u0130\u0131\u00034\u001a\u0000"+
-		"\u0131\u0137\u0001\u0000\u0000\u0000\u0132\u0133\n\u0002\u0000\u0000\u0133"+
-		"\u0134\u0007\u0003\u0000\u0000\u0134\u0136\u00034\u001a\u0000\u0135\u0132"+
-		"\u0001\u0000\u0000\u0000\u0136\u0139\u0001\u0000\u0000\u0000\u0137\u0135"+
-		"\u0001\u0000\u0000\u0000\u0137\u0138\u0001\u0000\u0000\u0000\u01383\u0001"+
-		"\u0000\u0000\u0000\u0139\u0137\u0001\u0000\u0000\u0000\u013a\u013b\u0006"+
-		"\u001a\uffff\uffff\u0000\u013b\u013c\u00036\u001b\u0000\u013c\u0142\u0001"+
-		"\u0000\u0000\u0000\u013d\u013e\n\u0002\u0000\u0000\u013e\u013f\u0007\u0004"+
-		"\u0000\u0000\u013f\u0141\u00036\u001b\u0000\u0140\u013d\u0001\u0000\u0000"+
-		"\u0000\u0141\u0144\u0001\u0000\u0000\u0000\u0142\u0140\u0001\u0000\u0000"+
-		"\u0000\u0142\u0143\u0001\u0000\u0000\u0000\u01435\u0001\u0000\u0000\u0000"+
-		"\u0144\u0142\u0001\u0000\u0000\u0000\u0145\u0146\u0005\u0018\u0000\u0000"+
-		"\u0146\u0149\u0003*\u0015\u0000\u0147\u0149\u00038\u001c\u0000\u0148\u0145"+
-		"\u0001\u0000\u0000\u0000\u0148\u0147\u0001\u0000\u0000\u0000\u01497\u0001"+
-		"\u0000\u0000\u0000\u014a\u014b\u0005\u0014\u0000\u0000\u014b\u014e\u0003"+
-		"*\u0015\u0000\u014c\u014e\u0003:\u001d\u0000\u014d\u014a\u0001\u0000\u0000"+
-		"\u0000\u014d\u014c\u0001\u0000\u0000\u0000\u014e9\u0001\u0000\u0000\u0000"+
-		"\u014f\u0150\u0006\u001d\uffff\uffff\u0000\u0150\u0151\u0003<\u001e\u0000"+
-		"\u0151\u0159\u0001\u0000\u0000\u0000\u0152\u0153\n\u0002\u0000\u0000\u0153"+
-		"\u0154\u0005&\u0000\u0000\u0154\u0155\u0003H$\u0000\u0155\u0156\u0005"+
-		"\'\u0000\u0000\u0156\u0158\u0001\u0000\u0000\u0000\u0157\u0152\u0001\u0000"+
-		"\u0000\u0000\u0158\u015b\u0001\u0000\u0000\u0000\u0159\u0157\u0001\u0000"+
-		"\u0000\u0000\u0159\u015a\u0001\u0000\u0000\u0000\u015a;\u0001\u0000\u0000"+
-		"\u0000\u015b\u0159\u0001\u0000\u0000\u0000\u015c\u015d\u0005$\u0000\u0000"+
-		"\u015d\u015e\u0003*\u0015\u0000\u015e\u015f\u0005%\u0000\u0000\u015f\u0162"+
-		"\u0001\u0000\u0000\u0000\u0160\u0162\u0003>\u001f\u0000\u0161\u015c\u0001"+
-		"\u0000\u0000\u0000\u0161\u0160\u0001\u0000\u0000\u0000\u0162=\u0001\u0000"+
-		"\u0000\u0000\u0163\u016b\u0005+\u0000\u0000\u0164\u016b\u0005)\u0000\u0000"+
-		"\u0165\u016b\u0005*\u0000\u0000\u0166\u016b\u0005,\u0000\u0000\u0167\u016b"+
-		"\u0005#\u0000\u0000\u0168\u016b\u0003B!\u0000\u0169\u016b\u0003@ \u0000"+
-		"\u016a\u0163\u0001\u0000\u0000\u0000\u016a\u0164\u0001\u0000\u0000\u0000"+
-		"\u016a\u0165\u0001\u0000\u0000\u0000\u016a\u0166\u0001\u0000\u0000\u0000"+
-		"\u016a\u0167\u0001\u0000\u0000\u0000\u016a\u0168\u0001\u0000\u0000\u0000"+
-		"\u016a\u0169\u0001\u0000\u0000\u0000\u016b?\u0001\u0000\u0000\u0000\u016c"+
-		"\u016d\u0005&\u0000\u0000\u016d\u016e\u0003D\"\u0000\u016e\u016f\u0005"+
-		"\'\u0000\u0000\u016fA\u0001\u0000\u0000\u0000\u0170\u0171\u0005#\u0000"+
-		"\u0000\u0171\u0172\u0005$\u0000\u0000\u0172\u0173\u0003D\"\u0000\u0173"+
-		"\u0174\u0005%\u0000\u0000\u0174C\u0001\u0000\u0000\u0000\u0175\u0176\u0003"+
-		"*\u0015\u0000\u0176\u0177\u0003F#\u0000\u0177\u017a\u0001\u0000\u0000"+
-		"\u0000\u0178\u017a\u0001\u0000\u0000\u0000\u0179\u0175\u0001\u0000\u0000"+
-		"\u0000\u0179\u0178\u0001\u0000\u0000\u0000\u017aE\u0001\u0000\u0000\u0000"+
-		"\u017b\u017c\u0005(\u0000\u0000\u017c\u017d\u0003*\u0015\u0000\u017d\u017e"+
-		"\u0003F#\u0000\u017e\u0181\u0001\u0000\u0000\u0000\u017f\u0181\u0001\u0000"+
-		"\u0000\u0000\u0180\u017b\u0001\u0000\u0000\u0000\u0180\u017f\u0001\u0000"+
-		"\u0000\u0000\u0181G\u0001\u0000\u0000\u0000\u0182\u0183\u0003*\u0015\u0000"+
-		"\u0183\u0184\u0003J%\u0000\u0184I\u0001\u0000\u0000\u0000\u0185\u0186"+
-		"\u0005(\u0000\u0000\u0186\u0187\u0003*\u0015\u0000\u0187\u0188\u0003J"+
-		"%\u0000\u0188\u018b\u0001\u0000\u0000\u0000\u0189\u018b\u0001\u0000\u0000"+
-		"\u0000\u018a\u0185\u0001\u0000\u0000\u0000\u018a\u0189\u0001\u0000\u0000"+
-		"\u0000\u018bK\u0001\u0000\u0000\u0000\u018c\u018d\u0005\r\u0000\u0000"+
-		"\u018d\u018e\u0003P(\u0000\u018e\u0198\u0003N\'\u0000\u018f\u0193\u0005"+
-		"\u000e\u0000\u0000\u0190\u0192\u0005-\u0000\u0000\u0191\u0190\u0001\u0000"+
-		"\u0000\u0000\u0192\u0195\u0001\u0000\u0000\u0000\u0193\u0191\u0001\u0000"+
-		"\u0000\u0000\u0193\u0194\u0001\u0000\u0000\u0000\u0194\u0196\u0001\u0000"+
-		"\u0000\u0000\u0195\u0193\u0001\u0000\u0000\u0000\u0196\u0199\u0003$\u0012"+
-		"\u0000\u0197\u0199\u0001\u0000\u0000\u0000\u0198\u018f\u0001\u0000\u0000"+
-		"\u0000\u0198\u0197\u0001\u0000\u0000\u0000\u0199M\u0001\u0000\u0000\u0000"+
-		"\u019a\u019b\u0005\u000f\u0000\u0000\u019b\u019c\u0003P(\u0000\u019c\u019d"+
-		"\u0003N\'\u0000\u019d\u01a0\u0001\u0000\u0000\u0000\u019e\u01a0\u0001"+
-		"\u0000\u0000\u0000\u019f\u019a\u0001\u0000\u0000\u0000\u019f\u019e\u0001"+
-		"\u0000\u0000\u0000\u01a0O\u0001\u0000\u0000\u0000\u01a1\u01a2\u0005$\u0000"+
-		"\u0000\u01a2\u01a3\u0003*\u0015\u0000\u01a3\u01a7\u0005%\u0000\u0000\u01a4"+
-		"\u01a6\u0005-\u0000\u0000\u01a5\u01a4\u0001\u0000\u0000\u0000\u01a6\u01a9"+
-		"\u0001\u0000\u0000\u0000\u01a7\u01a5\u0001\u0000\u0000\u0000\u01a7\u01a8"+
-		"\u0001\u0000\u0000\u0000\u01a8\u01aa\u0001\u0000\u0000\u0000\u01a9\u01a7"+
-		"\u0001\u0000\u0000\u0000\u01aa\u01ab\u0003$\u0012\u0000\u01abQ\u0001\u0000"+
-		"\u0000\u0000\u01ac\u01ad\u0005\b\u0000\u0000\u01ad\u01ae\u0005#\u0000"+
-		"\u0000\u01ae\u01af\u0005\t\u0000\u0000\u01af\u01b0\u0003*\u0015\u0000"+
-		"\u01b0\u01b1\u0005\n\u0000\u0000\u01b1\u01b5\u0003*\u0015\u0000\u01b2"+
-		"\u01b4\u0005-\u0000\u0000\u01b3\u01b2\u0001\u0000\u0000\u0000\u01b4\u01b7"+
-		"\u0001\u0000\u0000\u0000\u01b5\u01b3\u0001\u0000\u0000\u0000\u01b5\u01b6"+
-		"\u0001\u0000\u0000\u0000\u01b6\u01c6\u0001\u0000\u0000\u0000\u01b7\u01b5"+
-		"\u0001\u0000\u0000\u0000\u01b8\u01c7\u0003T*\u0000\u01b9\u01bb\u0005\u0010"+
-		"\u0000\u0000\u01ba\u01bc\u0005-\u0000\u0000\u01bb\u01ba\u0001\u0000\u0000"+
-		"\u0000\u01bc\u01bd\u0001\u0000\u0000\u0000\u01bd\u01bb\u0001\u0000\u0000"+
-		"\u0000\u01bd\u01be\u0001\u0000\u0000\u0000\u01be\u01bf\u0001\u0000\u0000"+
-		"\u0000\u01bf\u01c0\u0003V+\u0000\u01c0\u01c2\u0005\u0011\u0000\u0000\u01c1"+
-		"\u01c3\u0005-\u0000\u0000\u01c2\u01c1\u0001\u0000\u0000\u0000\u01c3\u01c4"+
-		"\u0001\u0000\u0000\u0000\u01c4\u01c2\u0001\u0000\u0000\u0000\u01c4\u01c5"+
-		"\u0001\u0000\u0000\u0000\u01c5\u01c7\u0001\u0000\u0000\u0000\u01c6\u01b8"+
-		"\u0001\u0000\u0000\u0000\u01c6\u01b9\u0001\u0000\u0000\u0000\u01c7S\u0001"+
-		"\u0000\u0000\u0000\u01c8\u01d6\u0003&\u0013\u0000\u01c9\u01cb\u0005\u000b"+
-		"\u0000\u0000\u01ca\u01cc\u0005-\u0000\u0000\u01cb\u01ca\u0001\u0000\u0000"+
-		"\u0000\u01cc\u01cd\u0001\u0000\u0000\u0000\u01cd\u01cb\u0001\u0000\u0000"+
-		"\u0000\u01cd\u01ce\u0001\u0000\u0000\u0000\u01ce\u01d6\u0001\u0000\u0000"+
-		"\u0000\u01cf\u01d1\u0005\f\u0000\u0000\u01d0\u01d2\u0005-\u0000\u0000"+
-		"\u01d1\u01d0\u0001\u0000\u0000\u0000\u01d2\u01d3\u0001\u0000\u0000\u0000"+
-		"\u01d3\u01d1\u0001\u0000\u0000\u0000\u01d3\u01d4\u0001\u0000\u0000\u0000"+
-		"\u01d4\u01d6\u0001\u0000\u0000\u0000\u01d5\u01c8\u0001\u0000\u0000\u0000"+
-		"\u01d5\u01c9\u0001\u0000\u0000\u0000\u01d5\u01cf\u0001\u0000\u0000\u0000"+
-		"\u01d6U\u0001\u0000\u0000\u0000\u01d7\u01d8\u0003T*\u0000\u01d8\u01d9"+
-		"\u0003V+\u0000\u01d9\u01dc\u0001\u0000\u0000\u0000\u01da\u01dc\u0001\u0000"+
-		"\u0000\u0000\u01db\u01d7\u0001\u0000\u0000\u0000\u01db\u01da\u0001\u0000"+
-		"\u0000\u0000\u01dcW\u0001\u0000\u0000\u0000\u01dd\u01de\u0003*\u0015\u0000"+
-		"\u01de\u01df\u0005\u0012\u0000\u0000\u01df\u01e1\u0003*\u0015\u0000\u01e0"+
-		"\u01e2\u0005-\u0000\u0000\u01e1\u01e0\u0001\u0000\u0000\u0000\u01e2\u01e3"+
-		"\u0001\u0000\u0000\u0000\u01e3\u01e1\u0001\u0000\u0000\u0000\u01e3\u01e4"+
-		"\u0001\u0000\u0000\u0000\u01e4Y\u0001\u0000\u0000\u00006]cjpvx~\u0087"+
-		"\u008e\u0098\u00a4\u00a6\u00ad\u00af\u00b8\u00c6\u00cd\u00d8\u00de\u00e4"+
-		"\u00ea\u00f1\u00f4\u00fe\u0104\u0109\u010c\u0112\u0119\u0122\u012c\u0137"+
-		"\u0142\u0148\u014d\u0159\u0161\u016a\u0179\u0180\u018a\u0193\u0198\u019f"+
-		"\u01a7\u01b5\u01bd\u01c4\u01c6\u01cd\u01d3\u01d5\u01db\u01e3";
+		"\u0001\u000f\u0003\u000f\u00c8\b\u000f\u0001\u0010\u0001\u0010\u0001\u0010"+
+		"\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011"+
+		"\u0001\u0011\u0001\u0011\u0003\u0011\u00d5\b\u0011\u0001\u0012\u0001\u0012"+
+		"\u0001\u0012\u0001\u0012\u0001\u0012\u0003\u0012\u00dc\b\u0012\u0001\u0013"+
+		"\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013"+
+		"\u0001\u0013\u0001\u0013\u0003\u0013\u00e7\b\u0013\u0001\u0014\u0001\u0014"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014\u00f5\b\u0014"+
+		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0003\u0015\u00fb\b\u0015"+
+		"\u0001\u0016\u0001\u0016\u0001\u0016\u0003\u0016\u0100\b\u0016\u0001\u0016"+
+		"\u0001\u0016\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0018\u0001\u0018"+
+		"\u0001\u0018\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019"+
+		"\u0001\u0019\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b"+
+		"\u0001\u001b\u0001\u001b\u0001\u001b\u0003\u001b\u0118\b\u001b\u0001\u001c"+
+		"\u0001\u001c\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d"+
+		"\u0003\u001d\u0121\b\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e"+
+		"\u0001\u001e\u0001\u001e\u0005\u001e\u0129\b\u001e\n\u001e\f\u001e\u012c"+
+		"\t\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001"+
+		"\u001f\u0005\u001f\u0134\b\u001f\n\u001f\f\u001f\u0137\t\u001f\u0001 "+
+		"\u0001 \u0001 \u0001 \u0001 \u0001 \u0005 \u013f\b \n \f \u0142\t \u0001"+
+		"!\u0001!\u0001!\u0003!\u0147\b!\u0001\"\u0001\"\u0001\"\u0003\"\u014c"+
+		"\b\"\u0001#\u0001#\u0001#\u0001#\u0001#\u0001#\u0003#\u0154\b#\u0001$"+
+		"\u0001$\u0001$\u0001$\u0001$\u0003$\u015b\b$\u0001%\u0001%\u0001%\u0001"+
+		"%\u0001%\u0001%\u0003%\u0163\b%\u0001&\u0001&\u0001&\u0001&\u0001&\u0001"+
+		"\'\u0001\'\u0001\'\u0001\'\u0003\'\u016e\b\'\u0001(\u0001(\u0001(\u0001"+
+		"(\u0001(\u0003(\u0175\b(\u0001)\u0001)\u0001)\u0001*\u0001*\u0001*\u0001"+
+		"*\u0001*\u0003*\u017f\b*\u0001+\u0001+\u0001+\u0001+\u0001+\u0001+\u0001"+
+		"+\u0001+\u0003+\u0189\b+\u0001,\u0001,\u0001,\u0001,\u0001,\u0003,\u0190"+
+		"\b,\u0001-\u0001-\u0001-\u0001-\u0001-\u0001-\u0001.\u0001.\u0001.\u0001"+
+		".\u0001.\u0001.\u0001.\u0001.\u0001.\u0001/\u0001/\u0001/\u0001/\u0001"+
+		"/\u0001/\u0000\u0003<>@0\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012"+
+		"\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@BDFHJLNPRTVXZ\\"+
+		"^\u0000\u0005\u0001\u0000\u0001\u0003\u0002\u0000\u001b \"\"\u0001\u0000"+
+		"\u0019\u001a\u0001\u0000\u0013\u0014\u0001\u0000\u0015\u0017\u01a5\u0000"+
+		"`\u0001\u0000\u0000\u0000\u0002h\u0001\u0000\u0000\u0000\u0004m\u0001"+
+		"\u0000\u0000\u0000\u0006r\u0001\u0000\u0000\u0000\bv\u0001\u0000\u0000"+
+		"\u0000\n~\u0001\u0000\u0000\u0000\f\u0080\u0001\u0000\u0000\u0000\u000e"+
+		"\u0084\u0001\u0000\u0000\u0000\u0010\u0086\u0001\u0000\u0000\u0000\u0012"+
+		"\u008d\u0001\u0000\u0000\u0000\u0014\u009e\u0001\u0000\u0000\u0000\u0016"+
+		"\u00a5\u0001\u0000\u0000\u0000\u0018\u00ac\u0001\u0000\u0000\u0000\u001a"+
+		"\u00b9\u0001\u0000\u0000\u0000\u001c\u00bd\u0001\u0000\u0000\u0000\u001e"+
+		"\u00bf\u0001\u0000\u0000\u0000 \u00c9\u0001\u0000\u0000\u0000\"\u00d4"+
+		"\u0001\u0000\u0000\u0000$\u00db\u0001\u0000\u0000\u0000&\u00e6\u0001\u0000"+
+		"\u0000\u0000(\u00f4\u0001\u0000\u0000\u0000*\u00fa\u0001\u0000\u0000\u0000"+
+		",\u00fc\u0001\u0000\u0000\u0000.\u0103\u0001\u0000\u0000\u00000\u0106"+
+		"\u0001\u0000\u0000\u00002\u0109\u0001\u0000\u0000\u00004\u010f\u0001\u0000"+
+		"\u0000\u00006\u0117\u0001\u0000\u0000\u00008\u0119\u0001\u0000\u0000\u0000"+
+		":\u0120\u0001\u0000\u0000\u0000<\u0122\u0001\u0000\u0000\u0000>\u012d"+
+		"\u0001\u0000\u0000\u0000@\u0138\u0001\u0000\u0000\u0000B\u0146\u0001\u0000"+
+		"\u0000\u0000D\u014b\u0001\u0000\u0000\u0000F\u0153\u0001\u0000\u0000\u0000"+
+		"H\u015a\u0001\u0000\u0000\u0000J\u0162\u0001\u0000\u0000\u0000L\u0164"+
+		"\u0001\u0000\u0000\u0000N\u016d\u0001\u0000\u0000\u0000P\u0174\u0001\u0000"+
+		"\u0000\u0000R\u0176\u0001\u0000\u0000\u0000T\u017e\u0001\u0000\u0000\u0000"+
+		"V\u0180\u0001\u0000\u0000\u0000X\u018f\u0001\u0000\u0000\u0000Z\u0191"+
+		"\u0001\u0000\u0000\u0000\\\u0197\u0001\u0000\u0000\u0000^\u01a0\u0001"+
+		"\u0000\u0000\u0000`a\u0003\u0004\u0002\u0000ab\u0003\u0002\u0001\u0000"+
+		"bc\u0005\u0000\u0000\u0001c\u0001\u0001\u0000\u0000\u0000de\u0003\b\u0004"+
+		"\u0000ef\u0003\u0002\u0001\u0000fi\u0001\u0000\u0000\u0000gi\u0003\b\u0004"+
+		"\u0000hd\u0001\u0000\u0000\u0000hg\u0001\u0000\u0000\u0000i\u0003\u0001"+
+		"\u0000\u0000\u0000jk\u0005,\u0000\u0000kn\u0003\u0004\u0002\u0000ln\u0001"+
+		"\u0000\u0000\u0000mj\u0001\u0000\u0000\u0000ml\u0001\u0000\u0000\u0000"+
+		"n\u0005\u0001\u0000\u0000\u0000op\u0005,\u0000\u0000ps\u0003\u0006\u0003"+
+		"\u0000qs\u0005,\u0000\u0000ro\u0001\u0000\u0000\u0000rq\u0001\u0000\u0000"+
+		"\u0000s\u0007\u0001\u0000\u0000\u0000tw\u0003\n\u0005\u0000uw\u0003\u001c"+
+		"\u000e\u0000vt\u0001\u0000\u0000\u0000vu\u0001\u0000\u0000\u0000w\t\u0001"+
+		"\u0000\u0000\u0000xy\u0003\u000e\u0007\u0000yz\u0003\u0006\u0003\u0000"+
+		"z\u007f\u0001\u0000\u0000\u0000{|\u0003\u001a\r\u0000|}\u0003\u0006\u0003"+
+		"\u0000}\u007f\u0001\u0000\u0000\u0000~x\u0001\u0000\u0000\u0000~{\u0001"+
+		"\u0000\u0000\u0000\u007f\u000b\u0001\u0000\u0000\u0000\u0080\u0081\u0007"+
+		"\u0000\u0000\u0000\u0081\r\u0001\u0000\u0000\u0000\u0082\u0085\u0003\u0012"+
+		"\t\u0000\u0083\u0085\u0003\u0010\b\u0000\u0084\u0082\u0001\u0000\u0000"+
+		"\u0000\u0084\u0083\u0001\u0000\u0000\u0000\u0085\u000f\u0001\u0000\u0000"+
+		"\u0000\u0086\u0087\u0003\f\u0006\u0000\u0087\u008b\u0005#\u0000\u0000"+
+		"\u0088\u0089\u0005\u0012\u0000\u0000\u0089\u008c\u00036\u001b\u0000\u008a"+
+		"\u008c\u0001\u0000\u0000\u0000\u008b\u0088\u0001\u0000\u0000\u0000\u008b"+
+		"\u008a\u0001\u0000\u0000\u0000\u008c\u0011\u0001\u0000\u0000\u0000\u008d"+
+		"\u008e\u0003\f\u0006\u0000\u008e\u008f\u0005#\u0000\u0000\u008f\u0090"+
+		"\u0005&\u0000\u0000\u0090\u0091\u0003R)\u0000\u0091\u0098\u0005\'\u0000"+
+		"\u0000\u0092\u0093\u0005\u0012\u0000\u0000\u0093\u0094\u0005&\u0000\u0000"+
+		"\u0094\u0095\u0003\u0014\n\u0000\u0095\u0096\u0005\'\u0000\u0000\u0096"+
+		"\u0099\u0001\u0000\u0000\u0000\u0097\u0099\u0001\u0000\u0000\u0000\u0098"+
+		"\u0092\u0001\u0000\u0000\u0000\u0098\u0097\u0001\u0000\u0000\u0000\u0099"+
+		"\u0013\u0001\u0000\u0000\u0000\u009a\u009b\u0003\u0018\f\u0000\u009b\u009c"+
+		"\u0003\u0016\u000b\u0000\u009c\u009f\u0001\u0000\u0000\u0000\u009d\u009f"+
+		"\u0001\u0000\u0000\u0000\u009e\u009a\u0001\u0000\u0000\u0000\u009e\u009d"+
+		"\u0001\u0000\u0000\u0000\u009f\u0015\u0001\u0000\u0000\u0000\u00a0\u00a1"+
+		"\u0005(\u0000\u0000\u00a1\u00a2\u0003\u0018\f\u0000\u00a2\u00a3\u0003"+
+		"\u0016\u000b\u0000\u00a3\u00a6\u0001\u0000\u0000\u0000\u00a4\u00a6\u0001"+
+		"\u0000\u0000\u0000\u00a5\u00a0\u0001\u0000\u0000\u0000\u00a5\u00a4\u0001"+
+		"\u0000\u0000\u0000\u00a6\u0017\u0001\u0000\u0000\u0000\u00a7\u00a8\u0005"+
+		"&\u0000\u0000\u00a8\u00a9\u0003\u0014\n\u0000\u00a9\u00aa\u0005\'\u0000"+
+		"\u0000\u00aa\u00ad\u0001\u0000\u0000\u0000\u00ab\u00ad\u0003N\'\u0000"+
+		"\u00ac\u00a7\u0001\u0000\u0000\u0000\u00ac\u00ab\u0001\u0000\u0000\u0000"+
+		"\u00ad\u0019\u0001\u0000\u0000\u0000\u00ae\u00af\u0005\u0005\u0000\u0000"+
+		"\u00af\u00b0\u0005#\u0000\u0000\u00b0\u00b1\u0005\u0012\u0000\u0000\u00b1"+
+		"\u00ba\u00036\u001b\u0000\u00b2\u00b3\u0005\u0006\u0000\u0000\u00b3\u00b7"+
+		"\u0005#\u0000\u0000\u00b4\u00b5\u0005\u0012\u0000\u0000\u00b5\u00b8\u0003"+
+		"6\u001b\u0000\u00b6\u00b8\u0001\u0000\u0000\u0000\u00b7\u00b4\u0001\u0000"+
+		"\u0000\u0000\u00b7\u00b6\u0001\u0000\u0000\u0000\u00b8\u00ba\u0001\u0000"+
+		"\u0000\u0000\u00b9\u00ae\u0001\u0000\u0000\u0000\u00b9\u00b2\u0001\u0000"+
+		"\u0000\u0000\u00ba\u001b\u0001\u0000\u0000\u0000\u00bb\u00be\u0003\u001e"+
+		"\u000f\u0000\u00bc\u00be\u0003 \u0010\u0000\u00bd\u00bb\u0001\u0000\u0000"+
+		"\u0000\u00bd\u00bc\u0001\u0000\u0000\u0000\u00be\u001d\u0001\u0000\u0000"+
+		"\u0000\u00bf\u00c0\u0005\u0007\u0000\u0000\u00c0\u00c1\u0005#\u0000\u0000"+
+		"\u00c1\u00c2\u0005$\u0000\u0000\u00c2\u00c3\u0003\"\u0011\u0000\u00c3"+
+		"\u00c4\u0005%\u0000\u0000\u00c4\u00c7\u0003\u0004\u0002\u0000\u00c5\u00c8"+
+		"\u00032\u0019\u0000\u00c6\u00c8\u0003,\u0016\u0000\u00c7\u00c5\u0001\u0000"+
+		"\u0000\u0000\u00c7\u00c6\u0001\u0000\u0000\u0000\u00c8\u001f\u0001\u0000"+
+		"\u0000\u0000\u00c9\u00ca\u0005\u0007\u0000\u0000\u00ca\u00cb\u0005#\u0000"+
+		"\u0000\u00cb\u00cc\u0005$\u0000\u0000\u00cc\u00cd\u0003\"\u0011\u0000"+
+		"\u00cd\u00ce\u0005%\u0000\u0000\u00ce\u00cf\u0003\u0006\u0003\u0000\u00cf"+
+		"!\u0001\u0000\u0000\u0000\u00d0\u00d1\u0003&\u0013\u0000\u00d1\u00d2\u0003"+
+		"$\u0012\u0000\u00d2\u00d5\u0001\u0000\u0000\u0000\u00d3\u00d5\u0001\u0000"+
+		"\u0000\u0000\u00d4\u00d0\u0001\u0000\u0000\u0000\u00d4\u00d3\u0001\u0000"+
+		"\u0000\u0000\u00d5#\u0001\u0000\u0000\u0000\u00d6\u00d7\u0005(\u0000\u0000"+
+		"\u00d7\u00d8\u0003&\u0013\u0000\u00d8\u00d9\u0003$\u0012\u0000\u00d9\u00dc"+
+		"\u0001\u0000\u0000\u0000\u00da\u00dc\u0001\u0000\u0000\u0000\u00db\u00d6"+
+		"\u0001\u0000\u0000\u0000\u00db\u00da\u0001\u0000\u0000\u0000\u00dc%\u0001"+
+		"\u0000\u0000\u0000\u00dd\u00de\u0003\f\u0006\u0000\u00de\u00df\u0005#"+
+		"\u0000\u0000\u00df\u00e7\u0001\u0000\u0000\u0000\u00e0\u00e1\u0003\f\u0006"+
+		"\u0000\u00e1\u00e2\u0005#\u0000\u0000\u00e2\u00e3\u0005&\u0000\u0000\u00e3"+
+		"\u00e4\u0003R)\u0000\u00e4\u00e5\u0005\'\u0000\u0000\u00e5\u00e7\u0001"+
+		"\u0000\u0000\u0000\u00e6\u00dd\u0001\u0000\u0000\u0000\u00e6\u00e0\u0001"+
+		"\u0000\u0000\u0000\u00e7\'\u0001\u0000\u0000\u0000\u00e8\u00f5\u0003V"+
+		"+\u0000\u00e9\u00f5\u0003\\.\u0000\u00ea\u00f5\u0003\n\u0005\u0000\u00eb"+
+		"\u00f5\u0003\u001c\u000e\u0000\u00ec\u00f5\u00032\u0019\u0000\u00ed\u00ee"+
+		"\u00036\u001b\u0000\u00ee\u00ef\u0003\u0006\u0003\u0000\u00ef\u00f5\u0001"+
+		"\u0000\u0000\u0000\u00f0\u00f5\u0003^/\u0000\u00f1\u00f5\u0003,\u0016"+
+		"\u0000\u00f2\u00f5\u0003.\u0017\u0000\u00f3\u00f5\u00030\u0018\u0000\u00f4"+
+		"\u00e8\u0001\u0000\u0000\u0000\u00f4\u00e9\u0001\u0000\u0000\u0000\u00f4"+
+		"\u00ea\u0001\u0000\u0000\u0000\u00f4\u00eb\u0001\u0000\u0000\u0000\u00f4"+
+		"\u00ec\u0001\u0000\u0000\u0000\u00f4\u00ed\u0001\u0000\u0000\u0000\u00f4"+
+		"\u00f0\u0001\u0000\u0000\u0000\u00f4\u00f1\u0001\u0000\u0000\u0000\u00f4"+
+		"\u00f2\u0001\u0000\u0000\u0000\u00f4\u00f3\u0001\u0000\u0000\u0000\u00f5"+
+		")\u0001\u0000\u0000\u0000\u00f6\u00f7\u0003(\u0014\u0000\u00f7\u00f8\u0003"+
+		"*\u0015\u0000\u00f8\u00fb\u0001\u0000\u0000\u0000\u00f9\u00fb\u0001\u0000"+
+		"\u0000\u0000\u00fa\u00f6\u0001\u0000\u0000\u0000\u00fa\u00f9\u0001\u0000"+
+		"\u0000\u0000\u00fb+\u0001\u0000\u0000\u0000\u00fc\u00ff\u0005\u0004\u0000"+
+		"\u0000\u00fd\u0100\u00036\u001b\u0000\u00fe\u0100\u0001\u0000\u0000\u0000"+
+		"\u00ff\u00fd\u0001\u0000\u0000\u0000\u00ff\u00fe\u0001\u0000\u0000\u0000"+
+		"\u0100\u0101\u0001\u0000\u0000\u0000\u0101\u0102\u0003\u0006\u0003\u0000"+
+		"\u0102-\u0001\u0000\u0000\u0000\u0103\u0104\u0005\u000b\u0000\u0000\u0104"+
+		"\u0105\u0003\u0006\u0003\u0000\u0105/\u0001\u0000\u0000\u0000\u0106\u0107"+
+		"\u0005\f\u0000\u0000\u0107\u0108\u0003\u0006\u0003\u0000\u01081\u0001"+
+		"\u0000\u0000\u0000\u0109\u010a\u0005\u0010\u0000\u0000\u010a\u010b\u0003"+
+		"\u0006\u0003\u0000\u010b\u010c\u0003*\u0015\u0000\u010c\u010d\u0005\u0011"+
+		"\u0000\u0000\u010d\u010e\u0003\u0006\u0003\u0000\u010e3\u0001\u0000\u0000"+
+		"\u0000\u010f\u0110\u0005.\u0000\u0000\u0110\u0111\u0003\u0006\u0003\u0000"+
+		"\u01115\u0001\u0000\u0000\u0000\u0112\u0113\u0003:\u001d\u0000\u0113\u0114"+
+		"\u0005!\u0000\u0000\u0114\u0115\u0003:\u001d\u0000\u0115\u0118\u0001\u0000"+
+		"\u0000\u0000\u0116\u0118\u0003:\u001d\u0000\u0117\u0112\u0001\u0000\u0000"+
+		"\u0000\u0117\u0116\u0001\u0000\u0000\u0000\u01187\u0001\u0000\u0000\u0000"+
+		"\u0119\u011a\u0007\u0001\u0000\u0000\u011a9\u0001\u0000\u0000\u0000\u011b"+
+		"\u011c\u0003<\u001e\u0000\u011c\u011d\u00038\u001c\u0000\u011d\u011e\u0003"+
+		"<\u001e\u0000\u011e\u0121\u0001\u0000\u0000\u0000\u011f\u0121\u0003<\u001e"+
+		"\u0000\u0120\u011b\u0001\u0000\u0000\u0000\u0120\u011f\u0001\u0000\u0000"+
+		"\u0000\u0121;\u0001\u0000\u0000\u0000\u0122\u0123\u0006\u001e\uffff\uffff"+
+		"\u0000\u0123\u0124\u0003>\u001f\u0000\u0124\u012a\u0001\u0000\u0000\u0000"+
+		"\u0125\u0126\n\u0002\u0000\u0000\u0126\u0127\u0007\u0002\u0000\u0000\u0127"+
+		"\u0129\u0003>\u001f\u0000\u0128\u0125\u0001\u0000\u0000\u0000\u0129\u012c"+
+		"\u0001\u0000\u0000\u0000\u012a\u0128\u0001\u0000\u0000\u0000\u012a\u012b"+
+		"\u0001\u0000\u0000\u0000\u012b=\u0001\u0000\u0000\u0000\u012c\u012a\u0001"+
+		"\u0000\u0000\u0000\u012d\u012e\u0006\u001f\uffff\uffff\u0000\u012e\u012f"+
+		"\u0003@ \u0000\u012f\u0135\u0001\u0000\u0000\u0000\u0130\u0131\n\u0002"+
+		"\u0000\u0000\u0131\u0132\u0007\u0003\u0000\u0000\u0132\u0134\u0003@ \u0000"+
+		"\u0133\u0130\u0001\u0000\u0000\u0000\u0134\u0137\u0001\u0000\u0000\u0000"+
+		"\u0135\u0133\u0001\u0000\u0000\u0000\u0135\u0136\u0001\u0000\u0000\u0000"+
+		"\u0136?\u0001\u0000\u0000\u0000\u0137\u0135\u0001\u0000\u0000\u0000\u0138"+
+		"\u0139\u0006 \uffff\uffff\u0000\u0139\u013a\u0003B!\u0000\u013a\u0140"+
+		"\u0001\u0000\u0000\u0000\u013b\u013c\n\u0002\u0000\u0000\u013c\u013d\u0007"+
+		"\u0004\u0000\u0000\u013d\u013f\u0003B!\u0000\u013e\u013b\u0001\u0000\u0000"+
+		"\u0000\u013f\u0142\u0001\u0000\u0000\u0000\u0140\u013e\u0001\u0000\u0000"+
+		"\u0000\u0140\u0141\u0001\u0000\u0000\u0000\u0141A\u0001\u0000\u0000\u0000"+
+		"\u0142\u0140\u0001\u0000\u0000\u0000\u0143\u0144\u0005\u0018\u0000\u0000"+
+		"\u0144\u0147\u00036\u001b\u0000\u0145\u0147\u0003D\"\u0000\u0146\u0143"+
+		"\u0001\u0000\u0000\u0000\u0146\u0145\u0001\u0000\u0000\u0000\u0147C\u0001"+
+		"\u0000\u0000\u0000\u0148\u0149\u0005\u0014\u0000\u0000\u0149\u014c\u0003"+
+		"6\u001b\u0000\u014a\u014c\u0003F#\u0000\u014b\u0148\u0001\u0000\u0000"+
+		"\u0000\u014b\u014a\u0001\u0000\u0000\u0000\u014cE\u0001\u0000\u0000\u0000"+
+		"\u014d\u014e\u0003H$\u0000\u014e\u014f\u0005&\u0000\u0000\u014f\u0150"+
+		"\u0003R)\u0000\u0150\u0151\u0005\'\u0000\u0000\u0151\u0154\u0001\u0000"+
+		"\u0000\u0000\u0152\u0154\u0003H$\u0000\u0153\u014d\u0001\u0000\u0000\u0000"+
+		"\u0153\u0152\u0001\u0000\u0000\u0000\u0154G\u0001\u0000\u0000\u0000\u0155"+
+		"\u0156\u0005$\u0000\u0000\u0156\u0157\u00036\u001b\u0000\u0157\u0158\u0005"+
+		"%\u0000\u0000\u0158\u015b\u0001\u0000\u0000\u0000\u0159\u015b\u0003J%"+
+		"\u0000\u015a\u0155\u0001\u0000\u0000\u0000\u015a\u0159\u0001\u0000\u0000"+
+		"\u0000\u015bI\u0001\u0000\u0000\u0000\u015c\u0163\u0005+\u0000\u0000\u015d"+
+		"\u0163\u0005)\u0000\u0000\u015e\u0163\u0005*\u0000\u0000\u015f\u0163\u0005"+
+		"0\u0000\u0000\u0160\u0163\u0005#\u0000\u0000\u0161\u0163\u0003L&\u0000"+
+		"\u0162\u015c\u0001\u0000\u0000\u0000\u0162\u015d\u0001\u0000\u0000\u0000"+
+		"\u0162\u015e\u0001\u0000\u0000\u0000\u0162\u015f\u0001\u0000\u0000\u0000"+
+		"\u0162\u0160\u0001\u0000\u0000\u0000\u0162\u0161\u0001\u0000\u0000\u0000"+
+		"\u0163K\u0001\u0000\u0000\u0000\u0164\u0165\u0005#\u0000\u0000\u0165\u0166"+
+		"\u0005$\u0000\u0000\u0166\u0167\u0003N\'\u0000\u0167\u0168\u0005%\u0000"+
+		"\u0000\u0168M\u0001\u0000\u0000\u0000\u0169\u016a\u00036\u001b\u0000\u016a"+
+		"\u016b\u0003P(\u0000\u016b\u016e\u0001\u0000\u0000\u0000\u016c\u016e\u0001"+
+		"\u0000\u0000\u0000\u016d\u0169\u0001\u0000\u0000\u0000\u016d\u016c\u0001"+
+		"\u0000\u0000\u0000\u016eO\u0001\u0000\u0000\u0000\u016f\u0170\u0005(\u0000"+
+		"\u0000\u0170\u0171\u00036\u001b\u0000\u0171\u0172\u0003P(\u0000\u0172"+
+		"\u0175\u0001\u0000\u0000\u0000\u0173\u0175\u0001\u0000\u0000\u0000\u0174"+
+		"\u016f\u0001\u0000\u0000\u0000\u0174\u0173\u0001\u0000\u0000\u0000\u0175"+
+		"Q\u0001\u0000\u0000\u0000\u0176\u0177\u00036\u001b\u0000\u0177\u0178\u0003"+
+		"T*\u0000\u0178S\u0001\u0000\u0000\u0000\u0179\u017a\u0005(\u0000\u0000"+
+		"\u017a\u017b\u00036\u001b\u0000\u017b\u017c\u0003T*\u0000\u017c\u017f"+
+		"\u0001\u0000\u0000\u0000\u017d\u017f\u0001\u0000\u0000\u0000\u017e\u0179"+
+		"\u0001\u0000\u0000\u0000\u017e\u017d\u0001\u0000\u0000\u0000\u017fU\u0001"+
+		"\u0000\u0000\u0000\u0180\u0181\u0005\r\u0000\u0000\u0181\u0182\u0003Z"+
+		"-\u0000\u0182\u0188\u0003X,\u0000\u0183\u0184\u0005\u000e\u0000\u0000"+
+		"\u0184\u0185\u0003\u0004\u0002\u0000\u0185\u0186\u0003(\u0014\u0000\u0186"+
+		"\u0189\u0001\u0000\u0000\u0000\u0187\u0189\u0001\u0000\u0000\u0000\u0188"+
+		"\u0183\u0001\u0000\u0000\u0000\u0188\u0187\u0001\u0000\u0000\u0000\u0189"+
+		"W\u0001\u0000\u0000\u0000\u018a\u018b\u0005\u000f\u0000\u0000\u018b\u018c"+
+		"\u0003Z-\u0000\u018c\u018d\u0003X,\u0000\u018d\u0190\u0001\u0000\u0000"+
+		"\u0000\u018e\u0190\u0001\u0000\u0000\u0000\u018f\u018a\u0001\u0000\u0000"+
+		"\u0000\u018f\u018e\u0001\u0000\u0000\u0000\u0190Y\u0001\u0000\u0000\u0000"+
+		"\u0191\u0192\u0005$\u0000\u0000\u0192\u0193\u00036\u001b\u0000\u0193\u0194"+
+		"\u0005%\u0000\u0000\u0194\u0195\u0003\u0004\u0002\u0000\u0195\u0196\u0003"+
+		"(\u0014\u0000\u0196[\u0001\u0000\u0000\u0000\u0197\u0198\u0005\b\u0000"+
+		"\u0000\u0198\u0199\u0005#\u0000\u0000\u0199\u019a\u0005\t\u0000\u0000"+
+		"\u019a\u019b\u00036\u001b\u0000\u019b\u019c\u0005\n\u0000\u0000\u019c"+
+		"\u019d\u00036\u001b\u0000\u019d\u019e\u0003\u0004\u0002\u0000\u019e\u019f"+
+		"\u0003(\u0014\u0000\u019f]\u0001\u0000\u0000\u0000\u01a0\u01a1\u00036"+
+		"\u001b\u0000\u01a1\u01a2\u0005\u0012\u0000\u0000\u01a2\u01a3\u00036\u001b"+
+		"\u0000\u01a3\u01a4\u0003\u0006\u0003\u0000\u01a4_\u0001\u0000\u0000\u0000"+
+		"$hmrv~\u0084\u008b\u0098\u009e\u00a5\u00ac\u00b7\u00b9\u00bd\u00c7\u00d4"+
+		"\u00db\u00e6\u00f4\u00fa\u00ff\u0117\u0120\u012a\u0135\u0140\u0146\u014b"+
+		"\u0153\u015a\u0162\u016d\u0174\u017e\u0188\u018f";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

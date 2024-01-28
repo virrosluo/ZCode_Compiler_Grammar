@@ -1,0 +1,8 @@
+func main() begin
+            for i until num1 < 0 by num1
+                if (num1 > 1) inc(i)
+                else dec(i) 
+        end
+        func inc(number a) return a+1
+        func dec(number a) return a-1
+        

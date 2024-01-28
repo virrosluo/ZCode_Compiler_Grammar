@@ -1,0 +1,10 @@
+number r <- 5
+        number pi <- 3.1415
+        func main() begin
+            number s <- calcS(r,pi)
+            if (s < 10) return "small"
+            else return "big"
+        end
+
+        func calcS(number r, number pi) return 2*pi*r*r
+        

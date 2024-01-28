@@ -1,0 +1,7 @@
+func my_func() 
+
+begin
+
+            x <- a[b[1 + c]]
+            a[[b[1 + c]]] <- 123
+        end

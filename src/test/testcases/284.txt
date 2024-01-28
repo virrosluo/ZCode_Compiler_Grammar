@@ -1,0 +1,7 @@
+func main() begin
+            printString("---*---")
+            printString("--***--")
+            printString("-*****-")
+            printString("-******")
+        end
+        

@@ -1,0 +1,15 @@
+func main()
+        begin
+            for i until i < 0 by i + 1
+
+
+
+                begin
+                    a <- a + 1 * 1000 / (-1000e-13)
+                    b <- a % (1000) / (a+54e31)
+                end
+
+
+                
+        end
+        

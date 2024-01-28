@@ -1,0 +1,11 @@
+dynamic global
+        var a <- "const"
+        func main() begin
+
+
+        
+
+
+
+        end 
+        

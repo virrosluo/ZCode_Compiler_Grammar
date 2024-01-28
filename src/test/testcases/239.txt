@@ -1,0 +1,5 @@
+func main() begin
+            for i=2 until i < foo(2,3) by 1
+                i <- i + foo(2,3)[3,4]
+        end
+        

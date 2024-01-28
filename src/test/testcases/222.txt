@@ -1,0 +1,9 @@
+func main() begin 
+            a <- ""
+
+
+            a[4+foo(23)/1.34E-3] <- "hello"
+
+            a <- number
+        end
+        

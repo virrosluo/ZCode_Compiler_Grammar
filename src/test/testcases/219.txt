@@ -1,0 +1,5 @@
+func main(dynamic a)
+        begin 
+            number test <- 1e-10 
+        end
+        

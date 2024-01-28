@@ -1,0 +1,6 @@
+func main() begin
+                return something 
+        end
+        func temp(number a1, number a2) return noth_
+        func temp2() return -a[2+temp(2,3)][10]
+        

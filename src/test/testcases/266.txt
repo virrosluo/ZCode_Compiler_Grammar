@@ -1,0 +1,6 @@
+func main() return funccall(number1) and funccall(number2) or funccall(number3)
+        func funccall(number a)
+        func funccall(number a) begin
+            return true
+        end
+        

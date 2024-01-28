@@ -1,0 +1,5 @@
+func main() begin 
+            for i until i%x=0 by 10
+                i <- i+5
+        end
+        

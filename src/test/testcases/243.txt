@@ -1,0 +1,12 @@
+func main() begin
+                return
+        end
+        func temp(number a1, number a2) return 
+        func temp2(bool b1) begin
+            begin
+                begin
+                    return 
+                end
+            end
+        end
+        

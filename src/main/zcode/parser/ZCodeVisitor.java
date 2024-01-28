@@ -16,6 +16,24 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(ZCodeParser.ProgramContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#decl_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecl_list(ZCodeParser.Decl_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#nl_null_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNl_null_list(ZCodeParser.Nl_null_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#nl_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNl_list(ZCodeParser.Nl_listContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -40,12 +58,6 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExplicit_declare(ZCodeParser.Explicit_declareContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ZCodeParser#idlist}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdlist(ZCodeParser.IdlistContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#primitive_declare}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -58,11 +70,23 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArray_declare(ZCodeParser.Array_declareContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ZCodeParser#value_list}.
+	 * Visit a parse tree produced by {@link ZCodeParser#array_lit_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValue_list(ZCodeParser.Value_listContext ctx);
+	T visitArray_lit_list(ZCodeParser.Array_lit_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#array_lit_tail}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_lit_tail(ZCodeParser.Array_lit_tailContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#array_lit}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_lit(ZCodeParser.Array_litContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#implicit_declare}.
 	 * @param ctx the parse tree
@@ -94,11 +118,47 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParam_list(ZCodeParser.Param_listContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#param_list_tail}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParam_list_tail(ZCodeParser.Param_list_tailContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#parameter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitParameter(ZCodeParser.ParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(ZCodeParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#statement_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement_list(ZCodeParser.Statement_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#return_stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn_stat(ZCodeParser.Return_statContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#break_stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBreak_stat(ZCodeParser.Break_statContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#continue_stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinue_stat(ZCodeParser.Continue_statContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#block_stat}.
 	 * @param ctx the parse tree
@@ -106,11 +166,11 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock_stat(ZCodeParser.Block_statContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ZCodeParser#statement}.
+	 * Visit a parse tree produced by {@link ZCodeParser#comment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(ZCodeParser.StatementContext ctx);
+	T visitComment(ZCodeParser.CommentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#expression}.
 	 * @param ctx the parse tree
@@ -166,12 +226,6 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIndex_expr(ZCodeParser.Index_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ZCodeParser#index_value}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIndex_value(ZCodeParser.Index_valueContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#parenthesis_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -190,11 +244,29 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_expr(ZCodeParser.Function_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ZCodeParser#ifst_component}.
+	 * Visit a parse tree produced by {@link ZCodeParser#expression_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIfst_component(ZCodeParser.Ifst_componentContext ctx);
+	T visitExpression_list(ZCodeParser.Expression_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#expression_list_tail}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression_list_tail(ZCodeParser.Expression_list_tailContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#expression_nonempty_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression_nonempty_list(ZCodeParser.Expression_nonempty_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#expression_nonempty_tail}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression_nonempty_tail(ZCodeParser.Expression_nonempty_tailContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#control_stat}.
 	 * @param ctx the parse tree
@@ -202,17 +274,23 @@ public interface ZCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitControl_stat(ZCodeParser.Control_statContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#elif_stmt_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElif_stmt_list(ZCodeParser.Elif_stmt_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZCodeParser#ifst_component}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfst_component(ZCodeParser.Ifst_componentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#loop_stat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLoop_stat(ZCodeParser.Loop_statContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ZCodeParser#loop_body_statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLoop_body_statement(ZCodeParser.Loop_body_statementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ZCodeParser#assignment}.
 	 * @param ctx the parse tree

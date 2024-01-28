@@ -1,0 +1,7 @@
+func main() begin
+            for i until i < foo(2,3) by (num2+num3)%num4
+
+
+                a[2,i] <- a[i,2]
+        end
+        

@@ -1,0 +1,6 @@
+func main() begin 
+            string a <- " One two three"
+            string b <- "  \'go\'! "
+            c <- a...b
+        end
+        
