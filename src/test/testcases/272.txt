@@ -1,9 +1,0 @@
-func main() begin
-
-            a <- true or false and not false
-            return a or 1
-        end
-
-        
-
-        

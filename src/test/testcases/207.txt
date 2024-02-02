@@ -1,7 +1,0 @@
-func main()
-                begin
-                    func numb(number a, number b)
-                    func str(string a, string b[10,20])
-                    func boolean(bool a, bool b,) 
-                end
-        

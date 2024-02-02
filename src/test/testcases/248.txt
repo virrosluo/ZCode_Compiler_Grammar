@@ -1,5 +1,0 @@
-number a<-100
-        func main() begin
-            for int i until i < 100 by 1 push(i)
-        end
-        

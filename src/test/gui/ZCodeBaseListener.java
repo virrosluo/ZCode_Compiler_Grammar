@@ -135,37 +135,25 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray_lit_list(ZCodeParser.Array_lit_listContext ctx) { }
+	@Override public void enterNumlit_list(ZCodeParser.Numlit_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray_lit_list(ZCodeParser.Array_lit_listContext ctx) { }
+	@Override public void exitNumlit_list(ZCodeParser.Numlit_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray_lit_tail(ZCodeParser.Array_lit_tailContext ctx) { }
+	@Override public void enterNumlit_tail(ZCodeParser.Numlit_tailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray_lit_tail(ZCodeParser.Array_lit_tailContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArray_lit(ZCodeParser.Array_litContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArray_lit(ZCodeParser.Array_litContext ctx) { }
+	@Override public void exitNumlit_tail(ZCodeParser.Numlit_tailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -466,6 +454,18 @@ public class ZCodeBaseListener implements ZCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTerm(ZCodeParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArray_expr(ZCodeParser.Array_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArray_expr(ZCodeParser.Array_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

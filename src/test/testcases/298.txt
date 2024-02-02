@@ -1,6 +1,0 @@
-func main() begin
-            a[3 + foo(2)] <- a[b[2, foo(2,true and false,foo(1,2,"happy"))]] + ab[4,(60-7)/23,6]
-            a[6+foo(123)] <- a[5]
-            a[1][2][10+foo(123)*1000] <- (foo1(123,456,4e-3)+foo2(234,abc))[1][4][foo3(123)]
-        end
-        

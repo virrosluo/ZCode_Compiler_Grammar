@@ -1,5 +1,0 @@
-func main()
-        begin 
-            number a,b <- 100
-        end
-        

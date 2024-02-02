@@ -1,4 +1,0 @@
-number abc[5] <- [[1,2,3,4,5]]
-        dynamic a
-        number list[5] <- [5,4,3,2,1]
-        

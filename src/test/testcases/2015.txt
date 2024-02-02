@@ -1,0 +1,21 @@
+
+func a(bool _a) 
+begin
+abc<- 5
+a[5,2]<-3.14e5
+
+begin
+c[2,2]<-12 *7+5/ foo(0 )+a[7   ,2]
+end
+
+
+
+
+
+
+
+
+
+
+
+end

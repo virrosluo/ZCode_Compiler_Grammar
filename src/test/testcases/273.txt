@@ -1,5 +1,0 @@
-func main() begin
-            a <- -b + not c - -d * not e
-        end
-
-        

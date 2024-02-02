@@ -59,18 +59,13 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ZCodeParser#array_lit_list.
-    def visitArray_lit_list(self, ctx:ZCodeParser.Array_lit_listContext):
+    # Visit a parse tree produced by ZCodeParser#numlit_list.
+    def visitNumlit_list(self, ctx:ZCodeParser.Numlit_listContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ZCodeParser#array_lit_tail.
-    def visitArray_lit_tail(self, ctx:ZCodeParser.Array_lit_tailContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ZCodeParser#array_lit.
-    def visitArray_lit(self, ctx:ZCodeParser.Array_litContext):
+    # Visit a parse tree produced by ZCodeParser#numlit_tail.
+    def visitNumlit_tail(self, ctx:ZCodeParser.Numlit_tailContext):
         return self.visitChildren(ctx)
 
 
@@ -196,6 +191,11 @@ class ZCodeVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by ZCodeParser#term.
     def visitTerm(self, ctx:ZCodeParser.TermContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#array_expr.
+    def visitArray_expr(self, ctx:ZCodeParser.Array_exprContext):
         return self.visitChildren(ctx)
 
 

@@ -1,2 +1,0 @@
-func testing1(string a)
-        

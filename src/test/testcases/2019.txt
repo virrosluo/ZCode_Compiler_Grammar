@@ -1,0 +1,3 @@
+func _() begin
+var x <- 1++1
+end

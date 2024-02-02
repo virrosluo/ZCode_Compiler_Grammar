@@ -1,0 +1,7 @@
+func weloveppl(number a,
+
+
+number b
+
+
+)

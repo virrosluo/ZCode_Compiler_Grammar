@@ -1,7 +1,0 @@
-string question <- "What do you think about the idea of '"going to work on Sunday?'""
-
-
-        string reply <- "As long as I\'m paid, anything is fine!"
-
-        
-        

@@ -1,9 +1,0 @@
-func main() begin
-            number a <- 20
-            return fac(a)
-        end
-        func fac(number n) begin
-            if (n = 0) return 1
-            else return n * fac(n-1)
-        end
-        

@@ -1,9 +1,0 @@
-func main() begin
-            number i <- 10
-            number thres <- 100
-            for i until i < thres by 10
-                if (i/temp1=temp2) return temp1+temp2-temp3
-                elif (i/temp3=0) break
-                else continue
-        end
-        

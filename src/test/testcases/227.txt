@@ -1,8 +1,0 @@
-func main() begin 
-            for numb until numb < 0 by -1e-3
-            begin
-                value <- value * 10
-                a[5][foo(2,3)] <- (a[5][foo(2,3)] + numb) % (1e9+5)
-            end
-        end
-        

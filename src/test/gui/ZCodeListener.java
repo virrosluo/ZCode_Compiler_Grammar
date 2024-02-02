@@ -107,35 +107,25 @@ public interface ZCodeListener extends ParseTreeListener {
 	 */
 	void exitArray_declare(ZCodeParser.Array_declareContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#array_lit_list}.
+	 * Enter a parse tree produced by {@link ZCodeParser#numlit_list}.
 	 * @param ctx the parse tree
 	 */
-	void enterArray_lit_list(ZCodeParser.Array_lit_listContext ctx);
+	void enterNumlit_list(ZCodeParser.Numlit_listContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#array_lit_list}.
+	 * Exit a parse tree produced by {@link ZCodeParser#numlit_list}.
 	 * @param ctx the parse tree
 	 */
-	void exitArray_lit_list(ZCodeParser.Array_lit_listContext ctx);
+	void exitNumlit_list(ZCodeParser.Numlit_listContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#array_lit_tail}.
+	 * Enter a parse tree produced by {@link ZCodeParser#numlit_tail}.
 	 * @param ctx the parse tree
 	 */
-	void enterArray_lit_tail(ZCodeParser.Array_lit_tailContext ctx);
+	void enterNumlit_tail(ZCodeParser.Numlit_tailContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#array_lit_tail}.
+	 * Exit a parse tree produced by {@link ZCodeParser#numlit_tail}.
 	 * @param ctx the parse tree
 	 */
-	void exitArray_lit_tail(ZCodeParser.Array_lit_tailContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ZCodeParser#array_lit}.
-	 * @param ctx the parse tree
-	 */
-	void enterArray_lit(ZCodeParser.Array_litContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ZCodeParser#array_lit}.
-	 * @param ctx the parse tree
-	 */
-	void exitArray_lit(ZCodeParser.Array_litContext ctx);
+	void exitNumlit_tail(ZCodeParser.Numlit_tailContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#implicit_declare}.
 	 * @param ctx the parse tree
@@ -386,6 +376,16 @@ public interface ZCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTerm(ZCodeParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZCodeParser#array_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_expr(ZCodeParser.Array_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZCodeParser#array_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_expr(ZCodeParser.Array_exprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ZCodeParser#function_expr}.
 	 * @param ctx the parse tree

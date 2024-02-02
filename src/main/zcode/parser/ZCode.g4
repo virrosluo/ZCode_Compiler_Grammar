@@ -10,7 +10,9 @@ options {
 }
 
 program: nl_nullable_list decl_list EOF;
-decl_list: declaration decl_list | declaration;
+decl_list: declaration decl_list | declaration ;
+
+// ----------------------------------------------------------------- LEXER -------------------------------------------------------------------------
 
 NUM_KEYWORD: 'number';
 BOOL_KEYWORD: 'bool';
@@ -73,28 +75,40 @@ fragment INTPART: [0-9]+;
 fragment DECPART: [.][0-9]*;
 fragment EXPPART: [eE] [+-]? [0-9]+;
 
-NL : 'r'?'\n' {self.text = self.text.replace('\r','')};
+NL1: '\r\r\n' {self.text = "\n"} ;	// Because if "input = \r\n" go to here, it will be: \r \r\n
+NL2: '\r' {self.text = "\n"};		// Because if "input = \r" go to here, it will be: \r
+NL3: '\r\n' {self.text = "\n"};		// Because if "input = \n" go to here, it will be: \r\n
+NL4: '\n' {self.text = "\n"};	// In case of testing on other OSs, input will be \n only
+
+// NL : '\r'?'\n' {self.text = self.text.replace('\r','')};	// Ensure about that in \r\n or \n we will have one newline output
+// NL : '\r'?'\n' ;
 // NL: '\n';
 WS : [ \t\r]+ -> skip ;
-COMMENT_LINE: '##' ~[\r\n]* -> skip;
+COMMENT_LINE: '##' ~[\r\n]* -> skip;	// Nếu bỏ đi \r thì có thể catch đc col+1 dòng với 1 các testcase lỗi xuống dòng
 
-UNCLOSE_STRING: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
+UNCLOSE_STRING: '"' ( ~["\\'\r\n] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
 
-STRING_LIT: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
+STRING_LIT: '"' ( ~["\\'\r\n] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
 
-ILLEGAL_ESCAPE: '"' ( ~["\\'] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
+NEWLINE_STRING: '"' ( ~["\\'\r\n] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? '\r'?'\n' {raise UncloseString(self.text[1:-1])} ;
 
-NEWLINE_STRING: '"' ( ~["\\'\r\n\f] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? [\r\n\f] {raise UncloseString(self.text[1:-1])} ;
+ILLEGAL_ESCAPE: '"' ( ~["\\'\r\n] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
 
 ERROR_TOKEN: . {raise ErrorToken(self.text)};
 
 // ----------------------------------------------------------------- PARSER -------------------------------------------------------------------------
 
 // nullable list of newlines
-nl_nullable_list: NL nl_nullable_list |;
+nl_nullable_list: (NL1 | NL2 | NL3 | NL4) nl_nullable_list |;
 
 // not null list of newlines
-nl_list: NL nl_list | NL;
+nl_list: (NL1 | NL2 | NL3 | NL4) nl_list | (NL1 | NL2 | NL3 | NL4);
+
+// // nullable list of newlines
+// nl_nullable_list: NL nl_nullable_list |;
+
+// // not null list of newlines
+// nl_list: NL nl_list | NL;
 
 declaration
 		: variable_stat
@@ -106,16 +120,16 @@ variable_stat
 
 dtype: NUM_KEYWORD | BOOL_KEYWORD | STRING_KEYWORD;
 
-explicit_declare: array_declare
+explicit_declare: array_declare		// Hoàn toàn có thể gán là number | array như array_declaration
 		| primitive_declare;
 
 primitive_declare: dtype ID (ASSIGN_OP expression | );
 
-array_declare: dtype ID LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET (ASSIGN_OP LEFT_BRACKET array_lit_list RIGHT_BRACKET | );
-array_lit_list: array_lit array_lit_tail | ;
-array_lit_tail: SEPARATOR_KEYWORD array_lit array_lit_tail | ;
-array_lit: LEFT_BRACKET array_lit_list RIGHT_BRACKET 
-		| expression_list;
+// LEFT_BRACKET (number list) RIGHT_BRACKET 
+// Hoàn toàn có thể gán là number | array
+array_declare: dtype ID LEFT_BRACKET numlit_list RIGHT_BRACKET (ASSIGN_OP expression | );
+numlit_list: REAL_LIT numlit_tail | REAL_LIT;
+numlit_tail: SEPARATOR_KEYWORD REAL_LIT numlit_tail | ;
 
 implicit_declare: VAR_KEYWORD ID ASSIGN_OP expression
 		| DYNAMIC_KEYWORD ID (ASSIGN_OP expression | );
@@ -141,13 +155,13 @@ parameter
 statement: control_stat 
 		| loop_stat
 		| variable_stat
-		| function_stat
 		| block_stat
-		| expression nl_list
+		// | expression nl_list
+		| function_expr nl_list
 		| assignment
 		| return_stat
 		| break_stat
-		| continue_stat;
+		| continue_stat ;
 
 		// ----------------------------------------------------------------
 
@@ -187,7 +201,7 @@ not_logical: NOT_OP expression
 sign_expr: SUB_OP expression
 		| index_expr;
 
-index_expr: parenthesis_expr LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET
+index_expr: (ID | function_expr) LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET	// Chỉ có thể là ID hoặc function_call ở LEFT_BRACKET
 		| parenthesis_expr ;
 
 parenthesis_expr: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
@@ -198,8 +212,12 @@ term
 		| TRUE_LIT | FALSE_LIT
 		| STRING_LIT
 		| ID
-		| function_expr ;
+		| function_expr
+		| array_expr ;
 
+// Có tính là 1 expression
+// array_expr: Không thể là array rỗng (Theo Khang Phùng)
+array_expr : LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET;
 function_expr: ID LEFT_PARENTHESIS expression_list RIGHT_PARENTHESIS ;
 
 expression_list: expression expression_list_tail | ;
@@ -213,7 +231,7 @@ expression_nonempty_tail: SEPARATOR_KEYWORD expression expression_nonempty_tail 
 control_stat: IF_KEYWORD ifst_component elif_stmt_list (ELSE_KEYWORD nl_nullable_list statement | ) ;
 
 elif_stmt_list: ELIF_KEYWORD ifst_component elif_stmt_list | ;
-ifst_component: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS nl_nullable_list statement ;
+ifst_component: LEFT_PARENTHESIS expression RIGHT_PARENTHESIS nl_nullable_list (statement | );
 
 	// ---------------------------------------------------------------- LOOP STATEMENT
 
@@ -222,4 +240,4 @@ loop_stat: FOR_KEYWORD ID UNTIL_KEYWORD expression BY_KEYWORD expression nl_null
 	// ----------------------------------------------------------------
 
 // Assignment thì expression phía trước ASSIGN_OP không thể là 1 cái array_expr được mà nó phải là 
-assignment: <assoc=right> expression ASSIGN_OP expression nl_list;
+assignment: <assoc=right> (ID | ID LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET) ASSIGN_OP expression nl_list;

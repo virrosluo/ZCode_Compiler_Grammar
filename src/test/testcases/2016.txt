@@ -1,0 +1,28 @@
+func _(bool _)
+
+
+
+
+
+
+
+
+
+
+begin
+if 12*5 begin
+abc<-foo(goo(12*5), 7+2)+arr[2,2]
+end
+elif "..."..."..."+"..."=="..." return arr[2]
+
+
+
+
+
+
+
+else begin
+foo(17, arr[23], goo(5), ".."..."..", not - arr[2] % 7)
+end
+
+end

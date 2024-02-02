@@ -1,8 +1,0 @@
-func test(number a) begin
-            return 1 - main(1, a, b)
-        end
-
-        func main() begin
-            ## This is the main function
-        end
-        

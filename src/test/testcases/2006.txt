@@ -1,0 +1,3 @@
+func a() begin
+foo()[0] <- a + b * 2
+end

@@ -1,8 +1,0 @@
-func main()
-        begin 
-            a <- 100
-            b <- -1000E-10
-            c <- true and false
-            d <- a * b % 10 / 56.4E-2
-        end
-        
