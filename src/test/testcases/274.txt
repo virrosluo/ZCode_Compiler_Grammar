@@ -1,0 +1,7 @@
+func my_func() 
+        
+        begin
+            foo(2+3, a/b, not false)
+        end
+
+        

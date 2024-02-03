@@ -1,3 +1,0 @@
-func a() begin
-arr[2] <- []
-end

@@ -1,5 +1,0 @@
-func A(int a,
-int b,
-intc,
-)
-return 1

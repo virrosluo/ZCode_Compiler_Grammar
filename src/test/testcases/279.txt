@@ -1,0 +1,6 @@
+func main() begin
+            __a_1_2 ->
+            12
+        end
+
+        

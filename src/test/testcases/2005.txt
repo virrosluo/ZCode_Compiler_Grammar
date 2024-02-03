@@ -1,3 +1,0 @@
-func foo() begin 
-a[3*3+9] <- 8 
-end

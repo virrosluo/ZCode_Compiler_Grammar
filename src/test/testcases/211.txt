@@ -1,0 +1,12 @@
+func main() begin
+
+        end 
+
+        func test1() return
+
+        func test2() begin
+
+        end
+
+        func test3()
+        

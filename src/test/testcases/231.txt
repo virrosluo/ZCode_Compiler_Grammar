@@ -1,0 +1,8 @@
+func main() begin 
+            for for until (num1*num2=0) by 10
+            begin
+                num1 <- 10
+                num2 <- num2 - num1
+            end
+        end
+        

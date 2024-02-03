@@ -1,0 +1,4 @@
+func main() begin
+            number begin <- 100
+        end
+        

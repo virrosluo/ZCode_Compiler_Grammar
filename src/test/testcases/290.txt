@@ -1,0 +1,9 @@
+func main(number a, number b) begin
+            if (a+b != x) begin
+                return a+b
+            end
+            else begin
+                return a-b
+            end
+        end
+        

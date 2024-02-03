@@ -1,0 +1,2 @@
+Create,SuperString,[,0.2312,,,000.0001E-30,,,123123.123123,,,0.,,,932891.E-230,],[,10,],
+,Unclosed String: var number string begin for if else

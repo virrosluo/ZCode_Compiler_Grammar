@@ -1,0 +1,2 @@
+This,will,test,some,special,case,with,escape,and,newline,
+,Witcher in Hary Potter \t\r\n\'    ,Error Token !

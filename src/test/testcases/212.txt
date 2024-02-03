@@ -1,0 +1,7 @@
+func main() begin
+        end 
+        func test1() begin
+        end
+        func test2() return 123.
+        func test3() 
+        

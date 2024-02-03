@@ -1,8 +1,0 @@
-func isPrime(number x) ## Error on line 8 col 3: <EOF>
-
-func main()
-    begin
-        number x <- readNumber()
-        if (isPrime(x)) writeString("Yes") 
-        else writeString("No")
-end

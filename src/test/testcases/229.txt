@@ -1,0 +1,10 @@
+func main() begin 
+            for a until foo(2,3)[temp1(20)] > 1000 by 5.3E-3 
+            
+            begin
+                i <- i * 10
+                if (i % 20 = 0) break
+                    else calltemp()
+            end
+        end
+        

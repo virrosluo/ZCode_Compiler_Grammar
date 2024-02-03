@@ -1,0 +1,5 @@
+func main() begin
+            number a <- f(123,456) + f(true,false)[60+70%122]
+            bool b <- true and false or false and not true
+        end 
+        

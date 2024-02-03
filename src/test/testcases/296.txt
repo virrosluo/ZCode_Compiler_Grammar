@@ -1,0 +1,17 @@
+func findIndex(string s1[1e-3,2.3E-3,3e3], string s2)
+        begin
+            number i <- find(s1, s2, 0)
+            printInteger(i)
+            for i until i = -1 by 0 begin
+                i <- find(s1, s2, i + 1)
+                if (i = -1) break
+                printInteger(i)
+            end
+        end
+
+        func main() begin
+            string s1 <- "Truong Dai Hoc Bach Khoa HCMUT."
+            string s2 <- "a"
+            findIndex(s1, s2)
+        end
+        

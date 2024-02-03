@@ -1,1 +1,0 @@
-func test(number z <- 1)

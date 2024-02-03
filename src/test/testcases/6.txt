@@ -1,0 +1,7 @@
+func main()
+begin
+	number a <- 10e-3;
+	number b <- 10.0;
+	string c <- "Hello World \r What's up boy'"";
+	return a + b;
+end

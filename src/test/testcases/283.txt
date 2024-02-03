@@ -1,0 +1,4 @@
+func main(number a) begin
+            return foo[5,foo(123)]
+        end
+        

@@ -1,0 +1,5 @@
+number a <- adding(10)
+
+        number b <- a + adding(-10e-3)
+        func main() return a/b
+        

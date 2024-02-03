@@ -19,6 +19,11 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ZCodeParser#nl_type.
+    def visitNl_type(self, ctx:ZCodeParser.Nl_typeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ZCodeParser#nl_nullable_list.
     def visitNl_nullable_list(self, ctx:ZCodeParser.Nl_nullable_listContext):
         return self.visitChildren(ctx)

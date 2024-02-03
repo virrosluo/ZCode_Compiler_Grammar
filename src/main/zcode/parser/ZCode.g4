@@ -83,32 +83,28 @@ NL4: '\n' {self.text = "\n"};	// In case of testing on other OSs, input will be 
 // NL : '\r'?'\n' {self.text = self.text.replace('\r','')};	// Ensure about that in \r\n or \n we will have one newline output
 // NL : '\r'?'\n' ;
 // NL: '\n';
-WS : [ \t\r]+ -> skip ;
+WS : [ \t]+ -> skip ;
 COMMENT_LINE: '##' ~[\r\n]* -> skip;	// Nếu bỏ đi \r thì có thể catch đc col+1 dòng với 1 các testcase lỗi xuống dòng
 
-UNCLOSE_STRING: '"' ( ~["\\'\r\n] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
+UNCLOSE_STRING: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
 
-STRING_LIT: '"' ( ~["\\'\r\n] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
+STRING_LIT: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
 
-NEWLINE_STRING: '"' ( ~["\\'\r\n] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? '\r'?'\n' {raise UncloseString(self.text[1:-1])} ;
+NEWLINE_STRING: '"' ( ~["\\'\r\n\f] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? ('\r\n' | '\n' | '\r' | '\f') {raise UncloseString(self.text[1:].replace('\r', '').replace('\n','').replace('\f', ''))} ;
 
-ILLEGAL_ESCAPE: '"' ( ~["\\'\r\n] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
+ILLEGAL_ESCAPE: '"' ( ~["\\'\r\n\f] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
 
 ERROR_TOKEN: . {raise ErrorToken(self.text)};
 
 // ----------------------------------------------------------------- PARSER -------------------------------------------------------------------------
 
+nl_type: NL1 | NL3 | NL4;
+
 // nullable list of newlines
-nl_nullable_list: (NL1 | NL2 | NL3 | NL4) nl_nullable_list |;
+nl_nullable_list: nl_type nl_nullable_list |;
 
 // not null list of newlines
-nl_list: (NL1 | NL2 | NL3 | NL4) nl_list | (NL1 | NL2 | NL3 | NL4);
-
-// // nullable list of newlines
-// nl_nullable_list: NL nl_nullable_list |;
-
-// // not null list of newlines
-// nl_list: NL nl_list | NL;
+nl_list: nl_type nl_list | nl_type;
 
 declaration
 		: variable_stat
@@ -156,7 +152,6 @@ statement: control_stat
 		| loop_stat
 		| variable_stat
 		| block_stat
-		// | expression nl_list
 		| function_expr nl_list
 		| assignment
 		| return_stat

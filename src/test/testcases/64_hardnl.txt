@@ -1,0 +1,2 @@
+This will be new hard string
+"Hello '"'"'"' 'a'b'c'r'e'd\''"\''"'

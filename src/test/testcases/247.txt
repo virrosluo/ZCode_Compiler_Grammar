@@ -1,0 +1,8 @@
+number arr[5] <- [1,2,3,4]
+        func main() begin
+            for i until i <= size(arr) by 1 begin
+                number output <- arr[i]
+                print(output)
+            end
+        end
+        

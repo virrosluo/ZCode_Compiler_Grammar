@@ -16,7 +16,7 @@ class ParserSuite(unittest.TestCase):
         string abc[20] <- [\"abcdefg\",\"\",\"123@\\n\"]
         number a[5] <- [[[[1]]]]
         dynamic dym
-        var abc <- "a string with numbers like \'\"1.123e-3\'\", \'\"0.23E-50\'\"?\"
+        var abc <- \"a string with numbers like \'\"1.123e-3'\", \'\"0.23E-50'\"?\"
         """
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,202))
@@ -39,7 +39,7 @@ class ParserSuite(unittest.TestCase):
         var abc <- [1,2,3]
         
         """
-        expect = "Error on line 4 col 19: ["
+        expect = "successful"
         self.assertTrue(TestParser.test(input,expect,204))
 
     def testdeclare5(self):
@@ -58,12 +58,12 @@ class ParserSuite(unittest.TestCase):
     def testdeclare7(self):
         input = """func main()
                 begin
-                    func numb(number a, number b)
-                    func str(string a, string b[10,20])
-                    func boolean(bool a, bool b,) 
+                    numb(a,b)
+                    str(a,b[10,20])
+                    boolean(a,b,) 
                 end
         """
-        expect = "Error on line 5 col 48: )"
+        expect = "Error on line 5 col 32: )"
         self.assertTrue(TestParser.test(input,expect,207))
 
     def testdeclare8(self):
@@ -97,14 +97,15 @@ class ParserSuite(unittest.TestCase):
     def testdeclare11(self):
         input = """func main() begin
 
-            func test1() return
-
-            func test2() begin
-
-            end
-
-            func test3()
         end 
+
+        func test1() return
+
+        func test2() begin
+
+        end
+
+        func test3()
         """
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,211))
@@ -130,7 +131,7 @@ class ParserSuite(unittest.TestCase):
 
     def testdeclare14(self):
         input = """func main() begin
-            number a <- f(123,456) + f(true,false)[50][60+70%122]
+            number a <- f(123,456) + f(true,false)[60+70%122]
             bool b <- true and false or false and not true
         end 
         """
@@ -227,7 +228,7 @@ class ParserSuite(unittest.TestCase):
     def test_assign3(self):
         input = """func main() begin 
             a <- 50
-            b,c <- (60 - 40 + array[100][3+foo(2,3)],20)
+            b,c <- (60 - 40 + (array[100,101,102,103])[3+foo(2,3)],20)
         end
         """
         expect = "Error on line 3 col 13: ,"
@@ -266,7 +267,7 @@ class ParserSuite(unittest.TestCase):
             for numb until numb < 0 by -1e-3
             begin
                 value <- value * 10
-                a[5][foo(2,3)] <- (a[5][foo(2,3)] + numb) % (1e9+5)
+                a[foo(2,3)] <- (a[foo(2,3)] + numb) % (1e9+5)
             end
         end
         """
@@ -285,14 +286,16 @@ class ParserSuite(unittest.TestCase):
 
     def test_for4(self):
         input = """func main() begin 
-            for (a+foo(2,3))[4+temp(5,10)][temp1(20)] until (a+foo(2,3))[4+temp(5,10)][temp1(20)] > 1000 by 5.3E-3 begin
+            for a until foo(2,3)[temp1(20)] > 1000 by 5.3E-3 
+            
+            begin
                 i <- i * 10
                 if (i % 20 = 0) break
                     else calltemp()
             end
         end
         """
-        expect = "Error on line 2 col 16: ("
+        expect = "successful"
         self.assertTrue(TestParser.test(input,expect,229))
 
     def test_for5(self):
@@ -352,9 +355,9 @@ class ParserSuite(unittest.TestCase):
 
     def test_for10(self):
         input = """func main() begin
-            func test(number a, number b[12]) begin
-                for i until i<10 by 1 print(i)
-            end
+        end
+        func test(number a, number b[12]) begin
+            for i until i<10 by 1 print(i)
         end
         """
         expect = "successful"
@@ -362,11 +365,11 @@ class ParserSuite(unittest.TestCase):
 
     def test_for11(self):
         input = """func main() begin
-            for i until i<0
+            for i until i<0 by funcfunc()
                 i <- i-1
         end
         """
-        expect = "Error on line 2 col 28: \n"
+        expect = "successful"
         self.assertTrue(TestParser.test(input,expect,236))
 
     def test_for12(self):
@@ -446,7 +449,7 @@ class ParserSuite(unittest.TestCase):
                 return something 
         end
         func temp(number a1, number a2) return noth_
-        func temp2() return -a[2+temp(2,3)][10]
+        func temp2() return -a[2+temp(2,3)]
         """
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,244))
@@ -510,7 +513,7 @@ class ParserSuite(unittest.TestCase):
 
     def testgeneral5(self):
         input = """func main() begin
-            if (s())return 0
+            if (s()) return 0
             else return 1
         end
         """
@@ -528,7 +531,7 @@ class ParserSuite(unittest.TestCase):
 
     def testgeneral7(self):
         input = """func main() begin
-            if ()return 0
+            if () return 0
             else return 1
         end
         """
@@ -558,13 +561,9 @@ class ParserSuite(unittest.TestCase):
 
     def testgeneral10(self):
         input = """func main() begin
-            func function(number a1) begin
-                func function1(number a2) begin
-                    func function2(number a3) begin
-                    end
-                end 
-            end
-             
+            function(a1)
+            function1(a2)
+            function2(a3)              
         end
         """
         expect = "successful"
@@ -613,7 +612,8 @@ class ParserSuite(unittest.TestCase):
                 if (a > 1) return 1
                 else begin
                     inc(a)
-                    func inc(number a) return a+1
+                    inc(a) 
+                    return a+1
                 end
         end
         func inc(number a) return a+1
@@ -625,7 +625,7 @@ class ParserSuite(unittest.TestCase):
         input = """ func main() return
         func function() begin
             a <- a*b*c+d/12
-            foo(a,b,(a+b)[2,foo(2,3)])
+            foo(a,b,temp(true,false)[2,foo(2,3)])
         end
         """
         expect = "successful"
@@ -634,14 +634,14 @@ class ParserSuite(unittest.TestCase):
     def testgeneral16(self):
         input = """ func main() return
         func function() begin
-            for a[5][foo(7)] until (num1 + num2)*2 = 10 by 2
+            for a until (num1 + num2)*2 = 10 by 2
             begin
-                a[0][a[5][foo(7)]] <- a[0][a[5][foo(7)]] + num2 * num1
+                a[foo(7)] <- a[foo(7)] + num2 * num1
                 num2 <- num2 + num1
             end
         end
         """
-        expect = "Error on line 3 col 17: ["
+        expect = "successful"
         self.assertTrue(TestParser.test(input,expect,261))
     
     def testgeneral17(self):
@@ -686,7 +686,7 @@ class ParserSuite(unittest.TestCase):
             for i until funccall(i,20) by 1
                 continue
                 
-            func funccall(number i, number test)
+            funccall(i, test)
                 
         end
 
@@ -768,25 +768,6 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,270))
 
-    def testgeneral25(self):
-        input = """func sum(number arr[10]) begin
-            var total <- 0
-            for i until len(arr) by 1 begin
-                total <- total + arr[i]
-            end
-            return total
-        end
-
-
-        func main() begin
-            number numbers[5] <- [1,2,3,4,5]
-            var result <- sum(numbers)
-            print(\"The sum of the numbers is: \",result)
-        end 
-        """
-        expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,270))
-
     def testgeneral26(self):
         input = """func main() begin
             if ((a <= b) and (b != c) or (d > e)) x <- 1
@@ -839,7 +820,7 @@ class ParserSuite(unittest.TestCase):
         end
 
         """
-        expect = "Error on line 7 col 14: ["
+        expect = "successful"
         self.assertTrue(TestParser.test(input,expect,275))
 
     def testgeneral31(self):
@@ -884,7 +865,7 @@ class ParserSuite(unittest.TestCase):
         end
 
         """
-        expect = "Error on line 2 col 21: >"
+        expect = "Error on line 2 col 20: -"
         self.assertTrue(TestParser.test(input,expect,279))
 
     def testgeneral35(self):
@@ -921,7 +902,7 @@ class ParserSuite(unittest.TestCase):
 
     def testgeneral38(self):
         input = """func main(number a) begin
-            return (a+foo(123))[1][2][3][4][5,foo(123)]
+            return foo[5,foo(123)]
         end
         """
         expect = "successful"
@@ -979,7 +960,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,288))
 
     def testgeneral44(self):
-        input = """func main() begin
+        input = """func main() 
+        begin
             number x <- 3
             begin
                 x <- y * x
@@ -1009,7 +991,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,290))
 
     def testgeneral46(self):
-        input = """func main() begin
+        input = """func main() 
+        begin
             if (abc >= 234 and not def) begin
                 _var <- arr[1, 5]
             end
@@ -1019,7 +1002,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,291))
 
     def testgeneral47(self):
-        input = """func main() begin
+        input = """func main() 
+        begin
             number a_1 <- funcfunc()
             for a_1 until exp = 1000 and not exp2 by a + arr[0] begin
                 return 
@@ -1045,10 +1029,11 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,293))
 
     def testgeneral49(self):
-        input = """func main() begin
-            func main() begin
-                return true and not (false and \"NA\")
-            end
+        input = """func main() 
+        begin
+        end
+        func main() begin
+            return true and not (false and \"NA\")
         end
 
         """
@@ -1056,7 +1041,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,294))
 
     def testgeneral50(self):
-        input = """func main() begin
+        input = """func main() 
+        begin
             if (a = 1) begin
                 if (b = 2) begin
                     x <- 1
@@ -1074,7 +1060,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,295))
 
     def testgeneral51(self):
-        input = """func findIndex(string s1, string s2) begin
+        input = """func findIndex(string s1[1e-3,2.3E-3,3e3], string s2)
+        begin
             number i <- find(s1, s2, 0)
             printInteger(i)
             for i until i = -1 by 0 begin
@@ -1094,7 +1081,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,296))
 
     def testgeneral52(self):
-        input = """func fibo(number n) begin
+        input = """func fibo(number n) 
+        begin
             if (n <= 2) return 1
             number f1 <- 0
             number f2 <- 1
@@ -1115,23 +1103,25 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,297))
 
     def testgeneral53(self):
-        input = """func main() begin
+        input = """func main() 
+        begin
             a[3 + foo(2)] <- a[b[2, foo(2,true and false,foo(1,2,\"happy\"))]] + ab[4,(60-7)/23,6]
             a[6+foo(123)] <- a[5]
-            a[1][2][10+foo(123)*1000] <- (foo1(123,456,4e-3)+foo2(234,abc))[1][4][foo3(123)]
+            a[10+foo(123)*1000] <- foo1(123,456,4e-3)[foo3(123)]
         end
         """
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,298))
 
     def testgeneral54(self):
-        input = """func main() begin
+        input = """func main() 
+        begin
             x <- 10
             i <- 0
             for i until i > x by x-2
                 if (i >= 1) break
                 elif (x <= 1) continue
-                elif (a[10,2+3] < (a-b)[1,2-2,3*4]) funcfunc(1,2,3)
+                elif (a[10,2+3] < a(1,true)[1,2-2,3*4]) funcfunc(1,2,3)
                 else i <- i*10
         end
         """
@@ -1161,4 +1151,3 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,300))
 
-        

@@ -1,0 +1,7 @@
+func main()
+                begin
+                    numb(a,b)
+                    str(a,b[10,20])
+                    boolean(a,b,) 
+                end
+        

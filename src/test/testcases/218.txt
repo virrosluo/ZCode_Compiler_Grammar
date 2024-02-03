@@ -1,0 +1,6 @@
+func main(var a)
+        begin 
+            func main(number b) return -1
+            func main(bool a) 
+        end
+        

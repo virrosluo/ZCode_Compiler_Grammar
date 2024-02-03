@@ -1,0 +1,6 @@
+number a<-main(50)
+        a <- main(a) + main(a*2+main(a))
+        func main(number a) begin
+            return a*2+1
+        end
+        

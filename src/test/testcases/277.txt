@@ -1,0 +1,4 @@
+func my_func() begin
+            x <- ((("Hello"..." ")..."world!")..."abc\b\\")
+        end
+        

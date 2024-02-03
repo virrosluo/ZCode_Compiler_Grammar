@@ -1,0 +1,6 @@
+func main() begin
+            function(a1)
+            function1(a2)
+            function2(a3)              
+        end
+        

@@ -1,0 +1,5 @@
+func main() begin
+            for i by 1
+                if (i < 1000) break
+        end
+        
