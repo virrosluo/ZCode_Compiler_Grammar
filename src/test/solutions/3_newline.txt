@@ -1,3 +1,0 @@
-funcfunc,(,number,a,,,number,b,),
-,begin,
-,Unclosed String: begin say something 

@@ -49,6 +49,16 @@ class ZCodeVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ZCodeParser#primitiveDtype.
+    def visitPrimitiveDtype(self, ctx:ZCodeParser.PrimitiveDtypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ZCodeParser#arrayDtype.
+    def visitArrayDtype(self, ctx:ZCodeParser.ArrayDtypeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ZCodeParser#explicit_declare.
     def visitExplicit_declare(self, ctx:ZCodeParser.Explicit_declareContext):
         return self.visitChildren(ctx)

@@ -1,1 +1,1 @@
-a\\b\'c\bd\f'\\a,<EOF>
+a\\b\'c\bd\f'\\a,Error Token \

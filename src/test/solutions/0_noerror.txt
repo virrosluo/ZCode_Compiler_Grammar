@@ -1,7 +1,0 @@
-func,(,number,a,,,number,b,),
-,begin,
-,number,c,<-,a,
-,a,<-,b,
-,b,<-,c,
-,
-,end,<EOF>

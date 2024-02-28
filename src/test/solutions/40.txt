@@ -1,1 +1,1 @@
-test,with,character,$$!=()\\f\\'\\\\,<EOF>
+test,with,character,$$!=()\\f\\'\\\\,Error Token \

@@ -1,4 +1,0 @@
-func main() begin
-            number,string a,b <- 123,"hello world"
-        end
-        

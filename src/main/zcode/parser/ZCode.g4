@@ -83,22 +83,22 @@ NL4: '\n' {self.text = "\n"};	// In case of testing on other OSs, input will be 
 // NL : '\r'?'\n' {self.text = self.text.replace('\r','')};	// Ensure about that in \r\n or \n we will have one newline output
 // NL : '\r'?'\n' ;
 // NL: '\n';
-WS : [ \t]+ -> skip ;
+WS : [ \t\b\f]+ -> skip ;
 COMMENT_LINE: '##' ~[\r\n]* -> skip;	// Nếu bỏ đi \r thì có thể catch đc col+1 dòng với 1 các testcase lỗi xuống dòng
 
-UNCLOSE_STRING: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
+UNCLOSE_STRING: '"' ( ~["\\'\r\n] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* {raise UncloseString(self.text[1:])};
 
-STRING_LIT: '"' ( ~["\\'\r\n\f] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
+STRING_LIT: '"' ( ~["\\'\r\n] | ('\\' [bfrnt\\']) | ('\'' ["]?) )* '"' {self.text = self.text[1:-1]};
 
-NEWLINE_STRING: '"' ( ~["\\'\r\n\f] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? ('\r\n' | '\n' | '\r' | '\f') {raise UncloseString(self.text[1:].replace('\r', '').replace('\n','').replace('\f', ''))} ;
+NEWLINE_STRING: '"' ( ~["\\'\r\n] | '\\' [bfrnt\\'] | ('\'' ["]?) )*? ('\r\n' | '\n' | '\r') {raise UncloseString(self.text[1:].replace('\r', '').replace('\n',''))} ;
 
-ILLEGAL_ESCAPE: '"' ( ~["\\'\r\n\f] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
+ILLEGAL_ESCAPE: '"' ( ~["\\'\r\n] | ('\'' ["]?) | ('\\' [bfrnt\\']))*? ('\\' ~[bfrnt\\']) {raise IllegalEscape(self.text[1:])};
 
 ERROR_TOKEN: . {raise ErrorToken(self.text)};
 
 // ----------------------------------------------------------------- PARSER -------------------------------------------------------------------------
 
-nl_type: NL1 | NL3 | NL4;
+nl_type: NL1 | NL2 | NL3 | NL4;
 
 // nullable list of newlines
 nl_nullable_list: nl_type nl_nullable_list |;
@@ -142,7 +142,7 @@ param_list: parameter param_list_tail |;
 param_list_tail: SEPARATOR_KEYWORD parameter param_list_tail | ;
 parameter 
 		: dtype ID 
-		| dtype ID LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET ;
+		| dtype ID LEFT_BRACKET numlit_list RIGHT_BRACKET ;
 
 
 		// ----------------------------------------------------------------
@@ -190,10 +190,10 @@ adding_expr: adding_expr (ADD_OP | SUB_OP) multiplying_expr
 multiplying_expr: multiplying_expr (MUL_OP | DIV_OP | MOD_OP) not_logical
 		| not_logical ;
 
-not_logical: NOT_OP expression
+not_logical: NOT_OP not_logical
 		| sign_expr ;
 
-sign_expr: SUB_OP expression
+sign_expr: SUB_OP sign_expr
 		| index_expr;
 
 index_expr: (ID | function_expr) LEFT_BRACKET expression_nonempty_list RIGHT_BRACKET	// Chỉ có thể là ID hoặc function_call ở LEFT_BRACKET

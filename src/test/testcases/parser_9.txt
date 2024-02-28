@@ -1,8 +1,0 @@
-func main()
-begin
-	number a <- 10
-	begin
-		number b <- 20
-	end
-end
-        

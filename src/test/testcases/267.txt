@@ -1,2 +1,0 @@
-func main() return funccall(funccall(funcall(funccall(number1))))
-        

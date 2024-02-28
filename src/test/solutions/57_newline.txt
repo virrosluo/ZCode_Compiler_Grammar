@@ -1,2 +1,0 @@
-This,is,test,for,newline,in,string,
-,Unclosed String: Hello 

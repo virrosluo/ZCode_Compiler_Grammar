@@ -1,5 +1,0 @@
-func main() begin
-            if (s()) return 0
-            else return 1
-        end
-        

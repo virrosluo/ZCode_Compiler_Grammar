@@ -1,6 +1,0 @@
- func main() return
-        func function() begin
-            a <- a*b*c+d/12
-            foo(a,b,temp(true,false)[2,foo(2,3)])
-        end
-        

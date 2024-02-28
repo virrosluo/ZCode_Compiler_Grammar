@@ -7,4 +7,4 @@ begin
 	var num2 <- readNumber()
 	if areDivisors(num1, num2) printString("Yes")
 	else printString("No\''t")
-end
+end\

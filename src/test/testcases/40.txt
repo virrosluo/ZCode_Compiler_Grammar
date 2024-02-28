@@ -1,1 +1,1 @@
-test with character "$$!=()\\f\\'\\\\"
+test with character "$$!=()\\f\\'\\\\"\

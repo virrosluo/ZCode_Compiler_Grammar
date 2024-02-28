@@ -1,2 +1,0 @@
-This,is,another,end,of,file,string,too,
-,Unclosed String: What\'s boy and this is have an error '"

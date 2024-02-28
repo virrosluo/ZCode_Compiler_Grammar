@@ -7,4 +7,4 @@ func,areDivisors,(,number,num1,,,number,num2,),
 ,var,num2,<-,readNumber,(,),
 ,if,areDivisors,(,num1,,,num2,),printString,(,Yes,),
 ,else,printString,(,No\''t,),
-,end,<EOF>
+,end,Error Token \

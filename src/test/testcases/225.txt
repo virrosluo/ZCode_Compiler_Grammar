@@ -1,5 +1,0 @@
-func main() begin 
-            IF <- 1000
-            FoR <- "string"
-        end
-        

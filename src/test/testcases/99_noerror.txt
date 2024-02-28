@@ -1,2 +1,0 @@
-Last testcase so we will test with escape string
-"\\,\t,\b,\f,\','" is no error but if we do not close string will have error "

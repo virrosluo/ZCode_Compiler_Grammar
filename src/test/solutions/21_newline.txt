@@ -1,2 +1,0 @@
-531.E-3,>,290.123E-3,=,2.,<,239.12,
-,if,hello world \',=,Unclosed String: 

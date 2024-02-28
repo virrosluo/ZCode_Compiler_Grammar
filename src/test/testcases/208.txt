@@ -1,3 +1,0 @@
-func main(number a[10], bool b[10])
-                return 123+-15.45e-30
-        

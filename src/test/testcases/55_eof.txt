@@ -1,2 +1,0 @@
-This will catch a EOF string
-"Hello world this is end of file

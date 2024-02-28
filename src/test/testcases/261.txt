@@ -1,9 +1,0 @@
- func main() return
-        func function() begin
-            for a until (num1 + num2)*2 = 10 by 2
-            begin
-                a[foo(7)] <- a[foo(7)] + num2 * num1
-                num2 <- num2 + num1
-            end
-        end
-        

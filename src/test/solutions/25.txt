@@ -1,1 +1,1 @@
-a\'b'a,<EOF>
+a\'b'a,Error Token \

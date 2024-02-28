@@ -1,2 +1,0 @@
-A,new,type,of,invalid,string,
-,Hello \',World,and,Unclosed String: my '''''' name is '"

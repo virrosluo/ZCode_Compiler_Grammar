@@ -1,4 +1,0 @@
-func main() begin
-            foo(1,2,foo1(2,3,foo3(3,4)))
-        end 
-        

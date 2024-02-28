@@ -1,8 +1,0 @@
-This will have new endline string
-
-"Hello world what \'sboy
-
-
-
-
-"

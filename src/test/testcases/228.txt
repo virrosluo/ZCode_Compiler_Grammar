@@ -1,6 +1,0 @@
-func main() begin 
-            for int until int != 1000 by 2
-                if (int/a=b) callsupport(int)
-        end
-        func callsupport(number i)
-        

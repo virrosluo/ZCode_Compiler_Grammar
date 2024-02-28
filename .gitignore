@@ -1,0 +1,9 @@
+src/test/LexerSuite*.py
+src/test/ParserSuite*.py
+
+src/test/solutions/
+src/test/testcases/
+src/sample/
+
+!src/test/LexerSuite.py
+!src/test/ParserSuite.py
